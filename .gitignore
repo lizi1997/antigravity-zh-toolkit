@@ -50,3 +50,6 @@ antigravity-zh-macos-arm64
 # Local metadata
 .mimosa/
 
+
+macos_dist/
+*.zip

@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/lizi1997/antigravity-zh-toolkit/releases"><img src="https://img.shields.io/badge/Release-v1.0.0-blue.svg?style=flat-square" alt="Release"></a>
+  <a href="https://github.com/lizi1997/antigravity-zh-toolkit/releases"><img src="https://img.shields.io/badge/Release-v1.0.2-blue.svg?style=flat-square" alt="Release"></a>
   <img src="https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20(Apple%20Silicon)-brightgreen.svg?style=flat-square" alt="Platform">
   <img src="https://img.shields.io/badge/Python-3.10%2B-blue.svg?style=flat-square" alt="Python">
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square" alt="License"></a>
@@ -21,7 +21,10 @@
 
 ## ✨ Key Features
 
-- 🚀 **Cross-Platform Native Support (Windows & macOS)**: Natively compatible with Windows x64 and macOS (Apple Silicon M1/M2/M3/M4). Auto-discovers app paths and processes across platforms.
+- 🚀 **Cross-Platform Native Support (Windows & macOS)**: Natively compatible with Windows x64 and macOS (Apple Silicon M1/M2/M3/M4). Double-click installer ready on both platforms.
+- 🖱️ **Double-Click Installers for Both OSes**:
+  - Windows: Double click `antigravity-zh-windows.exe`.
+  - macOS: Double click `安装汉化.command` directly from the release zip folder. Zero terminal commands required!
 - 🛡️ **Deep Agent Permission Localization**: 100% localization of sensitive permission request dialogs (file read/write, terminal execution, unsandboxed warnings, MCP tools, 5 rule persistence scopes, and write-in deny inputs).
 - ⚡ **In-Place ASAR Binary Patching**: Pure Python ASAR engine with in-place read/write and automatic SHA-256 recalculation. Patches running clients without killing processes or file locks.
 - 🌐 **Deep Shadow DOM Penetration**: Uses modern `TreeWalker` and `MutationObserver` to recursively penetrate Web Components Shadow DOM, ensuring full translation coverage across complex modals, agent settings, and floating panels.
@@ -31,7 +34,6 @@
   - Edit anytime with your favorite text editor; press `Ctrl/Cmd + R` in the client to apply immediately!
 - 🔍 **One-Click Untranslated Text Extraction**: Press **`Ctrl + Alt + L`** (macOS: **`Option + Cmd + L`**) anywhere in Antigravity to copy all unlocalized text on screen directly to your clipboard in JSON format.
 - 🛡️ **Safe Backup & Instant Rollback**: Automatically creates `app.asar.bak` with one-click restore to official releases.
-- 💻 **Zero Runtime Dependencies**: Standalone binaries built via GitHub Actions matrix workflows for Windows and macOS (Apple Silicon), with no Python or Node.js required for end users.
 
 ---
 
@@ -68,23 +70,17 @@ install.bat
 
 ### 🍎 macOS
 
-#### Method 1: Apple Silicon (M1/M2/M3/M4) —— Prebuilt Binary (Recommended)
-1. Download **`antigravity-zh-macos-arm64`** (or extract `antigravity-zh-macos-arm64.tar.gz`) from the [Releases Page](https://github.com/lizi1997/antigravity-zh-toolkit/releases);
-2. Open Terminal and run:
-   ```bash
-   chmod +x antigravity-zh-macos-arm64
-   # If macOS blocks opening unidentified developer apps:
-   xattr -cr antigravity-zh-macos-arm64
-   ./antigravity-zh-macos-arm64
-   ```
+#### Method 1: Double-Click Package (Recommended for M1/M2/M3/M4)
+1. Download **`antigravity-zh-macos-arm64.zip`** from the [Releases Page](https://github.com/lizi1997/antigravity-zh-toolkit/releases) and unzip it;
+2. Open the unzipped folder and double-click **`安装汉化.command`**!
+   > 💡 Note: If macOS displays "cannot be opened from unidentified developer", simply right-click the file and choose **Open**.
 3. Restart Antigravity or press **`Cmd + Shift + N`** to see the changes.
 
 #### Method 2: Run from Source (Works for all Macs, including legacy Intel)
-> Note: The patcher uses Python's standard library with **zero third-party dependencies**. macOS built-in Python 3 can run it out of the box:
 ```bash
 git clone https://github.com/lizi1997/antigravity-zh-toolkit.git
 cd antigravity-zh-toolkit
-chmod +x *.sh
+chmod +x *.command *.sh
 ./install.sh
 ```
 
@@ -92,11 +88,11 @@ chmod +x *.sh
 
 ## 🛠️ Commands & Shortcuts
 
-| Action | Windows | macOS / Linux | Python CLI |
+| Action | Windows | macOS (Double-Click) | Python CLI |
 | :--- | :--- | :--- | :--- |
-| **Apply Patch** | Run `install.bat` | `./install.sh` | `python scripts/patcher.py patch --force` |
-| **Restore Official** | Run `restore.bat` | `./restore.sh` | `python scripts/patcher.py restore` |
-| **Check Status** | Run `status.bat` | `./status.sh` | `python scripts/patcher.py status` |
+| **Apply Patch** | Double-click `install.bat` | Double-click `安装汉化.command` | `python scripts/patcher.py patch --force` |
+| **Restore Official** | Double-click `restore.bat` | Double-click `还原官方.command` | `python scripts/patcher.py restore` |
+| **Check Status** | Double-click `status.bat` | Run `./status.sh` | `python scripts/patcher.py status` |
 | **Extract Missing Strings**| Press `Ctrl + Alt + L` | Press `Option + Cmd + L` | *(Real-time frontend capture)* |
 
 ---
@@ -108,16 +104,19 @@ antigravity-zh-toolkit/
 ├── .github/
 │   └── workflows/
 │       └── release.yml          # GitHub Actions Multi-Platform Matrix CI/CD (Windows x64 + macOS arm64)
+├── .gitattributes               # Cross-platform line endings
 ├── .gitignore                   # Git ignore file
 ├── LICENSE                      # MIT License
 ├── README.md                    # Chinese documentation
 ├── README_EN.md                 # English documentation
 ├── CONTRIBUTING.md              # Contribution guide
 ├── requirements.txt             # Development requirements
-├── install.bat / install.sh     # One-click install scripts (Windows / macOS)
-├── restore.bat / restore.sh     # One-click restore scripts (Windows / macOS)
-├── status.bat  / status.sh      # Status check scripts (Windows / macOS)
-├── build.bat   / build.sh       # Local build scripts (Windows / macOS)
+├── install.bat / restore.bat    # Windows batch scripts
+├── 安装汉化.command             # macOS double-click installer
+├── 还原官方.command             # macOS double-click uninstaller
+├── install.sh / restore.sh      # Unix terminal shell scripts
+├── status.bat  / status.sh      # Status check scripts
+├── build.bat   / build.sh       # Local build scripts
 ├── locales/
 │   ├── zh-CN.json               # Core dictionary (1,250+ entries)
 │   └── patterns.json            # Regex templates (100+ patterns)

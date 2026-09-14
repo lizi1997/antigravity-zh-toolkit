@@ -54,7 +54,21 @@ jobs:
             cp "${{ matrix.dist_file }}" "${{ matrix.release_file }}"
             if [ "${{ matrix.os }}" = "macos-latest" ]; then
               chmod +x "${{ matrix.release_file }}"
-              tar -czvf "${{ matrix.release_file }}.tar.gz" "${{ matrix.release_file }}"
+              chmod +x 安装汉化.command 还原官方.command install.sh restore.sh status.sh
+              
+              # Create structured macOS distribution directory
+              mkdir -p macos_dist/scripts macos_dist/locales
+              cp "${{ matrix.release_file }}" macos_dist/
+              cp 安装汉化.command 还原官方.command install.sh restore.sh status.sh macos_dist/
+              cp scripts/patcher.py macos_dist/scripts/
+              cp locales/*.json macos_dist/locales/
+              cp README.md macos_dist/
+              
+              # Package into double-clickable zip and tar.gz
+              cd macos_dist
+              zip -r "../${{ matrix.release_file }}.zip" .
+              tar -czvf "../${{ matrix.release_file }}.tar.gz" .
+              cd ..
             fi
           fi
 
@@ -64,6 +78,7 @@ jobs:
           name: ${{ matrix.artifact_name }}
           path: |
             ${{ matrix.release_file }}
+            *.zip
             *.tar.gz
 
   release:
@@ -85,7 +100,7 @@ jobs:
         shell: bash
         run: |
           mkdir -p release_assets
-          find all_artifacts -type f \( -name "*.exe" -o -name "*.tar.gz" -o -name "antigravity-zh-macos-arm64" \) -exec cp {} release_assets/ \;
+          find all_artifacts -type f \( -name "*.exe" -o -name "*.zip" -o -name "*.tar.gz" -o -name "antigravity-zh-macos-arm64" \) -exec cp {} release_assets/ \;
           ls -la release_assets/
 
       - name: Create GitHub Release

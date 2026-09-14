@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/lizi1997/antigravity-zh-toolkit/releases"><img src="https://img.shields.io/badge/Release-v1.0.0-blue.svg?style=flat-square" alt="Release"></a>
+  <a href="https://github.com/lizi1997/antigravity-zh-toolkit/releases"><img src="https://img.shields.io/badge/Release-v1.0.2-blue.svg?style=flat-square" alt="Release"></a>
   <img src="https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20(Apple%20Silicon)-brightgreen.svg?style=flat-square" alt="Platform">
   <img src="https://img.shields.io/badge/Python-3.10%2B-blue.svg?style=flat-square" alt="Python">
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square" alt="License"></a>
@@ -21,8 +21,11 @@
 
 ## ✨ 核心特性
 
-- 🚀 **全平台原生支持（Windows & macOS）**：原生兼容 Windows x64 与 macOS（Apple Silicon M1/M2/M3/M4 系列），自动探测系统安装路径与运行进程，支持跨平台一键部署。
-- 🛡️ **深度汉化智能体权限询问**：不仅汉化完整界面，更针对敏感操作权限询问弹窗（读取/写入路径、执行命令、沙箱外运行、MCP 工具、5 类权限保存范围及替代输入）实现了 100% 深度中文覆盖。
+- 🚀 **全平台原生支持（Windows & macOS）**：原生兼容 Windows x64 与 macOS（Apple Silicon M1/M2/M3/M4 系列），提供开箱即用的傻瓜式双击安装器。
+- 🖱️ **双平台一键双击安装**：
+  - Windows 用户直接双击 **`antigravity-zh-windows.exe`** 即可。
+  - Mac 用户解压后直接双击 **`安装汉化.command`** 即可自动弹窗完成注入，零命令操作！
+- 🛡️ **深度汉化智能体权限询问**：不仅汉化完整界面，更针对敏感操作权限询问弹窗（读取/写入路径、执行命令、沙箱外运行警告、MCP 工具、5 类规则保存范围及替代输入）实现了 100% 深度中文覆盖。
 - ⚡ **原地 ASAR 二进制无损补丁**：采用自研原生 Python ASAR 注入引擎，支持原地读写与 SHA-256 哈希重算，**无需杀死正在运行的客户端**，无崩溃、无文件锁死。
 - 🌐 **深度穿透 Shadow DOM**：基于现代 `TreeWalker` 与 `MutationObserver`，递归穿透 Web Components Shadow DOM 盲区，全面覆盖各类深层弹窗、悬浮卡片、智能体审查策略及编辑器组件。
 - 📖 **词典解耦与热加载**：词库移出二进制，独立为标准 `locales/zh-CN.json`（**1,250+** 词条）与 `locales/patterns.json`（**100+** 正则规则）。
@@ -31,7 +34,6 @@
   - 随时使用任意文本编辑器修改词典，客户端按 `Ctrl/Cmd + R` 刷新即生效！
 - 🔍 **一键捕获未翻译词条**：运行中按下快捷键 **`Ctrl + Alt + L`**（macOS: **`Option + Cmd + L`**），实时提取屏幕上遇到的所有未汉化英文词汇到剪贴板，闭环扩充词库极为简单。
 - 🛡️ **安全备份与秒级还原**：自动生成官方原始备份 `app.asar.bak`，支持一键无损复原纯净官方版本。
-- 💻 **零运行依赖**：提供 GitHub Actions 自动化多平台矩阵构建的单文件二进制程序，免安装 Python 或 Node.js，即开即用。
 
 ---
 
@@ -68,23 +70,18 @@ install.bat
 
 ### 🍎 macOS 系统
 
-#### 方式 1：Apple Silicon 芯片 (M1 / M2 / M3 / M4) —— 下载预编译程序（推荐）
-1. 从 [Releases 页面](https://github.com/lizi1997/antigravity-zh-toolkit/releases) 下载最新版的 **`antigravity-zh-macos-arm64`**（或解压 `antigravity-zh-macos-arm64.tar.gz`）；
-2. 打开终端（Terminal），赋予执行权限并运行：
-   ```bash
-   chmod +x antigravity-zh-macos-arm64
-   # 若遇 macOS 安全拦截提示“无法打开”，执行命令解除隔离即可：
-   xattr -cr antigravity-zh-macos-arm64
-   ./antigravity-zh-macos-arm64
-   ```
-3. 重启 Antigravity 或按 **`Cmd + Shift + N`**，汉化立即生效！
+#### 方式 1：双击一键安装包（推荐，适用于 M1 / M2 / M3 / M4 芯片）
+1. 从 [Releases 页面](https://github.com/lizi1997/antigravity-zh-toolkit/releases) 下载 **`antigravity-zh-macos-arm64.zip`** 并解压；
+2. 打开解压后的文件夹，直接 **双击 `安装汉化.command`** 即可自动弹窗完成汉化注入！
+   > 💡 **首次打开提示**：若 macOS 弹出安全提示“无法打开”，只需在文件上 **右键点击 ➔ 选择「打开」** 即可。
+3. 在 Antigravity 中按 **`Cmd + Shift + N`** 或重启客户端，立即生效！
 
 #### 方式 2：从源码一键运行（适用于所有 Mac，包括老款 Intel 芯片）
-> 提示：本项目代码使用 Python 原生内置库，**零第三方依赖**，macOS 自带的 Python 3 即可直接运行：
+> 提示：本项目代码基于 Python 原生库编写，**零第三方依赖**，macOS 自带的 Python 3 即可秒级运行：
 ```bash
 git clone https://github.com/lizi1997/antigravity-zh-toolkit.git
 cd antigravity-zh-toolkit
-chmod +x *.sh
+chmod +x *.command *.sh
 ./install.sh
 ```
 
@@ -92,10 +89,10 @@ chmod +x *.sh
 
 ## 🛠️ 常用操作命令
 
-| 操作说明 | Windows 操作 | macOS / Linux 操作 | Python 原生 CLI |
+| 操作说明 | Windows 操作 | macOS 操作（双击即用） | Python 原生 CLI |
 | :--- | :--- | :--- | :--- |
-| **一键安装汉化** | 双击 `install.bat` | `./install.sh` | `python scripts/patcher.py patch --force` |
-| **一键还原官方** | 双击 `restore.bat` | `./restore.sh` | `python scripts/patcher.py restore` |
+| **一键安装汉化** | 双击 `install.bat` | 双击 `安装汉化.command` | `python scripts/patcher.py patch --force` |
+| **一键还原官方** | 双击 `restore.bat` | 双击 `还原官方.command` | `python scripts/patcher.py restore` |
 | **查看状态检查** | 双击 `status.bat` | `./status.sh` | `python scripts/patcher.py status` |
 | **捕获未翻译词条** | 客户端内按 `Ctrl + Alt + L` | 客户端内按 `Option + Cmd + L` | *(前端实时捕获)* |
 
@@ -108,16 +105,19 @@ antigravity-zh-toolkit/
 ├── .github/
 │   └── workflows/
 │       └── release.yml          # GitHub Actions 多平台矩阵自动化构建流程 (Windows x64 + macOS arm64)
+├── .gitattributes               # 跨平台行尾规范
 ├── .gitignore                   # Git 排除文件配置
 ├── LICENSE                      # MIT 开源许可证
 ├── README.md                    # 中文说明文档
 ├── README_EN.md                 # 英文说明文档
 ├── CONTRIBUTING.md              # 词条贡献指南
 ├── requirements.txt             # 开发者依赖配置
-├── install.bat / install.sh     # Windows / macOS 一键安装脚本
-├── restore.bat / restore.sh     # Windows / macOS 一键还原官方原版脚本
-├── status.bat  / status.sh      # Windows / macOS 汉化状态检查脚本
-├── build.bat   / build.sh       # 本地一键构建编译打包脚本
+├── install.bat / restore.bat    # Windows 双击安装/还原批处理
+├── 安装汉化.command             # macOS 专属双击安装脚本
+├── 还原官方.command             # macOS 专属双击还原脚本
+├── install.sh / restore.sh      # Linux / macOS 终端一键脚本
+├── status.bat / status.sh       # 状态检查脚本
+├── build.bat  / build.sh        # 本地构建编译打包脚本
 ├── locales/
 │   ├── zh-CN.json               # 核心汉化静态词典 (1,250+ 词条)
 │   └── patterns.json            # 动态正则模板库 (100+ 规则)
