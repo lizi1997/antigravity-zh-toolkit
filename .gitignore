@@ -40,3 +40,8 @@ Thumbs.db
 ehthumbs.db
 [Dd]esktop.ini
 .DS_Store
+
+# macOS & Unix binaries
+antigravity-zh
+antigravity-zh-macos
+*.tar.gz
