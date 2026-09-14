@@ -11,20 +11,22 @@ permissions:
 
 jobs:
   build:
-    name: Build on ${{ matrix.os }}
+    name: Build on ${{ matrix.os }} (${{ matrix.arch }})
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
         include:
           - os: windows-latest
+            arch: x64
             artifact_name: antigravity-zh-windows
             dist_file: dist/antigravity-zh.exe
             release_file: antigravity-zh-windows.exe
           - os: macos-latest
-            artifact_name: antigravity-zh-macos
+            arch: arm64
+            artifact_name: antigravity-zh-macos-arm64
             dist_file: dist/antigravity-zh
-            release_file: antigravity-zh-macos
+            release_file: antigravity-zh-macos-arm64
 
     steps:
       - name: Checkout repository
@@ -52,7 +54,7 @@ jobs:
             cp "${{ matrix.dist_file }}" "${{ matrix.release_file }}"
             if [ "${{ matrix.os }}" = "macos-latest" ]; then
               chmod +x "${{ matrix.release_file }}"
-              tar -czvf antigravity-zh-macos.tar.gz "${{ matrix.release_file }}"
+              tar -czvf "${{ matrix.release_file }}.tar.gz" "${{ matrix.release_file }}"
             fi
           fi
 
@@ -83,7 +85,7 @@ jobs:
         shell: bash
         run: |
           mkdir -p release_assets
-          find all_artifacts -type f \( -name "*.exe" -o -name "*.tar.gz" -o -name "antigravity-zh-macos" \) -exec cp {} release_assets/ \;
+          find all_artifacts -type f \( -name "*.exe" -o -name "*.tar.gz" -o -name "antigravity-zh-macos-arm64" \) -exec cp {} release_assets/ \;
           ls -la release_assets/
 
       - name: Create GitHub Release

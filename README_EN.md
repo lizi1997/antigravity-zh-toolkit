@@ -6,7 +6,7 @@
 
 <p align="center">
   <a href="https://github.com/lizi1997/antigravity-zh-toolkit/releases"><img src="https://img.shields.io/badge/Release-v1.0.0-blue.svg?style=flat-square" alt="Release"></a>
-  <img src="https://img.shields.io/badge/Platform-Windows%20%7C%20macOS-brightgreen.svg?style=flat-square" alt="Platform">
+  <img src="https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20(Apple%20Silicon)-brightgreen.svg?style=flat-square" alt="Platform">
   <img src="https://img.shields.io/badge/Python-3.10%2B-blue.svg?style=flat-square" alt="Python">
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square" alt="License"></a>
   <a href="https://github.com/lizi1997/antigravity-zh-toolkit/stargazers"><img src="https://img.shields.io/github/stars/lizi1997/antigravity-zh-toolkit?style=flat-square" alt="Stars"></a>
@@ -14,23 +14,24 @@
 
 <p align="center">
   A modern, lossless, hot-injected Chinese localization enhancement toolkit designed specifically for <b>Google Antigravity</b>.<br/>
-  Full native support for both <b>Windows</b> and <b>macOS</b>. Resolves all legacy pain points: hardcoded dictionaries, update invalidations, Shadow DOM omissions, and unlocalized native menus.
+  Full native support for <b>Windows</b> and <b>macOS (Apple Silicon M-Series)</b>. Resolves all legacy pain points: hardcoded dictionaries, update invalidations, Shadow DOM omissions, and unlocalized agent permission dialogs.
 </p>
 
 ---
 
 ## ✨ Key Features
 
-- 🚀 **Cross-Platform Native Support (Windows & macOS)**: Natively compatible with Windows x64 and macOS (Apple Silicon & Intel). Auto-discovers app paths and processes on both platforms.
+- 🚀 **Cross-Platform Native Support (Windows & macOS)**: Natively compatible with Windows x64 and macOS (Apple Silicon M1/M2/M3/M4). Auto-discovers app paths and processes across platforms.
+- 🛡️ **Deep Agent Permission Localization**: 100% localization of sensitive permission request dialogs (file read/write, terminal execution, unsandboxed warnings, MCP tools, 5 rule persistence scopes, and write-in deny inputs).
 - ⚡ **In-Place ASAR Binary Patching**: Pure Python ASAR engine with in-place read/write and automatic SHA-256 recalculation. Patches running clients without killing processes or file locks.
 - 🌐 **Deep Shadow DOM Penetration**: Uses modern `TreeWalker` and `MutationObserver` to recursively penetrate Web Components Shadow DOM, ensuring full translation coverage across complex modals, agent settings, and floating panels.
-- 📖 **External Dictionaries & Hot-Reload**: Decoupled dictionary files in `locales/zh-CN.json` (**1,175+** entries) and `locales/patterns.json` (**82+** regex rules).
+- 📖 **External Dictionaries & Hot-Reload**: Decoupled dictionary files in `locales/zh-CN.json` (**1,250+** entries) and `locales/patterns.json` (**100+** regex rules).
   - Windows hot-reload directory: `%APPDATA%\Antigravity\locales\`
   - macOS hot-reload directory: `~/Library/Application Support/Antigravity/locales/`
   - Edit anytime with your favorite text editor; press `Ctrl/Cmd + R` in the client to apply immediately!
 - 🔍 **One-Click Untranslated Text Extraction**: Press **`Ctrl + Alt + L`** (macOS: **`Option + Cmd + L`**) anywhere in Antigravity to copy all unlocalized text on screen directly to your clipboard in JSON format.
 - 🛡️ **Safe Backup & Instant Rollback**: Automatically creates `app.asar.bak` with one-click restore to official releases.
-- 💻 **Zero Runtime Dependencies**: Standalone binaries built via GitHub Actions matrix workflows for Windows and macOS, with no Python or Node.js required for end users.
+- 💻 **Zero Runtime Dependencies**: Standalone binaries built via GitHub Actions matrix workflows for Windows and macOS (Apple Silicon), with no Python or Node.js required for end users.
 
 ---
 
@@ -39,6 +40,7 @@
 | Feature Area | Coverage Highlights |
 | :--- | :--- |
 | **Execution & Permissions** | General settings, agent execution policy, queued message delivery (Send Immediately / Queue), keyboard shortcuts, tool permissions, file review policy. |
+| **Agent Permission Dialogs**| **File read/write permission prompts, run command confirmations, unsandboxed execution warnings, 5 rule scopes, and fallback inputs.** |
 | **Models & Usage** | Model quota & credits, plan tiers, dynamic remaining percentage and **live refresh countdown (e.g., refreshes in 6 days, 22 hours)**. |
 | **Application & Appearance**| Application settings, prevent sleep, keep in menu bar, remote control, app version, advanced settings, verbose agent chat thinking steps, conversation width. |
 | **Browser & Subagents** | Browser subagent instructions, Chrome installation guidance, JS execution policies, browser actuation rules. |
@@ -66,18 +68,19 @@ install.bat
 
 ### 🍎 macOS
 
-#### Method 1: Prebuilt Binary (Recommended)
-1. Download **`antigravity-zh-macos`** (or extract `antigravity-zh-macos.tar.gz`) from the [Releases Page](https://github.com/lizi1997/antigravity-zh-toolkit/releases);
+#### Method 1: Apple Silicon (M1/M2/M3/M4) —— Prebuilt Binary (Recommended)
+1. Download **`antigravity-zh-macos-arm64`** (or extract `antigravity-zh-macos-arm64.tar.gz`) from the [Releases Page](https://github.com/lizi1997/antigravity-zh-toolkit/releases);
 2. Open Terminal and run:
    ```bash
-   chmod +x antigravity-zh-macos
+   chmod +x antigravity-zh-macos-arm64
    # If macOS blocks opening unidentified developer apps:
-   xattr -cr antigravity-zh-macos
-   ./antigravity-zh-macos
+   xattr -cr antigravity-zh-macos-arm64
+   ./antigravity-zh-macos-arm64
    ```
 3. Restart Antigravity or press **`Cmd + Shift + N`** to see the changes.
 
-#### Method 2: Run from Source
+#### Method 2: Run from Source (Works for all Macs, including legacy Intel)
+> Note: The patcher uses Python's standard library with **zero third-party dependencies**. macOS built-in Python 3 can run it out of the box:
 ```bash
 git clone https://github.com/lizi1997/antigravity-zh-toolkit.git
 cd antigravity-zh-toolkit
@@ -104,7 +107,7 @@ chmod +x *.sh
 antigravity-zh-toolkit/
 ├── .github/
 │   └── workflows/
-│       └── release.yml          # GitHub Actions Multi-Platform Matrix CI/CD
+│       └── release.yml          # GitHub Actions Multi-Platform Matrix CI/CD (Windows x64 + macOS arm64)
 ├── .gitignore                   # Git ignore file
 ├── LICENSE                      # MIT License
 ├── README.md                    # Chinese documentation
@@ -116,8 +119,8 @@ antigravity-zh-toolkit/
 ├── status.bat  / status.sh      # Status check scripts (Windows / macOS)
 ├── build.bat   / build.sh       # Local build scripts (Windows / macOS)
 ├── locales/
-│   ├── zh-CN.json               # Core dictionary (1,175+ entries)
-│   └── patterns.json            # Regex templates (82+ patterns)
+│   ├── zh-CN.json               # Core dictionary (1,250+ entries)
+│   └── patterns.json            # Regex templates (100+ patterns)
 ├── engine/
 │   ├── ag_localization_engine.js# Modern localization engine injected into Electron
 │   └── engine_template.js       # Engine compilation template

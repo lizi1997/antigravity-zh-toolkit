@@ -44,6 +44,7 @@ ehthumbs.db
 # macOS & Unix binaries
 antigravity-zh
 antigravity-zh-macos
+antigravity-zh-macos-arm64
 *.tar.gz
 
 # Local metadata

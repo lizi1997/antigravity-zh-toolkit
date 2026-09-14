@@ -6,7 +6,7 @@
 
 <p align="center">
   <a href="https://github.com/lizi1997/antigravity-zh-toolkit/releases"><img src="https://img.shields.io/badge/Release-v1.0.0-blue.svg?style=flat-square" alt="Release"></a>
-  <img src="https://img.shields.io/badge/Platform-Windows%20%7C%20macOS-brightgreen.svg?style=flat-square" alt="Platform">
+  <img src="https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20(Apple%20Silicon)-brightgreen.svg?style=flat-square" alt="Platform">
   <img src="https://img.shields.io/badge/Python-3.10%2B-blue.svg?style=flat-square" alt="Python">
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square" alt="License"></a>
   <a href="https://github.com/lizi1997/antigravity-zh-toolkit/stargazers"><img src="https://img.shields.io/github/stars/lizi1997/antigravity-zh-toolkit?style=flat-square" alt="Stars"></a>
@@ -14,17 +14,18 @@
 
 <p align="center">
   专为 <b>Google Antigravity</b> 打造的现代化、无损热注入中文汉化增强项目。<br/>
-  全面原生适配 <b>Windows</b> 与 <b>macOS</b> 系统。彻底解决老版插件写死词库、升级失效、Shadow DOM 漏译及主进程原生菜单未汉化等痛点。
+  全面原生适配 <b>Windows</b> 与 <b>macOS (Apple Silicon M系列芯片)</b>。彻底解决老版插件写死词库、升级失效、Shadow DOM 漏译、智能体权限弹窗未汉化等痛点。
 </p>
 
 ---
 
 ## ✨ 核心特性
 
-- 🚀 **全平台原生支持（Windows & macOS）**：原生兼容 Windows x64 与 macOS（Apple Silicon & Intel），自动探测系统安装路径与运行进程，支持跨平台一键部署。
+- 🚀 **全平台原生支持（Windows & macOS）**：原生兼容 Windows x64 与 macOS（Apple Silicon M1/M2/M3/M4 系列），自动探测系统安装路径与运行进程，支持跨平台一键部署。
+- 🛡️ **深度汉化智能体权限询问**：不仅汉化完整界面，更针对敏感操作权限询问弹窗（读取/写入路径、执行命令、沙箱外运行、MCP 工具、5 类权限保存范围及替代输入）实现了 100% 深度中文覆盖。
 - ⚡ **原地 ASAR 二进制无损补丁**：采用自研原生 Python ASAR 注入引擎，支持原地读写与 SHA-256 哈希重算，**无需杀死正在运行的客户端**，无崩溃、无文件锁死。
 - 🌐 **深度穿透 Shadow DOM**：基于现代 `TreeWalker` 与 `MutationObserver`，递归穿透 Web Components Shadow DOM 盲区，全面覆盖各类深层弹窗、悬浮卡片、智能体审查策略及编辑器组件。
-- 📖 **词典解耦与热加载**：词库移出二进制，独立为标准 `locales/zh-CN.json`（**1,175+** 词条）与 `locales/patterns.json`（**82+** 正则规则）。
+- 📖 **词典解耦与热加载**：词库移出二进制，独立为标准 `locales/zh-CN.json`（**1,250+** 词条）与 `locales/patterns.json`（**100+** 正则规则）。
   - Windows 热加载目录：`%APPDATA%\Antigravity\locales\`
   - macOS 热加载目录：`~/Library/Application Support/Antigravity/locales/`
   - 随时使用任意文本编辑器修改词典，客户端按 `Ctrl/Cmd + R` 刷新即生效！
@@ -39,6 +40,7 @@
 | 模块 | 汉化覆盖效果 |
 | :--- | :--- |
 | **通用执行与权限** | 通用设置、智能体执行策略、排队消息传递（立即发送/排队）、键盘快捷键、工具权限、文件审查策略等全量中文化 |
+| **智能体权限确认** | **读取/写入路径询问、运行命令确认、沙箱外执行警告、5 类规则保存范围（本次允许/对话/非项目/项目/全局）及替代操作输入** |
 | **模型配额与用量** | 模型与用量、方案等级、动态配额剩余百分比及**动态刷新倒计时（如：将在 6 天 22 小时后完全刷新）** |
 | **应用程序与外观** | 应用程序、防止休眠、保留在菜单栏、远程控制设备、版本号、高级设置、详细智能体对话思考步骤、对话宽度选择等 |
 | **浏览器与子智能体** | 浏览器子智能体调用说明、Chrome 安装指引、JS 执行策略、浏览器操作规则等 |
@@ -66,18 +68,19 @@ install.bat
 
 ### 🍎 macOS 系统
 
-#### 方式 1：直接下载 Release 二进制（推荐）
-1. 从 [Releases 页面](https://github.com/lizi1997/antigravity-zh-toolkit/releases) 下载最新版的 **`antigravity-zh-macos`**（或解压 `antigravity-zh-macos.tar.gz`）；
+#### 方式 1：Apple Silicon 芯片 (M1 / M2 / M3 / M4) —— 下载预编译程序（推荐）
+1. 从 [Releases 页面](https://github.com/lizi1997/antigravity-zh-toolkit/releases) 下载最新版的 **`antigravity-zh-macos-arm64`**（或解压 `antigravity-zh-macos-arm64.tar.gz`）；
 2. 打开终端（Terminal），赋予执行权限并运行：
    ```bash
-   chmod +x antigravity-zh-macos
-   # 若遇到系统提示“无法打开，因为来自未知的开发者”，请执行去除隔离属性：
-   xattr -cr antigravity-zh-macos
-   ./antigravity-zh-macos
+   chmod +x antigravity-zh-macos-arm64
+   # 若遇 macOS 安全拦截提示“无法打开”，执行命令解除隔离即可：
+   xattr -cr antigravity-zh-macos-arm64
+   ./antigravity-zh-macos-arm64
    ```
 3. 重启 Antigravity 或按 **`Cmd + Shift + N`**，汉化立即生效！
 
-#### 方式 2：从源码一键运行
+#### 方式 2：从源码一键运行（适用于所有 Mac，包括老款 Intel 芯片）
+> 提示：本项目代码使用 Python 原生内置库，**零第三方依赖**，macOS 自带的 Python 3 即可直接运行：
 ```bash
 git clone https://github.com/lizi1997/antigravity-zh-toolkit.git
 cd antigravity-zh-toolkit
@@ -104,7 +107,7 @@ chmod +x *.sh
 antigravity-zh-toolkit/
 ├── .github/
 │   └── workflows/
-│       └── release.yml          # GitHub Actions 多平台矩阵自动化构建流程
+│       └── release.yml          # GitHub Actions 多平台矩阵自动化构建流程 (Windows x64 + macOS arm64)
 ├── .gitignore                   # Git 排除文件配置
 ├── LICENSE                      # MIT 开源许可证
 ├── README.md                    # 中文说明文档
@@ -116,8 +119,8 @@ antigravity-zh-toolkit/
 ├── status.bat  / status.sh      # Windows / macOS 汉化状态检查脚本
 ├── build.bat   / build.sh       # 本地一键构建编译打包脚本
 ├── locales/
-│   ├── zh-CN.json               # 核心汉化静态词典 (1,175+ 词条)
-│   └── patterns.json            # 动态正则模板库 (82+ 规则)
+│   ├── zh-CN.json               # 核心汉化静态词典 (1,250+ 词条)
+│   └── patterns.json            # 动态正则模板库 (100+ 规则)
 ├── engine/
 │   ├── ag_localization_engine.js# 注入 Electron 渲染层的现代化汉化引擎
 │   └── engine_template.js       # 引擎构建代码模板
