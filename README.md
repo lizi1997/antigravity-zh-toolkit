@@ -1,11 +1,15 @@
 # Antigravity 现代化全功能中文汉化增强补丁 (Antigravity-ZH)
 
 <p align="center">
-  <a href="https://github.com/lizi1997/antigravity-zh-toolkit"><img src="https://img.shields.io/badge/Release-v1.0.0-blue.svg?style=flat-square" alt="Release"></a>
-  <a href="https://github.com/lizi1997/antigravity-zh-toolkit"><img src="https://img.shields.io/badge/Platform-Windows%20x64-brightgreen.svg?style=flat-square" alt="Platform"></a>
-  <a href="https://github.com/lizi1997/antigravity-zh-toolkit"><img src="https://img.shields.io/badge/Python-3.10%2B-blue.svg?style=flat-square" alt="Python"></a>
+  <a href="README.md"><b>简体中文</b></a> | <a href="README_EN.md"><b>English</b></a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/lizi1997/antigravity-zh-toolkit/releases"><img src="https://img.shields.io/badge/Release-v1.0.0-blue.svg?style=flat-square" alt="Release"></a>
+  <img src="https://img.shields.io/badge/Platform-Windows%20x64-brightgreen.svg?style=flat-square" alt="Platform">
+  <img src="https://img.shields.io/badge/Python-3.10%2B-blue.svg?style=flat-square" alt="Python">
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square" alt="License"></a>
-  <a href="README_EN.md"><img src="https://img.shields.io/badge/Docs-English-lightgrey.svg?style=flat-square" alt="English"></a>
+  <a href="https://github.com/lizi1997/antigravity-zh-toolkit/stargazers"><img src="https://img.shields.io/github/stars/lizi1997/antigravity-zh-toolkit?style=flat-square" alt="Stars"></a>
 </p>
 
 <p align="center">
@@ -51,7 +55,7 @@
 1. 下载或克隆本仓库：
    ```bash
    git clone https://github.com/lizi1997/antigravity-zh-toolkit.git
-   cd antigravity-zh
+   cd antigravity-zh-toolkit
    ```
 2. 双击运行 **`install.bat`** 即可一键完成注入。
 
@@ -71,7 +75,7 @@
 ## 📦 目录结构
 
 ```text
-antigravity-zh/
+antigravity-zh-toolkit/
 ├── .github/
 │   └── workflows/
 │       └── release.yml          # GitHub Actions 自动化编译构建流程
