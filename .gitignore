@@ -45,3 +45,7 @@ ehthumbs.db
 antigravity-zh
 antigravity-zh-macos
 *.tar.gz
+
+# Local metadata
+.mimosa/
+

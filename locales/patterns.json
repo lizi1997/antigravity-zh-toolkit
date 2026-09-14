@@ -420,11 +420,6 @@
     "replacement": "[Sidecar 日志-$1]"
   },
   {
-    "pattern": "^Allow\\s+(.+)$",
-    "flags": "i",
-    "replacement": "允许 $1"
-  },
-  {
     "pattern": "^Are you sure you want to delete the hook \"(.+?)\"\\?$",
     "flags": "i",
     "replacement": "确定要删除挂钩 \"$1\" 吗？"
@@ -448,5 +443,100 @@
     "pattern": "^For\\s+(.+?),\\s+this setting is disabled\\.$",
     "flags": "i",
     "replacement": "对于 $1，该设置已被禁用。"
+  },
+  {
+    "pattern": "^Allow read access to (.+)\\?$",
+    "flags": "i",
+    "replacement": "允许读取 $1？"
+  },
+  {
+    "pattern": "^Allow write access to (.+)\\?$",
+    "flags": "i",
+    "replacement": "允许写入 $1？"
+  },
+  {
+    "pattern": "^Allow running command (.+)\\?$",
+    "flags": "i",
+    "replacement": "允许运行命令 $1？"
+  },
+  {
+    "pattern": "^Allow running (.+)\\?$",
+    "flags": "i",
+    "replacement": "允许运行 $1？"
+  },
+  {
+    "pattern": "^Save rule to always allow (.+)\\?$",
+    "flags": "i",
+    "replacement": "保存规则以总是允许 $1？"
+  },
+  {
+    "pattern": "^Yes, and always allow '(.+)' in this conversation$",
+    "flags": "i",
+    "replacement": "是，且在当前对话中总是允许 '$1'"
+  },
+  {
+    "pattern": "^Yes, and always allow '(.+)' when not in a project$",
+    "flags": "i",
+    "replacement": "是，且在非项目内时总是允许 '$1'"
+  },
+  {
+    "pattern": "^Yes, and always allow '(.+)' in this project$",
+    "flags": "i",
+    "replacement": "是，且在此项目中总是允许 '$1'"
+  },
+  {
+    "pattern": "^Yes, and always allow '(.+)' in this workspace$",
+    "flags": "i",
+    "replacement": "是，且在此工作区中总是允许 '$1'"
+  },
+  {
+    "pattern": "^Yes, and always allow '(.+)'$",
+    "flags": "i",
+    "replacement": "是，且总是允许 '$1'"
+  },
+  {
+    "pattern": "^Yes, save rule for '(.+)' in this conversation$",
+    "flags": "i",
+    "replacement": "是，在此对话中为 '$1' 保存规则"
+  },
+  {
+    "pattern": "^Yes, save rule for '(.+)' when not in a project$",
+    "flags": "i",
+    "replacement": "是，在非项目内时为 '$1' 保存规则"
+  },
+  {
+    "pattern": "^Yes, save rule for '(.+)' in this project$",
+    "flags": "i",
+    "replacement": "是，在此项目中为 '$1' 保存规则"
+  },
+  {
+    "pattern": "^Yes, save rule for '(.+)' in this workspace$",
+    "flags": "i",
+    "replacement": "是，在此工作区中为 '$1' 保存规则"
+  },
+  {
+    "pattern": "^Yes, save rule for '(.+)' globally$",
+    "flags": "i",
+    "replacement": "是，全局为 '$1' 保存规则"
+  },
+  {
+    "pattern": "^Requires manual confirmation:\\s*(.+)$",
+    "flags": "i",
+    "replacement": "需要手动确认: $1"
+  },
+  {
+    "pattern": "^Conflicts with your configured Ask permission:\\s*(.+)$",
+    "flags": "i",
+    "replacement": "与您配置的询问权限冲突: $1"
+  },
+  {
+    "pattern": "^Requesting permission to (.+)$",
+    "flags": "i",
+    "replacement": "正在请求 $1 的权限"
+  },
+  {
+    "pattern": "^Skip \\(esc\\), Skip All \\((.+)\\)$",
+    "flags": "i",
+    "replacement": "跳过 (Esc)，全部跳过 ($1)"
   }
 ]
