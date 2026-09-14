@@ -11,6 +11,7 @@ import sys
 import re
 import json
 import argparse
+from pathlib import Path
 
 def is_valid_ui_string(s):
     s = s.strip()
@@ -40,24 +41,29 @@ def extract_from_binary(bin_path):
     print(f"[*] Scanning binary: {bin_path}...")
     strings = set()
     pattern = re.compile(rb'[\x20-\x7e]{3,200}')
-    with open(bin_path, "rb") as f:
-        # Read in 16MB chunks with 1KB overlap
-        chunk_size = 16 * 1024 * 1024
-        prev = b""
-        while True:
-            chunk = f.read(chunk_size)
-            if not chunk: break
-            data = prev + chunk
-            prev = data[-1024:]
-            for m in pattern.finditer(data):
-                try:
-                    s = m.group().decode('utf-8', errors='ignore')
-                    if is_valid_ui_string(s):
-                        strings.add(s.strip())
-                except Exception:
-                    pass
+    data = Path(os.path.abspath(bin_path)).read_bytes()
+    for m in pattern.finditer(data):
+        s = m.group().decode("utf-8", errors="ignore")
+        if is_valid_ui_string(s):
+            strings.add(s.strip())
     print(f"[*] Found {len(strings)} raw candidate strings in {os.path.basename(bin_path)}")
     return strings
+
+def get_default_install_dirs():
+    """Platform-aware candidates for the Antigravity installation."""
+    if sys.platform == "darwin":
+        return [
+            "/Applications/Antigravity.app/Contents/Resources",
+            os.path.expanduser("~/Applications/Antigravity.app/Contents/Resources"),
+        ]
+    if sys.platform.startswith("linux"):
+        return [
+            "/opt/antigravity/resources",
+            "/usr/lib/antigravity/resources",
+            "/usr/local/lib/antigravity/resources",
+            os.path.expanduser("~/.local/share/antigravity/resources"),
+        ]
+    return [os.path.expandvars(r"%LOCALAPPDATA%\Programs\antigravity")]
 
 def run_extraction(output_file=None, custom_dir=None):
     script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -66,16 +72,17 @@ def run_extraction(output_file=None, custom_dir=None):
 
     existing_dict = {}
     if os.path.exists(locales_file):
-        with open(locales_file, "r", encoding="utf-8") as f:
-            existing_dict = json.load(f)
+        existing_dict = json.loads(Path(os.path.abspath(locales_file)).read_text(encoding="utf-8"))
     print(f"[*] Loaded existing dictionary: {len(existing_dict)} entries")
     lower_existing = {k.lower().strip(): v for k, v in existing_dict.items()}
 
-    install_dir = custom_dir or os.path.expandvars(r"%LOCALAPPDATA%\Programs\antigravity")
-    targets = [
-        os.path.join(install_dir, "resources", "bin", "language_server.exe"),
-        os.path.join(install_dir, "resources", "app.asar"),
-    ]
+    install_dirs = [custom_dir] if custom_dir else get_default_install_dirs()
+    ls_name = "language_server.exe" if sys.platform == "win32" else "language_server"
+    targets = []
+    for d in install_dirs:
+        for resources in (d, os.path.join(d, "resources")):
+            targets.append(os.path.join(resources, "app.asar"))
+            targets.append(os.path.join(resources, "bin", ls_name))
 
     all_candidates = set()
     for t in targets:
@@ -91,8 +98,9 @@ def run_extraction(output_file=None, custom_dir=None):
     print(f"[+] Total missing untranslated candidate strings: {len(missing)}")
 
     out_path = output_file or os.path.join(toolkit_dir, "locales", "missing_strings.json")
-    with open(out_path, "w", encoding="utf-8") as f:
-        json.dump(missing, f, ensure_ascii=False, indent=2)
+    Path(os.path.abspath(out_path)).write_text(
+        json.dumps(missing, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
 
     print(f"[+] Saved missing candidates to: {out_path}")
     return missing
