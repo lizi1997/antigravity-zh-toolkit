@@ -1,7 +1,7 @@
 # Modern Chinese Localization Toolkit for Google Antigravity (Antigravity-ZH)
 
 <p align="center">
-  <a href="https://github.com/lizi1997/antigravity-zh-toolkit"><img src="https://img.shields.io/badge/Release-v3.2-blue.svg?style=flat-square" alt="Release"></a>
+  <a href="https://github.com/lizi1997/antigravity-zh-toolkit"><img src="https://img.shields.io/badge/Release-v1.0.0-blue.svg?style=flat-square" alt="Release"></a>
   <a href="https://github.com/lizi1997/antigravity-zh-toolkit"><img src="https://img.shields.io/badge/Platform-Windows%20x64-brightgreen.svg?style=flat-square" alt="Platform"></a>
   <a href="https://github.com/lizi1997/antigravity-zh-toolkit"><img src="https://img.shields.io/badge/Python-3.10%2B-blue.svg?style=flat-square" alt="Python"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square" alt="License"></a>

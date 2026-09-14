@@ -1,4 +1,4 @@
-// Antigravity Client Modern Chinese Localization Engine v3.1
+// Antigravity Client Modern Chinese Localization Engine v1.0.0
 // Sandboxed Electron compatible with embedded dictionary and real-time DOM translation
 
 (function() {

@@ -4,7 +4,7 @@ setlocal enabledelayedexpansion
 title Antigravity 现代化汉化补丁安装器
 
 echo ========================================================
-echo        Antigravity 现代化汉化一键安装器 v3.2
+echo        Antigravity 现代化汉化一键安装器 v1.0.0
 echo ========================================================
 echo.
 
