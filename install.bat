@@ -9,7 +9,7 @@ echo ========================================================
 echo.
 
 if exist "%~dp0antigravity-zh.exe" (
-    "%~dp0antigravity-zh.exe" patch --force
+    "%~dp0antigravity-zh.exe" patch
     goto :end
 )
 
@@ -49,7 +49,7 @@ pause
 exit /b 1
 
 :run
-"%PYTHON_EXE%" "%~dp0scripts\patcher.py" patch --force
+"%PYTHON_EXE%" "%~dp0scripts\patcher.py" patch
 
 :end
 echo.

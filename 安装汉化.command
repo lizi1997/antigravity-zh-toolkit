@@ -12,13 +12,13 @@ echo "========================================================"
 echo ""
 
 if [ -f "./antigravity-zh-macos-arm64" ]; then
-    ./antigravity-zh-macos-arm64 patch --force
+    ./antigravity-zh-macos-arm64 patch
 elif [ -f "./antigravity-zh" ]; then
-    ./antigravity-zh patch --force
+    ./antigravity-zh patch
 elif command -v python3 >/dev/null 2>&1; then
-    python3 ./scripts/patcher.py patch --force
+    python3 ./scripts/patcher.py patch
 elif command -v python >/dev/null 2>&1; then
-    python ./scripts/patcher.py patch --force
+    python ./scripts/patcher.py patch
 else
     echo "[!] 错误: 未检测到预编译程序或 Python 3 环境。"
     exit 1
