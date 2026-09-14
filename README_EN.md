@@ -28,10 +28,9 @@
 - 🛡️ **Deep Agent Permission Localization**: 100% localization of sensitive permission request dialogs (file read/write, terminal execution, unsandboxed warnings, MCP tools, 5 rule persistence scopes, and write-in deny inputs).
 - ⚡ **In-Place ASAR Binary Patching**: Pure Python ASAR engine with in-place read/write and automatic SHA-256 recalculation. Patches running clients without killing processes or file locks.
 - 🌐 **Deep Shadow DOM Penetration**: Uses modern `TreeWalker` and `MutationObserver` to recursively penetrate Web Components Shadow DOM, ensuring full translation coverage across complex modals, agent settings, and floating panels.
-- 📖 **External Dictionaries & Hot-Reload**: Decoupled dictionary files in `locales/zh-CN.json` (**1,250+** entries) and `locales/patterns.json` (**100+** regex rules).
-  - Windows hot-reload directory: `%APPDATA%\Antigravity\locales\`
-  - macOS hot-reload directory: `~/Library/Application Support/Antigravity/locales/`
-  - Edit anytime with your favorite text editor; press `Ctrl/Cmd + R` in the client to apply immediately!
+- 📖 **External Dictionaries, No Rebuild Needed**: Decoupled dictionary files in `locales/zh-CN.json` (**1,255+** entries) and `locales/patterns.json` (**108+** regex rules).
+  - Dictionary directory: `%APPDATA%\Antigravity\locales\` (Windows) / `~/Library/Application Support/Antigravity/locales/` (macOS)
+  - Edit them with any text editor and re-run the installer to apply - no binary rebuild required. Clients that allow runtime file access additionally hot-reload dictionary edits automatically (checked every 2s).
 - 🔍 **One-Click Untranslated Text Extraction**: Press **`Ctrl + Alt + L`** (macOS: **`Option + Cmd + L`**) anywhere in Antigravity to copy all unlocalized text on screen directly to your clipboard in JSON format.
 - 🛡️ **Safe Backup & Instant Rollback**: Automatically creates `app.asar.bak` with one-click restore to official releases.
 
@@ -90,7 +89,7 @@ chmod +x *.command *.sh
 
 | Action | Windows | macOS (Double-Click) | Python CLI |
 | :--- | :--- | :--- | :--- |
-| **Apply Patch** | Double-click `install.bat` | Double-click `安装汉化.command` | `python scripts/patcher.py patch --force` |
+| **Apply Patch** | Double-click `install.bat` | Double-click `安装汉化.command` | `python scripts/patcher.py patch` |
 | **Restore Official** | Double-click `restore.bat` | Double-click `还原官方.command` | `python scripts/patcher.py restore` |
 | **Check Status** | Double-click `status.bat` | Run `./status.sh` | `python scripts/patcher.py status` |
 | **Extract Missing Strings**| Press `Ctrl + Alt + L` | Press `Option + Cmd + L` | *(Real-time frontend capture)* |

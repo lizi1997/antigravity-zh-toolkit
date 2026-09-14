@@ -44,7 +44,28 @@
    - 英文冒号 `: ` 对应中文冒号 `：`（如需保留右侧间隙请注意排版美观）。
    - 专有名词（如 `Google Chrome`、`Gemini`、`Claude`、`GitHub`、`MCP` 等）保持原样，不进行强行意译。
 3. **测试验证**：
-   - 提交 PR 前，可在本地运行 `python scripts/build.py --no-exe` 生成最新引擎，并运行 `python scripts/patcher.py patch --force` 检查实际界面渲染效果。
+   - 提交 PR 前，先跑测试套件：`python -m pytest tests/ -v`（需 `pip install pytest`）。
+   - 再运行 `python scripts/build.py --no-exe` 生成最新引擎，并运行 `python scripts/patcher.py patch` 检查实际界面渲染效果（已打补丁时重复执行是安全的幂等操作）。
+
+---
+
+## 🗂 代码结构与生成文件（务必先读）
+
+本仓库有两个**生成文件**，由 `python scripts/build.py` 产出，**请勿手改**（改动会在下次构建时被静默覆盖）：
+
+- `scripts/patcher.py` —— 由 `build.py` 内的 `PATCHER_TEMPLATE` + 引擎 + 词典拼装而成
+- `engine/ag_localization_engine.js` —— 由 `engine/engine_template.js` + `locales/*.json` 拼装而成
+
+| 想改什么 | 应编辑的源文件 |
+| :--- | :--- |
+| 静态词条 | `locales/zh-CN.json` |
+| 动态正则规则 | `locales/patterns.json` |
+| 汉化引擎逻辑 | `engine/engine_template.js` |
+| 补丁器逻辑（ASAR 读写 / 安装还原） | `build.py` 中的 `PATCHER_TEMPLATE` |
+
+改完源文件后运行 `python scripts/build.py --no-exe` 重新生成产物，并连同源文件一起提交。
+
+> **已安装客户端的词典更新**：编辑 `%APPDATA%\Antigravity\locales\`（macOS 为 `~/Library/Application Support/Antigravity/locales/`）下的词典后，重新运行安装脚本即可生效，无需重新构建二进制。
 
 ---
 

@@ -28,10 +28,10 @@
 - 🛡️ **深度汉化智能体权限询问**：不仅汉化完整界面，更针对敏感操作权限询问弹窗（读取/写入路径、执行命令、沙箱外运行警告、MCP 工具、5 类规则保存范围及替代输入）实现了 100% 深度中文覆盖。
 - ⚡ **原地 ASAR 二进制无损补丁**：采用自研原生 Python ASAR 注入引擎，支持原地读写与 SHA-256 哈希重算，**无需杀死正在运行的客户端**，无崩溃、无文件锁死。
 - 🌐 **深度穿透 Shadow DOM**：基于现代 `TreeWalker` 与 `MutationObserver`，递归穿透 Web Components Shadow DOM 盲区，全面覆盖各类深层弹窗、悬浮卡片、智能体审查策略及编辑器组件。
-- 📖 **词典解耦与热加载**：词库移出二进制，独立为标准 `locales/zh-CN.json`（**1,250+** 词条）与 `locales/patterns.json`（**100+** 正则规则）。
-  - Windows 热加载目录：`%APPDATA%\Antigravity\locales\`
-  - macOS 热加载目录：`~/Library/Application Support/Antigravity/locales/`
-  - 随时使用任意文本编辑器修改词典，客户端按 `Ctrl/Cmd + R` 刷新即生效！
+- 📖 **词典解耦，改词免重编**：词库独立为标准 `locales/zh-CN.json`（**1,255+** 词条）与 `locales/patterns.json`（**108+** 正则规则）。
+  - Windows 词典目录：`%APPDATA%\Antigravity\locales\`
+  - macOS 词典目录：`~/Library/Application Support/Antigravity/locales/`
+  - 直接用任意文本编辑器修改词典，重新运行安装脚本即生效（无需重新构建二进制）；支持运行时文件读取的客户端还会每 2 秒自动热加载，保存后立即生效！
 - 🔍 **一键捕获未翻译词条**：运行中按下快捷键 **`Ctrl + Alt + L`**（macOS: **`Option + Cmd + L`**），实时提取屏幕上遇到的所有未汉化英文词汇到剪贴板，闭环扩充词库极为简单。
 - 🛡️ **安全备份与秒级还原**：自动生成官方原始备份 `app.asar.bak`，支持一键无损复原纯净官方版本。
 
@@ -91,7 +91,7 @@ chmod +x *.command *.sh
 
 | 操作说明 | Windows 操作 | macOS 操作（双击即用） | Python 原生 CLI |
 | :--- | :--- | :--- | :--- |
-| **一键安装汉化** | 双击 `install.bat` | 双击 `安装汉化.command` | `python scripts/patcher.py patch --force` |
+| **一键安装汉化** | 双击 `install.bat` | 双击 `安装汉化.command` | `python scripts/patcher.py patch` |
 | **一键还原官方** | 双击 `restore.bat` | 双击 `还原官方.command` | `python scripts/patcher.py restore` |
 | **查看状态检查** | 双击 `status.bat` | `./status.sh` | `python scripts/patcher.py status` |
 | **捕获未翻译词条** | 客户端内按 `Ctrl + Alt + L` | 客户端内按 `Option + Cmd + L` | *(前端实时捕获)* |
@@ -119,15 +119,16 @@ antigravity-zh-toolkit/
 ├── status.bat / status.sh       # 状态检查脚本
 ├── build.bat  / build.sh        # 本地构建编译打包脚本
 ├── locales/
-│   ├── zh-CN.json               # 核心汉化静态词典 (1,250+ 词条)
-│   └── patterns.json            # 动态正则模板库 (100+ 规则)
+│   ├── zh-CN.json               # 核心汉化静态词典 (1,255+ 词条)
+│   └── patterns.json            # 动态正则模板库 (108+ 规则)
 ├── engine/
-│   ├── ag_localization_engine.js# 注入 Electron 渲染层的现代化汉化引擎
-│   └── engine_template.js       # 引擎构建代码模板
-└── scripts/
-    ├── patcher.py               # 跨平台原生 ASAR 注入与管理核心
-    ├── build.py                 # 跨平台自动化编译打包脚本
-    └── extract_untranslated.py  # 静态文本深度提取工具
+│   ├── ag_localization_engine.js# 注入 Electron 渲染层的现代化汉化引擎（生成文件）
+│   └── engine_template.js       # 引擎构建代码模板（源文件）
+├── scripts/
+│   ├── patcher.py               # 跨平台原生 ASAR 注入与管理核心（生成文件）
+│   ├── build.py                 # 跨平台自动化编译打包脚本（patcher.py 的模板源）
+│   └── extract_untranslated.py  # 静态文本深度提取工具
+└── tests/                       # pytest 测试（ASAR round-trip / 补丁行为 / 正则规则）
 ```
 
 ---
