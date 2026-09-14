@@ -1,0 +1,11 @@
+# Auto-detect text files and normalize line endings
+* text=auto
+
+# Windows batch files must use CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Unix shell scripts and workflows must always use LF
+*.sh text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
