@@ -1,0 +1,42 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+*.spec
+
+# PyInstaller & Executables
+*.exe
+*.bin
+
+# Backup files
+*.bak
+*.swp
+*~
+app.asar.bak
+
+# Logs and databases
+*.log
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# IDE & OS files
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+Thumbs.db
+ehthumbs.db
+[Dd]esktop.ini
+.DS_Store

@@ -1,0 +1,412 @@
+[
+  {
+    "pattern": "^You have used some of your weekly limit, it will fully refresh in (\\d+) days?, (\\d+) hours?\\.$",
+    "flags": "i",
+    "replacement": "您已使用部分每周额度，将在 $1 天 $2 小时后完全刷新。"
+  },
+  {
+    "pattern": "^You have used some of your weekly limit, it will fully refresh in (\\d+) hours?, (\\d+) minutes?\\.$",
+    "flags": "i",
+    "replacement": "您已使用部分每周额度，将在 $1 小时 $2 分钟后完全刷新。"
+  },
+  {
+    "pattern": "^You have used some of your 5-hour limit, it will fully refresh in (\\d+) hours?, (\\d+) minutes?\\.$",
+    "flags": "i",
+    "replacement": "您已使用部分5小时额度，将在 $1 小时 $2 分钟后完全刷新。"
+  },
+  {
+    "pattern": "^You have used some of your 5-hour limit, it will fully refresh in (\\d+) minutes?\\.$",
+    "flags": "i",
+    "replacement": "您已使用部分5小时额度，将在 $1 分钟后完全刷新。"
+  },
+  {
+    "pattern": "^You have used some of your (.+?) limit, it will fully refresh in (.+?)\\.$",
+    "flags": "i",
+    "replacement": "您已使用部分 $1 额度，将在 $2 后完全刷新。"
+  },
+  {
+    "pattern": "^Your Plan:\\s*(.+)$",
+    "flags": "i",
+    "replacement": "您的方案: $1"
+  },
+  {
+    "pattern": "^App version\\s+(\\d+\\..+)$",
+    "flags": "i",
+    "replacement": "应用版本 $1"
+  },
+  {
+    "pattern": "^now$",
+    "flags": "i",
+    "replacement": "\"刚刚\""
+  },
+  {
+    "pattern": "^(\\d+)m$",
+    "flags": "i",
+    "replacement": "$1分钟前"
+  },
+  {
+    "pattern": "^(\\d+)h$",
+    "flags": "i",
+    "replacement": "$1小时前"
+  },
+  {
+    "pattern": "^(\\d+)d$",
+    "flags": "i",
+    "replacement": "$1天前"
+  },
+  {
+    "pattern": "^Worked for\\s+(\\d+(?:\\.\\d+)?)\\s*(s|m|h)$",
+    "flags": "i",
+    "replacement": "工作了 $1${unit === 's' ? '秒' : unit === 'm' ? '分钟' : '小时'}"
+  },
+  {
+    "pattern": "^Thought for\\s+(\\d+(?:\\.\\d+)?)\\s*(s|m|h)$",
+    "flags": "i",
+    "replacement": "思考了 $1${unit === 's' ? '秒' : unit === 'm' ? '分钟' : '小时'}"
+  },
+  {
+    "pattern": "^Worked for\\s+(\\d+(?:\\.\\d+)?)\\s*seconds?$",
+    "flags": "i",
+    "replacement": "工作了 $1 秒"
+  },
+  {
+    "pattern": "^Thought for\\s+(\\d+(?:\\.\\d+)?)\\s*seconds?$",
+    "flags": "i",
+    "replacement": "思考了 $1 秒"
+  },
+  {
+    "pattern": "^Worked for\\s+(\\d+(?:\\.\\d+)?)\\s*minutes?$",
+    "flags": "i",
+    "replacement": "工作了 $1 分钟"
+  },
+  {
+    "pattern": "^Thought for\\s+(\\d+(?:\\.\\d+)?)\\s*minutes?$",
+    "flags": "i",
+    "replacement": "思考了 $1 分钟"
+  },
+  {
+    "pattern": "^Worked for\\s+(\\d+(?:\\.\\d+)?)\\s*hours?$",
+    "flags": "i",
+    "replacement": "工作了 $1 小时"
+  },
+  {
+    "pattern": "^Thought for\\s+(\\d+(?:\\.\\d+)?)\\s*hours?$",
+    "flags": "i",
+    "replacement": "思考了 $1 小时"
+  },
+  {
+    "pattern": "^(\\d+)\\s+files?\\s+changed$",
+    "flags": "i",
+    "replacement": "$1 个文件已更改"
+  },
+  {
+    "pattern": "^(\\d+)\\s+files?\\s+created$",
+    "flags": "i",
+    "replacement": "$1 个文件已创建"
+  },
+  {
+    "pattern": "^(\\d+)\\s+files?\\s+deleted$",
+    "flags": "i",
+    "replacement": "$1 个文件已删除"
+  },
+  {
+    "pattern": "^(\\d+)\\s+files?\\s+edited$",
+    "flags": "i",
+    "replacement": "$1 个文件已编辑"
+  },
+  {
+    "pattern": "^(\\d+)\\s+files?\\s+modified$",
+    "flags": "i",
+    "replacement": "$1 个文件已修改"
+  },
+  {
+    "pattern": "^(\\d+)\\s+files?\\s+read$",
+    "flags": "i",
+    "replacement": "$1 个文件已读取"
+  },
+  {
+    "pattern": "^(\\d+)\\s+errors?$",
+    "flags": "i",
+    "replacement": "$1 个错误"
+  },
+  {
+    "pattern": "^(\\d+)\\s+warnings?$",
+    "flags": "i",
+    "replacement": "$1 个警告"
+  },
+  {
+    "pattern": "^(\\d+)\\s+results?$",
+    "flags": "i",
+    "replacement": "$1 个结果"
+  },
+  {
+    "pattern": "^(\\d+)\\s+agents?\\s+running$",
+    "flags": "i",
+    "replacement": "$1 个智能体正在运行"
+  },
+  {
+    "pattern": "^(\\d+)\\s+tasks?\\s+running$",
+    "flags": "i",
+    "replacement": "$1 个任务正在运行"
+  },
+  {
+    "pattern": "^(\\d+)\\s+items?$",
+    "flags": "i",
+    "replacement": "$1 个项目"
+  },
+  {
+    "pattern": "^(\\d+)\\s+conversations?$",
+    "flags": "i",
+    "replacement": "$1 个对话"
+  },
+  {
+    "pattern": "^(\\d+)\\s+changes?$",
+    "flags": "i",
+    "replacement": "$1 个更改"
+  },
+  {
+    "pattern": "^(\\d+)\\s+lines?\\s+changed$",
+    "flags": "i",
+    "replacement": "$1 行已更改"
+  },
+  {
+    "pattern": "^(\\d+)\\s+lines?$",
+    "flags": "i",
+    "replacement": "$1 行"
+  },
+  {
+    "pattern": "^Ran\\s+(\\d+)\\s+commands?$",
+    "flags": "i",
+    "replacement": "运行了 $1 个命令"
+  },
+  {
+    "pattern": "^Explored\\s+(\\d+)\\s+files?$",
+    "flags": "i",
+    "replacement": "探索了 $1 个文件"
+  },
+  {
+    "pattern": "^Read\\s+(\\d+)\\s+files?$",
+    "flags": "i",
+    "replacement": "读取了 $1 个文件"
+  },
+  {
+    "pattern": "^Edited\\s+(\\d+)\\s+files?$",
+    "flags": "i",
+    "replacement": "编辑了 $1 个文件"
+  },
+  {
+    "pattern": "^Created\\s+(\\d+)\\s+files?$",
+    "flags": "i",
+    "replacement": "创建了 $1 个文件"
+  },
+  {
+    "pattern": "^Deleted\\s+(\\d+)\\s+files?$",
+    "flags": "i",
+    "replacement": "删除了 $1 个文件"
+  },
+  {
+    "pattern": "^Version\\s+(.+)$",
+    "flags": "i",
+    "replacement": "版本 $1"
+  },
+  {
+    "pattern": "^v(\\d+\\.\\d+\\.\\d+.*)$",
+    "flags": "i",
+    "replacement": "v$1"
+  },
+  {
+    "pattern": "^See all \\((\\d+)\\)$",
+    "flags": "i",
+    "replacement": "查看全部 ($1)"
+  },
+  {
+    "pattern": "^(\\d+) tasks? running$",
+    "flags": "i",
+    "replacement": "$1 个任务运行中"
+  },
+  {
+    "pattern": "^Select model, current: (.+)$",
+    "flags": "i",
+    "replacement": "选择模型，当前：$1"
+  },
+  {
+    "pattern": "^Send feedback as (.+)$",
+    "flags": "i",
+    "replacement": "以 $1 身份发送反馈"
+  },
+  {
+    "pattern": "^Cancel \\((.+)\\)$",
+    "flags": "i",
+    "replacement": "取消 ($1)"
+  },
+  {
+    "pattern": "^Refreshes in (\\d+) hours?, (\\d+) minutes?$",
+    "flags": "i",
+    "replacement": "$1 小时 $2 分钟后刷新"
+  },
+  {
+    "pattern": "^Refreshes in (\\d+) minutes?$",
+    "flags": "i",
+    "replacement": "$1 分钟后刷新"
+  },
+  {
+    "pattern": "^Individual quota reached\\. .+$",
+    "flags": "i",
+    "replacement": "个人配额已用完。请联系管理员启用超额。"
+  },
+  {
+    "pattern": "^Files Changed(\\d+)$",
+    "flags": "i",
+    "replacement": "文件已更改$1"
+  },
+  {
+    "pattern": "^Background Tasks(\\d+)$",
+    "flags": "i",
+    "replacement": "后台任务$1"
+  },
+  {
+    "pattern": "^Subagents(\\d+)$",
+    "flags": "i",
+    "replacement": "子智能体$1"
+  },
+  {
+    "pattern": "^Account\\s*[-/>]\\s*Settings$",
+    "flags": "i",
+    "replacement": "\"账户设置\""
+  },
+  {
+    "pattern": "^Sign in to use\\s+(.+?)!$",
+    "flags": "i",
+    "replacement": "登录以使用 $1！"
+  },
+  {
+    "pattern": "^When toggled on,\\s+(.+?)\\s+collects usage data to help Google enhance performance and features\\.$",
+    "flags": "i",
+    "replacement": "开启后，$1 将收集使用数据，以帮助 Google 提升性能并改进功能。"
+  },
+  {
+    "pattern": "^Receive product updates,\\s*tips,\\s*and promotions from Google\\s+(.+?)\\s+via email\\.$",
+    "flags": "i",
+    "replacement": "通过电子邮件接收来自 Google $1 的产品更新、提示和促销信息。"
+  },
+  {
+    "pattern": "^When toggled on,\\s+(.+?)\\s+will use your AI credits to fulfill model requests once you're out of model quota\\. (.+?) will always use your model quota first before using AI credits\\.$",
+    "flags": "i",
+    "replacement": "开启后，当您的模型配额用尽时，$1 将使用您的 AI 积分来满足模型请求。$2 将始终在开始使用 AI 积分之前优先使用您的模型配额。"
+  },
+  {
+    "pattern": "^Available AI Credits:\\s*(.+)$",
+    "flags": "i",
+    "replacement": "可用 AI 积分: $1"
+  },
+  {
+    "pattern": "^Changes the base URL for marketplace search results\\. You must restart (.+?) to use the new marketplace after changing this value\\.$",
+    "flags": "i",
+    "replacement": "更改插件市场搜索结果的基准 URL。更改此值后，您必须重启 $1 才能使用新的插件市场。"
+  },
+  {
+    "pattern": "^Changes the base URL on each extension page\\. You must restart (.+?) to use the new marketplace after changing this value\\.$",
+    "flags": "i",
+    "replacement": "更改每个扩展页面的基准 URL。更改此值后，您必须重启 $1 才能使用新的插件市场。"
+  },
+  {
+    "pattern": "^Receive product updates,\\s*tips,\\s*and promotions from Google\\s+(.+?)\\s+via email\\.$",
+    "flags": "i",
+    "replacement": "通过电子邮件接收来自 Google $1 的产品更新、提示和促销信息。"
+  },
+  {
+    "pattern": "^When toggled on,\\s+(.+?)\\s+collects usage data to help Google enhance performance and features\\.$",
+    "flags": "i",
+    "replacement": "开启后，$1 将收集使用数据，以帮助 Google 提升性能并改进功能。"
+  },
+  {
+    "pattern": "^When toggled on,\\s+(.+?)\\s+will use your AI credits to fulfill model requests once you're out of model quota\\. (.+?) will always use your model quota first before using AI credits\\.$",
+    "flags": "i",
+    "replacement": "开启后，当您的模型配额用尽时，$1 将使用您的 AI 积分来满足模型请求。$2 将始终在开始使用 AI 积分之前优先使用您的模型配额。"
+  },
+  {
+    "pattern": "^Sign in to use (.+?)!$",
+    "flags": "i",
+    "replacement": "登录以使用 $1！"
+  },
+  {
+    "pattern": "^(\\d+(?:\\.\\d+)?)%\\s+of the customization budget is available\\.$",
+    "flags": "i",
+    "replacement": "可用自定义预算：$1%"
+  },
+  {
+    "pattern": "^Active (\\d+)\\s+workspaces?$",
+    "flags": "i",
+    "replacement": "活动工作区 ($1)"
+  },
+  {
+    "pattern": "^Other (\\d+)\\s+workspaces?$",
+    "flags": "i",
+    "replacement": "其他工作区 ($1)"
+  },
+  {
+    "pattern": "^Error:\\s+(.+)$",
+    "flags": "i",
+    "replacement": "错误：$1"
+  },
+  {
+    "pattern": "^Build with (.+?) Plugins$",
+    "flags": "i",
+    "replacement": "使用 $1 插件构建"
+  },
+  {
+    "pattern": "^Go to Request\\s+#(\\d+)$",
+    "flags": "i",
+    "replacement": "转到请求 #$1"
+  },
+  {
+    "pattern": "^Go to Step\\s+#(\\d+) and scroll to it$",
+    "flags": "i",
+    "replacement": "转到步骤 #$1 并滚动到该处"
+  },
+  {
+    "pattern": "^Navigate to step\\s+(\\d+)$",
+    "flags": "i",
+    "replacement": "导航至步骤 $1"
+  },
+  {
+    "pattern": "^\\[FileWatch:(.+?)\\]$",
+    "flags": "i",
+    "replacement": "[文件监视:$1]"
+  },
+  {
+    "pattern": "^\\[SidecarLogs-(.+?)\\]$",
+    "flags": "i",
+    "replacement": "[Sidecar 日志-$1]"
+  },
+  {
+    "pattern": "^Allow\\s+(.+)$",
+    "flags": "i",
+    "replacement": "允许 $1"
+  },
+  {
+    "pattern": "^Are you sure you want to delete the hook \"(.+?)\"\\?$",
+    "flags": "i",
+    "replacement": "确定要删除挂钩 \"$1\" 吗？"
+  },
+  {
+    "pattern": "^Please fill in all required fields:\\s*(.+)$",
+    "flags": "i",
+    "replacement": "请填写所有必填字段：$1"
+  },
+  {
+    "pattern": "^Settings\\s*[-/>]\\s*(.+)$",
+    "flags": "i",
+    "replacement": "设置 - $1"
+  },
+  {
+    "pattern": "^For\\s+(.+?),\\s+this setting is disabled\\.\\s+This means\\s+(.+?)\\s+does not collect any of your data\\.",
+    "flags": "i",
+    "replacement": "对于 $1，该设置已被禁用。这意味着 $2 不会收集您的任何数据。"
+  },
+  {
+    "pattern": "^For\\s+(.+?),\\s+this setting is disabled\\.$",
+    "flags": "i",
+    "replacement": "对于 $1，该设置已被禁用。"
+  }
+]
