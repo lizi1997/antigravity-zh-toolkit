@@ -8,15 +8,37 @@ if exist "%~dp0antigravity-zh.exe" (
     goto :end
 )
 
-set "PYTHON_EXE=python"
+set "PYTHON_EXE="
+
 where python >nul 2>nul
-if %errorlevel% neq 0 (
-    if exist "D:\miniconda3\python.exe" (
-        set "PYTHON_EXE=D:\miniconda3\python.exe"
+if %errorlevel% equ 0 (
+    set "PYTHON_EXE=python"
+    goto :run
+)
+
+where py >nul 2>nul
+if %errorlevel% equ 0 (
+    set "PYTHON_EXE=py"
+    goto :run
+)
+
+for %%v in (313 312 311 310) do (
+    if exist "%LOCALAPPDATA%\Programs\Python\Python%%v\python.exe" (
+        set "PYTHON_EXE=%LOCALAPPDATA%\Programs\Python\Python%%v\python.exe"
+        goto :run
+    )
+    if exist "%ProgramFiles%\Python%%v\python.exe" (
+        set "PYTHON_EXE=%ProgramFiles%\Python%%v\python.exe"
+        goto :run
     )
 )
 
-"%PYTHON_EXE%" "%~dp0scripts\patcher.py" status
+:run
+if defined PYTHON_EXE (
+    "%PYTHON_EXE%" "%~dp0scripts\patcher.py" status
+) else (
+    python "%~dp0scripts\patcher.py" status
+)
 
 :end
 echo.

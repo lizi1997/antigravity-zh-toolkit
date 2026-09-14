@@ -1188,6 +1188,46 @@
 };
     const rawPatterns = [
   {
+    "pattern": "^You have used some of your weekly limit, it will fully refresh in (\\d+) days?\\.$",
+    "flags": "i",
+    "replacement": "您已使用部分每周额度，将在 $1 天后完全刷新。"
+  },
+  {
+    "pattern": "^You have used some of your weekly limit, it will fully refresh in (\\d+) hours?\\.$",
+    "flags": "i",
+    "replacement": "您已使用部分每周额度，将在 $1 小时后完全刷新。"
+  },
+  {
+    "pattern": "^You have used some of your 5-hour limit, it will fully refresh in (\\d+) hours?\\.$",
+    "flags": "i",
+    "replacement": "您已使用部分5小时额度，将在 $1 小时后完全刷新。"
+  },
+  {
+    "pattern": "^You have used some of your 5-hour limit, it will fully refresh in (\\d+) seconds?\\.$",
+    "flags": "i",
+    "replacement": "您已使用部分5小时额度，将在 $1 秒后完全刷新。"
+  },
+  {
+    "pattern": "^Refreshes in (\\d+) days?, (\\d+) hours?$",
+    "flags": "i",
+    "replacement": "$1 天 $2 小时后刷新"
+  },
+  {
+    "pattern": "^Refreshes in (\\d+) days?$",
+    "flags": "i",
+    "replacement": "$1 天后刷新"
+  },
+  {
+    "pattern": "^Refreshes in (\\d+) minutes?, (\\d+) seconds?$",
+    "flags": "i",
+    "replacement": "$1 分钟 $2 秒后刷新"
+  },
+  {
+    "pattern": "^Refreshes in (\\d+) seconds?$",
+    "flags": "i",
+    "replacement": "$1 秒后刷新"
+  },
+  {
     "pattern": "^You have used some of your weekly limit, it will fully refresh in (\\d+) days?, (\\d+) hours?\\.$",
     "flags": "i",
     "replacement": "您已使用部分每周额度，将在 $1 天 $2 小时后完全刷新。"
