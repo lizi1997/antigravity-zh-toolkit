@@ -77,11 +77,22 @@ def build(compile_exe=True):
         try:
             subprocess.run(cmd, check=True)
             output_exe = os.path.join(dist_dir, "antigravity-zh.exe")
-            desktop_exe = os.path.join(os.path.expanduser("~"), "OneDrive", "Desktop", "antigravity-zh.exe")
             toolkit_exe = os.path.join(REPO_ROOT, "antigravity-zh.exe")
             if os.path.exists(output_exe):
-                shutil.copy2(output_exe, desktop_exe)
-                shutil.copy2(output_exe, toolkit_exe)
+                for candidate in [
+                    os.path.join(os.path.expanduser("~"), "OneDrive", "Desktop"),
+                    os.path.join(os.path.expanduser("~"), "Desktop"),
+                ]:
+                    if os.path.isdir(candidate):
+                        try:
+                            shutil.copy2(output_exe, os.path.join(candidate, "antigravity-zh.exe"))
+                            break
+                        except Exception:
+                            pass
+                try:
+                    shutil.copy2(output_exe, toolkit_exe)
+                except Exception:
+                    pass
             print("\n" + "=" * 60)
             print(f"  [+] Build Succeeded!")
             print(f"  [+] Executable: {output_exe}")
