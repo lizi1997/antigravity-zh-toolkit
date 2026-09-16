@@ -2,17 +2,61 @@ name: Build and Release
 
 on:
   push:
+    branches:
+      - main
     tags:
       - 'v*'
+  pull_request:
   workflow_dispatch:
 
-permissions:
-  contents: write
-
 jobs:
+  test:
+    name: Test and verify generated files
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run tests
+        run: pytest -q
+
+      - name: Check Python and JavaScript syntax
+        run: |
+          python -m py_compile scripts/*.py
+          node --check engine/engine_template.js
+          node --check engine/ag_localization_engine.js
+
+      - name: Verify generated files are current
+        run: |
+          python scripts/build.py --no-exe
+          git diff --exit-code -- scripts/patcher.py engine/ag_localization_engine.js
+
   build:
     name: Build on ${{ matrix.os }} (${{ matrix.arch }})
+    needs: test
+    if: startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch'
     runs-on: ${{ matrix.os }}
+    permissions:
+      contents: read
     strategy:
       fail-fast: false
       matrix:
@@ -86,6 +130,8 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/')
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout repository

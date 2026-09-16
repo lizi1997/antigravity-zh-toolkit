@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/lizi1997/antigravity-zh-toolkit/releases"><img src="https://img.shields.io/badge/Release-v1.0.2-blue.svg?style=flat-square" alt="Release"></a>
+  <a href="https://github.com/lizi1997/antigravity-zh-toolkit/releases"><img src="https://img.shields.io/github/v/release/lizi1997/antigravity-zh-toolkit?style=flat-square&label=Release" alt="Release"></a>
   <img src="https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20(Apple%20Silicon)-brightgreen.svg?style=flat-square" alt="Platform">
   <img src="https://img.shields.io/badge/Python-3.10%2B-blue.svg?style=flat-square" alt="Python">
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square" alt="License"></a>
@@ -14,7 +14,7 @@
 
 <p align="center">
   A modern, lossless, hot-injected Chinese localization enhancement toolkit designed specifically for <b>Google Antigravity</b>.<br/>
-  Full native support for <b>Windows</b> and <b>macOS (Apple Silicon M-Series)</b>. Resolves all legacy pain points: hardcoded dictionaries, update invalidations, Shadow DOM omissions, and unlocalized agent permission dialogs.
+  Native support for <b>Windows</b> and <b>macOS (Apple Silicon M-Series)</b>, with external dictionaries, safe backups, and coverage for common agent permission dialogs.
 </p>
 
 ---
@@ -24,11 +24,11 @@
 - 🚀 **Cross-Platform Native Support (Windows & macOS)**: Natively compatible with Windows x64 and macOS (Apple Silicon M1/M2/M3/M4). Double-click installer ready on both platforms.
 - 🖱️ **Double-Click Installers for Both OSes**:
   - Windows: Double click `antigravity-zh-windows.exe`.
-  - macOS: Double click `安装汉化.command` directly from the release zip folder. Zero terminal commands required!
-- 🛡️ **Deep Agent Permission Localization**: 100% localization of sensitive permission request dialogs (file read/write, terminal execution, unsandboxed warnings, MCP tools, 5 rule persistence scopes, and write-in deny inputs).
-- ⚡ **In-Place ASAR Binary Patching**: Pure Python ASAR engine with in-place read/write and automatic SHA-256 recalculation. Patches running clients without killing processes or file locks.
-- 🌐 **Deep Shadow DOM Penetration**: Uses modern `TreeWalker` and `MutationObserver` to recursively penetrate Web Components Shadow DOM, ensuring full translation coverage across complex modals, agent settings, and floating panels.
-- 📖 **External Dictionaries, No Rebuild Needed**: Decoupled dictionary files in `locales/zh-CN.json` (**1,255+** entries) and `locales/patterns.json` (**108+** regex rules).
+  - macOS: Use `安装汉化.command` from a complete release ZIP when available.
+- 🛡️ **Agent Permission Localization**: Covers common file access, command execution, unsandboxed warnings, MCP tools, rule scopes, and fallback-input prompts.
+- ⚡ **Atomic ASAR Patching**: Builds a complete temporary archive, recalculates SHA-256 integrity, and atomically replaces the target. If Antigravity locks the file, patching stops and asks you to close the client instead of rewriting the live archive.
+- 🌐 **Open Shadow DOM Support**: Uses `TreeWalker` and `MutationObserver` for the regular DOM and accessible open shadow roots. Closed shadow roots, cross-origin iframes, webviews, and native system components are outside its coverage.
+- 📖 **External Dictionaries, No Rebuild Needed**: Decoupled dictionary files in `locales/zh-CN.json` (**1,255+** entries) and `locales/patterns.json` (**112+** regex rules).
   - Dictionary directory: `%APPDATA%\Antigravity\locales\` (Windows) / `~/Library/Application Support/Antigravity/locales/` (macOS)
   - Edit them with any text editor and re-run the installer to apply - no binary rebuild required. Clients that allow runtime file access additionally hot-reload dictionary edits automatically (checked every 2s).
 - 🔍 **One-Click Untranslated Text Extraction**: Press **`Ctrl + Alt + L`** (macOS: **`Option + Cmd + L`**) anywhere in Antigravity to copy all unlocalized text on screen directly to your clipboard in JSON format.
@@ -69,11 +69,13 @@ install.bat
 
 ### 🍎 macOS
 
-#### Method 1: Double-Click Package (Recommended for M1/M2/M3/M4)
-1. Download **`antigravity-zh-macos-arm64.zip`** from the [Releases Page](https://github.com/lizi1997/antigravity-zh-toolkit/releases) and unzip it;
+#### Method 1: Double-Click Package (when a ZIP is available)
+1. If the [Releases Page](https://github.com/lizi1997/antigravity-zh-toolkit/releases) provides **`antigravity-zh-macos-arm64.zip`**, download and unzip it;
 2. Open the unzipped folder and double-click **`安装汉化.command`**!
    > 💡 Note: If macOS displays "cannot be opened from unidentified developer", simply right-click the file and choose **Open**.
 3. Restart Antigravity or press **`Cmd + Shift + N`** to see the changes.
+
+> `v1.0.1` only provides the standalone `antigravity-zh-macos-arm64` binary and its `.tar.gz` archive. Grant the binary execute permission and run it from Terminal. Complete double-click packages are provided by later releases.
 
 #### Method 2: Run from Source (Works for all Macs, including legacy Intel)
 ```bash
@@ -118,7 +120,7 @@ antigravity-zh-toolkit/
 ├── build.bat   / build.sh       # Local build scripts
 ├── locales/
 │   ├── zh-CN.json               # Core dictionary (1,250+ entries)
-│   └── patterns.json            # Regex templates (100+ patterns)
+│   └── patterns.json            # Regex templates (112+ patterns)
 ├── engine/
 │   ├── ag_localization_engine.js# Modern localization engine injected into Electron
 │   └── engine_template.js       # Engine compilation template

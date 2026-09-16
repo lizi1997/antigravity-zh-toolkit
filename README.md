@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/lizi1997/antigravity-zh-toolkit/releases"><img src="https://img.shields.io/badge/Release-v1.0.2-blue.svg?style=flat-square" alt="Release"></a>
+  <a href="https://github.com/lizi1997/antigravity-zh-toolkit/releases"><img src="https://img.shields.io/github/v/release/lizi1997/antigravity-zh-toolkit?style=flat-square&label=Release" alt="Release"></a>
   <img src="https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20(Apple%20Silicon)-brightgreen.svg?style=flat-square" alt="Platform">
   <img src="https://img.shields.io/badge/Python-3.10%2B-blue.svg?style=flat-square" alt="Python">
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square" alt="License"></a>
@@ -24,11 +24,11 @@
 - 🚀 **全平台原生支持（Windows & macOS）**：原生兼容 Windows x64 与 macOS（Apple Silicon M1/M2/M3/M4 系列），提供开箱即用的傻瓜式双击安装器。
 - 🖱️ **双平台一键双击安装**：
   - Windows 用户直接双击 **`antigravity-zh-windows.exe`** 即可。
-  - Mac 用户解压后直接双击 **`安装汉化.command`** 即可自动弹窗完成注入，零命令操作！
-- 🛡️ **深度汉化智能体权限询问**：不仅汉化完整界面，更针对敏感操作权限询问弹窗（读取/写入路径、执行命令、沙箱外运行警告、MCP 工具、5 类规则保存范围及替代输入）实现了 100% 深度中文覆盖。
-- ⚡ **原地 ASAR 二进制无损补丁**：采用自研原生 Python ASAR 注入引擎，支持原地读写与 SHA-256 哈希重算，**无需杀死正在运行的客户端**，无崩溃、无文件锁死。
-- 🌐 **深度穿透 Shadow DOM**：基于现代 `TreeWalker` 与 `MutationObserver`，递归穿透 Web Components Shadow DOM 盲区，全面覆盖各类深层弹窗、悬浮卡片、智能体审查策略及编辑器组件。
-- 📖 **词典解耦，改词免重编**：词库独立为标准 `locales/zh-CN.json`（**1,255+** 词条）与 `locales/patterns.json`（**108+** 正则规则）。
+  - Mac 用户可使用完整 ZIP 包中的 **`安装汉化.command`** 完成安装。
+- 🛡️ **重点汉化智能体权限询问**：覆盖读取/写入路径、执行命令、沙箱外运行警告、MCP 工具、规则保存范围及替代输入等常见权限文案。
+- ⚡ **原子 ASAR 补丁**：先在同目录生成完整临时文件并重算 SHA-256，再以原子替换写入；若客户端占用文件，程序会停止并提示先关闭 Antigravity，不会冒险原位覆盖。
+- 🌐 **开放式 Shadow DOM 支持**：基于 `TreeWalker` 与 `MutationObserver` 递归处理普通 DOM 和可访问的开放式 Shadow DOM；closed Shadow DOM、跨域 iframe、webview 及原生系统组件不在覆盖范围内。
+- 📖 **词典解耦，改词免重编**：词库独立为标准 `locales/zh-CN.json`（**1,255+** 词条）与 `locales/patterns.json`（**112+** 正则规则）。
   - Windows 词典目录：`%APPDATA%\Antigravity\locales\`
   - macOS 词典目录：`~/Library/Application Support/Antigravity/locales/`
   - 直接用任意文本编辑器修改词典，重新运行安装脚本即生效（无需重新构建二进制）；支持运行时文件读取的客户端还会每 2 秒自动热加载，保存后立即生效！
@@ -70,11 +70,13 @@ install.bat
 
 ### 🍎 macOS 系统
 
-#### 方式 1：双击一键安装包（推荐，适用于 M1 / M2 / M3 / M4 芯片）
-1. 从 [Releases 页面](https://github.com/lizi1997/antigravity-zh-toolkit/releases) 下载 **`antigravity-zh-macos-arm64.zip`** 并解压；
+#### 方式 1：双击一键安装包（适用于提供 ZIP 的版本）
+1. 如果 [Releases 页面](https://github.com/lizi1997/antigravity-zh-toolkit/releases) 提供 **`antigravity-zh-macos-arm64.zip`**，下载并解压；
 2. 打开解压后的文件夹，直接 **双击 `安装汉化.command`** 即可自动弹窗完成汉化注入！
    > 💡 **首次打开提示**：若 macOS 弹出安全提示“无法打开”，只需在文件上 **右键点击 ➔ 选择「打开」** 即可。
 3. 在 Antigravity 中按 **`Cmd + Shift + N`** 或重启客户端，立即生效！
+
+> `v1.0.1` 仅提供单独的 `antigravity-zh-macos-arm64` 与 `.tar.gz` 二进制包；请在终端为二进制授予执行权限后运行。完整双击安装包从后续版本开始提供。
 
 #### 方式 2：从源码一键运行（适用于所有 Mac，包括老款 Intel 芯片）
 > 提示：本项目代码基于 Python 原生库编写，**零第三方依赖**，macOS 自带的 Python 3 即可秒级运行：
@@ -120,7 +122,7 @@ antigravity-zh-toolkit/
 ├── build.bat  / build.sh        # 本地构建编译打包脚本
 ├── locales/
 │   ├── zh-CN.json               # 核心汉化静态词典 (1,255+ 词条)
-│   └── patterns.json            # 动态正则模板库 (108+ 规则)
+│   └── patterns.json            # 动态正则模板库 (112+ 规则)
 ├── engine/
 │   ├── ag_localization_engine.js# 注入 Electron 渲染层的现代化汉化引擎（生成文件）
 │   └── engine_template.js       # 引擎构建代码模板（源文件）

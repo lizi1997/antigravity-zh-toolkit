@@ -202,10 +202,11 @@ def test_no_tmp_file_left_behind(tmp_path):
     assert not os.path.exists(str(p) + ".zh_tmp")
 
 
-def test_inplace_fallback_when_replace_denied(tmp_path, monkeypatch):
-    """When the target is locked (Windows), the writer falls back to r+b rewrite."""
+def test_atomic_replace_failure_preserves_original(tmp_path, monkeypatch):
+    """A locked target must fail without rewriting or corrupting app.asar."""
     p = (tmp_path / "app.asar").resolve()
     build_asar(p, [("a.js", b"AAA")])
+    original = p.read_bytes()
     header, files = patcher.read_asar(str(p))
     files["a.js"] = b"BBBB"
 
@@ -213,10 +214,10 @@ def test_inplace_fallback_when_replace_denied(tmp_path, monkeypatch):
         raise PermissionError(13, "Permission denied")
 
     monkeypatch.setattr(os, "replace", denied)
-    patcher.write_asar_inplace(str(p), header, files, modified={"a.js"})
+    with pytest.raises(PermissionError, match="Close Antigravity"):
+        patcher.write_asar_inplace(str(p), header, files, modified={"a.js"})
 
-    _, files2 = patcher.read_asar(str(p))
-    assert files2["a.js"] == b"BBBB"
+    assert p.read_bytes() == original
     assert not os.path.exists(str(p) + ".zh_tmp")
 
 
@@ -279,6 +280,31 @@ def test_c1_stale_backup_refresh(install_dir, locales_dir):
     bak_preload = bak_files["dist/preload.js"].decode("utf-8")
     assert "v2 official" in bak_preload
     assert patcher.SIGNATURE_PRELOAD not in bak_preload
+
+
+def test_c1_same_size_stale_backup_refresh(install_dir, locales_dir):
+    """Equal file sizes must not make a stale backup look current."""
+    asar = asar_path_for(install_dir)
+    make_fake_app(asar, "console.log('v2');")
+    stale_bak = os.path.abspath(os.path.join(install_dir, "stale.asar"))
+    make_fake_app(stale_bak, "console.log('v1');")
+    assert os.path.getsize(asar) == os.path.getsize(stale_bak)
+    os.replace(stale_bak, asar + ".bak")
+
+    assert patcher.apply_patch(install_dir) is True
+
+    _, files = patcher.read_asar(asar)
+    assert "console.log('v2');" in files["dist/preload.js"].decode("utf-8")
+    _, backup_files = patcher.read_asar(asar + ".bak")
+    assert backup_files["dist/preload.js"] == b"console.log('v2');"
+
+
+@pytest.mark.parametrize("action", ["patch", "restore"])
+def test_cli_failure_returns_nonzero(monkeypatch, action):
+    monkeypatch.setattr(patcher.sys, "argv", ["patcher.py", action, "--dir", "missing-dir"])
+    with pytest.raises(SystemExit) as exc:
+        patcher.main()
+    assert exc.value.code == 1
 
 
 def test_c1_force_repatches_from_backup_exactly_once(install_dir, locales_dir):

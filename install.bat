@@ -4,12 +4,13 @@ setlocal enabledelayedexpansion
 title Antigravity 现代化汉化补丁安装器
 
 echo ========================================================
-echo        Antigravity 现代化汉化一键安装器 v1.0.0
+echo        Antigravity 现代化汉化一键安装器 v1.0.2
 echo ========================================================
 echo.
 
 if exist "%~dp0antigravity-zh.exe" (
     "%~dp0antigravity-zh.exe" patch
+    set "RESULT=!errorlevel!"
     goto :end
 )
 
@@ -50,7 +51,9 @@ exit /b 1
 
 :run
 "%PYTHON_EXE%" "%~dp0scripts\patcher.py" patch
+set "RESULT=%errorlevel%"
 
 :end
 echo.
 pause
+exit /b %RESULT%

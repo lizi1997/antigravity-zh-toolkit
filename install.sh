@@ -4,7 +4,7 @@ set -e
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 echo "========================================================"
-echo "       Antigravity 现代化汉化一键安装器 v1.0.0 (macOS/Linux)"
+echo "       Antigravity 现代化汉化一键安装器 v1.0.2 (macOS/Linux)"
 echo "========================================================"
 echo ""
 

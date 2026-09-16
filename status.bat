@@ -5,6 +5,7 @@ title Antigravity 汉化状态检查
 
 if exist "%~dp0antigravity-zh.exe" (
     "%~dp0antigravity-zh.exe" status
+    set "RESULT=!errorlevel!"
     goto :end
 )
 
@@ -31,15 +32,21 @@ for %%v in (313 312 311 310) do (
         set "PYTHON_EXE=%ProgramFiles%\Python%%v\python.exe"
         goto :run
     )
+    if exist "C:\Python%%v\python.exe" (
+        set "PYTHON_EXE=C:\Python%%v\python.exe"
+        goto :run
+    )
 )
 
+echo [!] 错误：未检测到 Python 环境或编译版程序。
+pause
+exit /b 1
+
 :run
-if defined PYTHON_EXE (
-    "%PYTHON_EXE%" "%~dp0scripts\patcher.py" status
-) else (
-    python "%~dp0scripts\patcher.py" status
-)
+"%PYTHON_EXE%" "%~dp0scripts\patcher.py" status
+set "RESULT=%errorlevel%"
 
 :end
 echo.
 pause
+exit /b %RESULT%

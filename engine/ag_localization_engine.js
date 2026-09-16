@@ -433,7 +433,6 @@
   "Search skills…": "搜索技能...",
   "Search tasks...": "搜索任务...",
   "Search workspaces...": "搜索工作区...",
-  "Select ${b.workspace}...": "选择 ${b.workspace}...",
   "Type to search...": "输入以搜索...",
   "e.g. \"My Custom Gemini Model\"": "例如 \"我的自定义 Gemini 模型\"",
   "e.g. \"gemini-api:/models/gemini-v3-byom\"": "例如 \"gemini-api:/models/gemini-v3-byom\"",
@@ -449,9 +448,6 @@
   "my-project-id": "my-project-id",
   "{\"command\": \"/path/to/script\", \"args\": [\"--flag\"]}": "{\"command\": \"/path/to/script\", \"args\": [\"--flag\"]}",
   "~/.gemini/antigravity-browser-profile": "~/.gemini/antigravity-browser-profile",
-  "${e.label}: ${e.tokens.toLocaleString()} tokens": "${e.label}: ${e.tokens.toLocaleString()} 个 Token",
-  "${k.length} comments": "${k.length} 条评论",
-  "IDE Name: ${D.applicationName}": "IDE 名称: ${D.applicationName}",
   "Your Plan:": "您的方案:",
   "Prevent Sleep": "防止休眠",
   "Keep In Menu Bar": "保留在菜单栏中",
@@ -460,7 +456,6 @@
   "By using this app, you agree to its": "使用此应用即表示您同意其",
   "Get More AI Credits": "获取更多 AI 积分",
   "See Activity": "查看活动",
-  "Available AI Credits: ${v??\"0\"}": "可用 AI 积分: ${v??\"0\"}",
   "Peter Pan": "Peter Pan",
   "All Workspaces": "所有工作区",
   "AS IS": "保持原样",
@@ -1059,6 +1054,14 @@
   "Queued Messages": "排队消息",
   "Configure when follow-up messages are sent.": "配置何时发送跟进消息。",
   "Keyboard shortcuts": "键盘快捷键",
+  "Enter Queues after the turn": "Enter：在当前轮次后排队",
+  "Alt+Enter Sends immediately": "Alt+Enter：立即发送",
+  "Alt+Enter On empty prompt, sends next in queue": "Alt+Enter：输入框为空时，发送队列中的下一条",
+  "Cmd+Enter Sends immediately": "Cmd+Enter：立即发送",
+  "Cmd+Enter On empty prompt, sends next in queue": "Cmd+Enter：输入框为空时，发送队列中的下一条",
+  "Queues after the turn": "在当前轮次后排队",
+  "Sends immediately": "立即发送",
+  "On empty prompt, sends next in queue": "输入框为空时，发送队列中的下一条",
   "Queue": "排队",
   "Send Immediately": "立即发送",
   "Interrupt the agent and send immediately.": "打断智能体并立即发送。",
@@ -1098,6 +1101,7 @@
   "Plan": "方案",
   "You can upgrade to a Google AI Ultra plan to receive higher rate limits.": "您可以升级至 Google AI Ultra 方案以获取更高的速率限制。",
   "Gemini Models": "Gemini 模型",
+  "Models within this group: Gemini Flash, Gemini Pro": "该组包含的模型: Gemini Flash, Gemini Pro",
   "Claude and GPT models": "Claude 与 GPT 模型",
   "Weekly Limit Remaining": "每周剩余额度",
   "Five Hour Limit Remaining": "5小时剩余额度",
@@ -1354,7 +1358,7 @@
   {
     "pattern": "^now$",
     "flags": "i",
-    "replacement": "\"刚刚\""
+    "replacement": "刚刚"
   },
   {
     "pattern": "^(\\d+)m$",
@@ -1372,14 +1376,34 @@
     "replacement": "$1天前"
   },
   {
-    "pattern": "^Worked for\\s+(\\d+(?:\\.\\d+)?)\\s*(s|m|h)$",
+    "pattern": "^Worked for\\s+(\\d+(?:\\.\\d+)?)\\s*s$",
     "flags": "i",
-    "replacement": "工作了 $1${unit === 's' ? '秒' : unit === 'm' ? '分钟' : '小时'}"
+    "replacement": "工作了 $1 秒"
   },
   {
-    "pattern": "^Thought for\\s+(\\d+(?:\\.\\d+)?)\\s*(s|m|h)$",
+    "pattern": "^Worked for\\s+(\\d+(?:\\.\\d+)?)\\s*m$",
     "flags": "i",
-    "replacement": "思考了 $1${unit === 's' ? '秒' : unit === 'm' ? '分钟' : '小时'}"
+    "replacement": "工作了 $1 分钟"
+  },
+  {
+    "pattern": "^Worked for\\s+(\\d+(?:\\.\\d+)?)\\s*h$",
+    "flags": "i",
+    "replacement": "工作了 $1 小时"
+  },
+  {
+    "pattern": "^Thought for\\s+(\\d+(?:\\.\\d+)?)\\s*s$",
+    "flags": "i",
+    "replacement": "思考了 $1 秒"
+  },
+  {
+    "pattern": "^Thought for\\s+(\\d+(?:\\.\\d+)?)\\s*m$",
+    "flags": "i",
+    "replacement": "思考了 $1 分钟"
+  },
+  {
+    "pattern": "^Thought for\\s+(\\d+(?:\\.\\d+)?)\\s*h$",
+    "flags": "i",
+    "replacement": "思考了 $1 小时"
   },
   {
     "pattern": "^Worked for\\s+(\\d+(?:\\.\\d+)?)\\s*seconds?$",
@@ -1589,7 +1613,7 @@
   {
     "pattern": "^Account\\s*[-/>]\\s*Settings$",
     "flags": "i",
-    "replacement": "\"账户设置\""
+    "replacement": "账户设置"
   },
   {
     "pattern": "^Sign in to use\\s+(.+?)!$",
@@ -1625,21 +1649,6 @@
     "pattern": "^Changes the base URL on each extension page\\. You must restart (.+?) to use the new marketplace after changing this value\\.$",
     "flags": "i",
     "replacement": "更改每个扩展页面的基准 URL。更改此值后，您必须重启 $1 才能使用新的插件市场。"
-  },
-  {
-    "pattern": "^Receive product updates,\\s*tips,\\s*and promotions from Google\\s+(.+?)\\s+via email\\.$",
-    "flags": "i",
-    "replacement": "通过电子邮件接收来自 Google $1 的产品更新、提示和促销信息。"
-  },
-  {
-    "pattern": "^When toggled on,\\s+(.+?)\\s+collects usage data to help Google enhance performance and features\\.$",
-    "flags": "i",
-    "replacement": "开启后，$1 将收集使用数据，以帮助 Google 提升性能并改进功能。"
-  },
-  {
-    "pattern": "^When toggled on,\\s+(.+?)\\s+will use your AI credits to fulfill model requests once you're out of model quota\\. (.+?) will always use your model quota first before using AI credits\\.$",
-    "flags": "i",
-    "replacement": "开启后，当您的模型配额用尽时，$1 将使用您的 AI 积分来满足模型请求。$2 将始终在开始使用 AI 积分之前优先使用您的模型配额。"
   },
   {
     "pattern": "^Sign in to use (.+?)!$",
@@ -1815,6 +1824,46 @@
     "pattern": "^Skip \\(esc\\), Skip All \\((.+)\\)$",
     "flags": "i",
     "replacement": "跳过 (Esc)，全部跳过 ($1)"
+  },
+  {
+    "pattern": "^Models within this group:\\s*(.+)$",
+    "flags": "i",
+    "replacement": "该组包含的模型: $1"
+  },
+  {
+    "pattern": "^(Alt\\+Enter|Cmd\\+Enter|Ctrl\\+Enter|Option\\+Enter)\\s+Sends immediately$",
+    "flags": "i",
+    "replacement": "$1：立即发送"
+  },
+  {
+    "pattern": "^(Alt\\+Enter|Cmd\\+Enter|Ctrl\\+Enter|Option\\+Enter)\\s+On empty prompt, sends next in queue$",
+    "flags": "i",
+    "replacement": "$1：输入框为空时，发送队列中的下一条"
+  },
+  {
+    "pattern": "^Enter\\s+Queues after the turn$",
+    "flags": "i",
+    "replacement": "Enter：在当前轮次后排队"
+  },
+  {
+    "pattern": "^Select\\s+(.+?)\\.\\.\\.$",
+    "flags": "i",
+    "replacement": "选择 $1..."
+  },
+  {
+    "pattern": "^IDE Name:\\s*(.+)$",
+    "flags": "i",
+    "replacement": "IDE 名称: $1"
+  },
+  {
+    "pattern": "^(\\d+)\\s+comments?$",
+    "flags": "i",
+    "replacement": "$1 条评论"
+  },
+  {
+    "pattern": "^(.+?):\\s*([\\d,]+)\\s+tokens?$",
+    "flags": "i",
+    "replacement": "$1: $2 个 Token"
   }
 ]/*AG_ZH_PATTERNS_END*/;
 
@@ -1953,6 +2002,7 @@
 
     function recordUntranslated(str) {
         if (!str || str.length < 2 || str.length > 300) return;
+        if (untranslatedSet.size >= 1000) return;
         if (/^[0-9\s:._\-/\+$,#&'"\[\]{}()\\<>=!*?|`@%]+$/.test(str)) return;
         if (/[一-鿿]/.test(str)) return;
         if (!untranslatedSet.has(str)) {
@@ -2020,7 +2070,8 @@
         if (el.isContentEditable) return true;
         const cls = el.classList;
         if (cls && (cls.contains('monaco-editor') || cls.contains('CodeMirror')
-                 || cls.contains('cm-editor') || cls.contains('view-lines'))) return true;
+                 || cls.contains('cm-editor') || cls.contains('view-lines')
+                 || cls.contains('xterm') || cls.contains('terminal'))) return true;
         return false;
     }
 
@@ -2051,7 +2102,6 @@
 
         if (root.nodeType === 1) {
             if (isSkipElement(root)) return;
-            try { injectLanguageSwitcher(); } catch (e) {}
         } else if (root.nodeType === 3 && insideSkipZone(root.parentElement)) {
             return;
         }
@@ -2131,25 +2181,28 @@
         if (!target) return;
         const obs = new MutationObserver((mutations) => {
             obs.disconnect();
-            for (const mutation of mutations) {
-                if (mutation.type === 'childList') {
-                    mutation.addedNodes.forEach(n => {
-                        if (n.nodeType === 1 && isSkipElement(n)) return;
-                        if (n.nodeType === 3 && insideSkipZone(n.parentElement)) return;
-                        translateDOM(n);
-                    });
-                } else if (mutation.type === 'characterData') {
-                    const node = mutation.target;
-                    if (!insideSkipZone(node.parentElement)) {
-                        const val = node.nodeValue;
-                        const translated = translateText(val);
-                        if (translated !== null && val !== translated) {
-                            node.nodeValue = translated;
+            try {
+                for (const mutation of mutations) {
+                    if (mutation.type === 'childList') {
+                        mutation.addedNodes.forEach(n => {
+                            if (n.nodeType === 1 && isSkipElement(n)) return;
+                            if (n.nodeType === 3 && insideSkipZone(n.parentElement)) return;
+                            translateDOM(n);
+                        });
+                    } else if (mutation.type === 'characterData') {
+                        const node = mutation.target;
+                        if (!insideSkipZone(node.parentElement)) {
+                            const val = node.nodeValue;
+                            const translated = translateText(val);
+                            if (translated !== null && val !== translated) {
+                                node.nodeValue = translated;
+                            }
                         }
                     }
                 }
+            } finally {
+                obs.observe(target, { childList: true, subtree: true, characterData: true });
             }
-            obs.observe(target, { childList: true, subtree: true, characterData: true });
         });
         obs.observe(target, { childList: true, subtree: true, characterData: true });
     }

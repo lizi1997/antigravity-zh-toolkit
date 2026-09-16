@@ -1,9 +1,7 @@
 """Behavioural tests for locales/patterns.json replacement rules.
 
-Mirrors the engine's pattern pass: first matching rule wins, replacement is a
-plain string (so `$1` expands to the capture group and `${...}` stays literal).
-The two known-garbage rules are marked xfail on purpose - see FIX_PLAN.md
-("范围外声明") for the decision to keep them unfixed for now.
+Mirrors the engine's pattern pass: first matching rule wins and replacements
+use JavaScript-style `$1` capture groups.
 """
 
 import json
@@ -63,31 +61,22 @@ def test_zh_dictionary_loads():
          "您已使用部分每周额度，将在 3 天后完全刷新。"),
         ("Worked for 5 seconds", "工作了 5 秒"),
         ("Thought for 3 hours", "思考了 3 小时"),
+        ("Worked for 5s", "工作了 5 秒"),
+        ("Worked for 2.5m", "工作了 2.5 分钟"),
+        ("Worked for 1h", "工作了 1 小时"),
+        ("Thought for 5s", "思考了 5 秒"),
+        ("Thought for 2m", "思考了 2 分钟"),
+        ("Thought for 1.5h", "思考了 1.5 小时"),
+        ("now", "刚刚"),
+        ("Account / Settings", "账户设置"),
         ("7 files changed", "7 个文件已更改"),
         ("Error: something bad happened", "错误：something bad happened"),
         ("Go to Request #12", "转到请求 #12"),
         ("Select model, current: Gemini", "选择模型，当前：Gemini"),
+        ("Models within this group: Gemini Flash, Gemini Pro", "该组包含的模型: Gemini Flash, Gemini Pro"),
+        ("Alt+Enter Sends immediately", "Alt+Enter：立即发送"),
+        ("Enter Queues after the turn", "Enter：在当前轮次后排队"),
     ],
 )
 def test_pattern_expected_translations(source, expected):
     assert translate_pattern_pass(source) == expected
-
-
-@pytest.mark.xfail(
-    reason="已知垃圾输出：replacement 含未求值的 ${unit ...} 模板（修复决策见 FIX_PLAN.md 范围外声明）",
-    strict=False,
-)
-@pytest.mark.parametrize("source", ["Worked for 5s", "Thought for 2m"])
-def test_pattern_compact_unit_rules_are_broken(source):
-    assert translate_pattern_pass(source) == f"工作了 5 秒"
-
-
-@pytest.mark.xfail(
-    reason='已知垃圾输出：replacement 带字面双引号，如 now -> "刚刚"（修复决策见 FIX_PLAN.md 范围外声明）',
-    strict=False,
-)
-@pytest.mark.parametrize("source", ["now", "Account / Settings"])
-def test_pattern_quoted_replacements_are_broken(source):
-    assert translate_pattern_pass(source) is not None
-    out = translate_pattern_pass(source)
-    assert not out.startswith('"') and not out.endswith('"')
