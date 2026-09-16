@@ -458,9 +458,11 @@
         }
     }
 
-    // Global shortcut Ctrl+Alt+L to export untranslated text
+    // Global shortcut Ctrl+Alt+L (macOS: Option+Cmd+L) to export untranslated text
     window.addEventListener('keydown', (e) => {
-        if (e.ctrlKey && e.altKey && (e.key === 'l' || e.key === 'L')) {
+        const isL = (e.key === 'l' || e.key === 'L' || e.code === 'KeyL');
+        const isModifier = e.altKey && (e.ctrlKey || e.metaKey);
+        if (isModifier && isL) {
             persistUntranslated();
             const list = Array.from(untranslatedSet);
             const jsonStr = JSON.stringify(list, null, 2);
