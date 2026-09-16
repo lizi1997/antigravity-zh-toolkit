@@ -10,6 +10,7 @@ echo.
 
 if exist "%~dp0antigravity-zh.exe" (
     "%~dp0antigravity-zh.exe" restore
+    set "RESULT=!errorlevel!"
     goto :end
 )
 
@@ -48,7 +49,9 @@ exit /b 1
 
 :run
 "%PYTHON_EXE%" "%~dp0scripts\patcher.py" restore
+set "RESULT=%errorlevel%"
 
 :end
 echo.
 pause
+exit /b %RESULT%

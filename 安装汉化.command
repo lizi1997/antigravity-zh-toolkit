@@ -1,8 +1,13 @@
 #!/usr/bin/env bash
+set -e
+
 cd "$(dirname "$0")"
 
-# Remove quarantine attribute and grant permissions
-xattr -cr . 2>/dev/null || true
+# Remove attributes only from executable entry points, not the whole folder.
+for file in ./antigravity-zh-macos-arm64 ./antigravity-zh ./*.command ./*.sh; do
+    [ -e "$file" ] || continue
+    xattr -c "$file" 2>/dev/null || true
+done
 chmod +x ./antigravity-zh* 2>/dev/null || true
 chmod +x ./*.sh 2>/dev/null || true
 

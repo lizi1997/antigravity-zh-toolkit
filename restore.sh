@@ -8,7 +8,11 @@ echo "        Antigravity 官方原版一键还原器 (macOS/Linux)"
 echo "========================================================"
 echo ""
 
-if [ -f "$DIR/antigravity-zh" ]; then
+if [ -f "$DIR/antigravity-zh-macos-arm64" ]; then
+    chmod +x "$DIR/antigravity-zh-macos-arm64"
+    "$DIR/antigravity-zh-macos-arm64" restore
+    exit 0
+elif [ -f "$DIR/antigravity-zh" ]; then
     chmod +x "$DIR/antigravity-zh"
     "$DIR/antigravity-zh" restore
     exit 0

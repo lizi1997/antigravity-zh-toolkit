@@ -77,7 +77,7 @@
   {
     "pattern": "^now$",
     "flags": "i",
-    "replacement": "\"刚刚\""
+    "replacement": "刚刚"
   },
   {
     "pattern": "^(\\d+)m$",
@@ -95,14 +95,34 @@
     "replacement": "$1天前"
   },
   {
-    "pattern": "^Worked for\\s+(\\d+(?:\\.\\d+)?)\\s*(s|m|h)$",
+    "pattern": "^Worked for\\s+(\\d+(?:\\.\\d+)?)\\s*s$",
     "flags": "i",
-    "replacement": "工作了 $1${unit === 's' ? '秒' : unit === 'm' ? '分钟' : '小时'}"
+    "replacement": "工作了 $1 秒"
   },
   {
-    "pattern": "^Thought for\\s+(\\d+(?:\\.\\d+)?)\\s*(s|m|h)$",
+    "pattern": "^Worked for\\s+(\\d+(?:\\.\\d+)?)\\s*m$",
     "flags": "i",
-    "replacement": "思考了 $1${unit === 's' ? '秒' : unit === 'm' ? '分钟' : '小时'}"
+    "replacement": "工作了 $1 分钟"
+  },
+  {
+    "pattern": "^Worked for\\s+(\\d+(?:\\.\\d+)?)\\s*h$",
+    "flags": "i",
+    "replacement": "工作了 $1 小时"
+  },
+  {
+    "pattern": "^Thought for\\s+(\\d+(?:\\.\\d+)?)\\s*s$",
+    "flags": "i",
+    "replacement": "思考了 $1 秒"
+  },
+  {
+    "pattern": "^Thought for\\s+(\\d+(?:\\.\\d+)?)\\s*m$",
+    "flags": "i",
+    "replacement": "思考了 $1 分钟"
+  },
+  {
+    "pattern": "^Thought for\\s+(\\d+(?:\\.\\d+)?)\\s*h$",
+    "flags": "i",
+    "replacement": "思考了 $1 小时"
   },
   {
     "pattern": "^Worked for\\s+(\\d+(?:\\.\\d+)?)\\s*seconds?$",
@@ -312,7 +332,7 @@
   {
     "pattern": "^Account\\s*[-/>]\\s*Settings$",
     "flags": "i",
-    "replacement": "\"账户设置\""
+    "replacement": "账户设置"
   },
   {
     "pattern": "^Sign in to use\\s+(.+?)!$",
@@ -348,21 +368,6 @@
     "pattern": "^Changes the base URL on each extension page\\. You must restart (.+?) to use the new marketplace after changing this value\\.$",
     "flags": "i",
     "replacement": "更改每个扩展页面的基准 URL。更改此值后，您必须重启 $1 才能使用新的插件市场。"
-  },
-  {
-    "pattern": "^Receive product updates,\\s*tips,\\s*and promotions from Google\\s+(.+?)\\s+via email\\.$",
-    "flags": "i",
-    "replacement": "通过电子邮件接收来自 Google $1 的产品更新、提示和促销信息。"
-  },
-  {
-    "pattern": "^When toggled on,\\s+(.+?)\\s+collects usage data to help Google enhance performance and features\\.$",
-    "flags": "i",
-    "replacement": "开启后，$1 将收集使用数据，以帮助 Google 提升性能并改进功能。"
-  },
-  {
-    "pattern": "^When toggled on,\\s+(.+?)\\s+will use your AI credits to fulfill model requests once you're out of model quota\\. (.+?) will always use your model quota first before using AI credits\\.$",
-    "flags": "i",
-    "replacement": "开启后，当您的模型配额用尽时，$1 将使用您的 AI 积分来满足模型请求。$2 将始终在开始使用 AI 积分之前优先使用您的模型配额。"
   },
   {
     "pattern": "^Sign in to use (.+?)!$",
@@ -538,5 +543,45 @@
     "pattern": "^Skip \\(esc\\), Skip All \\((.+)\\)$",
     "flags": "i",
     "replacement": "跳过 (Esc)，全部跳过 ($1)"
+  },
+  {
+    "pattern": "^Models within this group:\\s*(.+)$",
+    "flags": "i",
+    "replacement": "该组包含的模型: $1"
+  },
+  {
+    "pattern": "^(Alt\\+Enter|Cmd\\+Enter|Ctrl\\+Enter|Option\\+Enter)\\s+Sends immediately$",
+    "flags": "i",
+    "replacement": "$1：立即发送"
+  },
+  {
+    "pattern": "^(Alt\\+Enter|Cmd\\+Enter|Ctrl\\+Enter|Option\\+Enter)\\s+On empty prompt, sends next in queue$",
+    "flags": "i",
+    "replacement": "$1：输入框为空时，发送队列中的下一条"
+  },
+  {
+    "pattern": "^Enter\\s+Queues after the turn$",
+    "flags": "i",
+    "replacement": "Enter：在当前轮次后排队"
+  },
+  {
+    "pattern": "^Select\\s+(.+?)\\.\\.\\.$",
+    "flags": "i",
+    "replacement": "选择 $1..."
+  },
+  {
+    "pattern": "^IDE Name:\\s*(.+)$",
+    "flags": "i",
+    "replacement": "IDE 名称: $1"
+  },
+  {
+    "pattern": "^(\\d+)\\s+comments?$",
+    "flags": "i",
+    "replacement": "$1 条评论"
+  },
+  {
+    "pattern": "^(.+?):\\s*([\\d,]+)\\s+tokens?$",
+    "flags": "i",
+    "replacement": "$1: $2 个 Token"
   }
 ]

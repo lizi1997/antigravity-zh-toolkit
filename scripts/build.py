@@ -46,7 +46,7 @@ import argparse
 import subprocess
 from pathlib import Path
 
-SIGNATURE_PRELOAD = "// Antigravity Client Modern Chinese Localization Engine v1.0.0"
+SIGNATURE_PRELOAD = "// Antigravity Client Modern Chinese Localization Engine"
 ASAR_BLOCK_SIZE = 4194304
 DICT_ZH_SENTINELS = ("/*AG_ZH_ZH_START*/", "/*AG_ZH_ZH_END*/")
 DICT_PATTERNS_SENTINELS = ("/*AG_ZH_PATTERNS_START*/", "/*AG_ZH_PATTERNS_END*/")
@@ -174,8 +174,10 @@ def is_antigravity_running():
     if sys.platform == "win32":
         return _find_antigravity_process_path_windows() is not None
     try:
-        res = subprocess.check_output(["pgrep", "-i", "-f", "antigravity"]).decode("utf-8", errors="ignore")
-        return len(res.strip()) > 0
+        my_pid = str(os.getpid())
+        out = subprocess.check_output(["pgrep", "-i", "-f", "antigravity"]).decode("utf-8", errors="ignore")
+        pids = [p.strip() for p in out.split() if p.strip() and p.strip() != my_pid]
+        return len(pids) > 0
     except Exception:
         return False
 
@@ -197,6 +199,13 @@ def read_asar(asar_path):
                 files_data[curr] = data[start:start + entry["size"]]
     extract_files(header)
     return header, files_data
+
+def file_sha256(path):
+    h = hashlib.sha256()
+    with open(path, "rb") as f:
+        for chunk in iter(lambda: f.read(ASAR_BLOCK_SIZE), b""):
+            h.update(chunk)
+    return h.hexdigest()
 
 def compute_integrity(data):
     blocks = [hashlib.sha256(data[i:i + ASAR_BLOCK_SIZE]).hexdigest()
@@ -273,26 +282,18 @@ def write_asar_inplace(path, header, files_data, modified=None):
             os.fsync(fd)
         finally:
             os.close(fd)
-        os.replace(tmp_path, path)
-        return
-    except PermissionError:
-        # Target held open by the running client (Windows): fall back to the
-        # historical in-place rewrite instead of failing the patch.
-        print("[*] Atomic replace unavailable (file in use); falling back to in-place write...")
+        try:
+            os.replace(tmp_path, path)
+        except PermissionError as exc:
+            raise PermissionError(
+                "Cannot replace app.asar atomically. Close Antigravity and try again."
+            ) from exc
     finally:
         if os.path.exists(tmp_path):
             try:
                 os.remove(tmp_path)
             except OSError:
                 pass
-
-    fd = os.open(path, os.O_RDWR | _O_BINARY)
-    try:
-        _write_all(fd, payload)
-        os.ftruncate(fd, len(payload))
-        os.fsync(fd)
-    finally:
-        os.close(fd)
 
 def patch_menu_js(content_str):
     replacements = [
@@ -438,7 +439,7 @@ def apply_patch(install_dir=None, force=False):
         # definition authoritative: replace a stale (older-version) backup with
         # it. Same size is treated as "same build" to avoid needless copies of
         # multi-hundred-MB archives.
-        if os.path.getsize(asar_path) == os.path.getsize(bak_path):
+        if file_sha256(asar_path) == file_sha256(bak_path):
             print(f"[*] Official backup already exists at {bak_path}")
         else:
             print("[*] Detected app update: refreshing official backup (existing one was stale)")
@@ -525,11 +526,14 @@ def show_status(install_dir=None):
             preload_str = files.get("dist/preload.js", b"").decode("utf-8", errors="ignore")
             is_patched = SIGNATURE_PRELOAD in preload_str
             print(f"Patched:         {is_patched}")
+            return True
         except Exception as e:
             print(f"Error reading app.asar: {e}")
+            return False
+    return False
 
 def main():
-    parser = argparse.ArgumentParser(description="Antigravity Modern Chinese Localization Patcher v1.0.1")
+    parser = argparse.ArgumentParser(description="Antigravity Modern Chinese Localization Patcher v1.0.2")
     parser.add_argument("action", nargs="?", default="patch", choices=["patch", "restore", "status"], help="Action to perform (default: patch)")
     parser.add_argument("--dir", help="Custom Antigravity installation directory")
     parser.add_argument("--force", action="store_true", help="Force re-patching even if already patched")
@@ -537,11 +541,11 @@ def main():
     args = parser.parse_args()
 
     if args.action == "patch":
-        apply_patch(args.dir, force=args.force)
+        ok = apply_patch(args.dir, force=args.force)
     elif args.action == "restore":
-        restore_backup(args.dir)
+        ok = restore_backup(args.dir)
     elif args.action == "status":
-        show_status(args.dir)
+        ok = show_status(args.dir)
 
     # If running in interactive terminal on Windows without arguments, pause before exit
     if sys.platform == "win32" and len(sys.argv) <= 1:
@@ -550,13 +554,15 @@ def main():
         except Exception:
             pass
 
+    raise SystemExit(0 if ok else 1)
+
 if __name__ == "__main__":
     main()
 '''
 
 def build(compile_exe=True):
     print("=" * 60)
-    print("  Antigravity-ZH Toolkit Builder (v1.0.1)")
+    print("  Antigravity-ZH Toolkit Builder (v1.0.2)")
     print("=" * 60)
 
     template_path = os.path.join(ENGINE_DIR, "engine_template.js")
@@ -643,7 +649,7 @@ def build(compile_exe=True):
         return True
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Antigravity-ZH Builder v1.0.1")
+    parser = argparse.ArgumentParser(description="Antigravity-ZH Builder v1.0.2")
     parser.add_argument("--no-exe", action="store_true", help="Skip PyInstaller compilation")
     args = parser.parse_args()
     build(compile_exe=not args.no_exe)

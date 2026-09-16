@@ -154,6 +154,7 @@
 
     function recordUntranslated(str) {
         if (!str || str.length < 2 || str.length > 300) return;
+        if (untranslatedSet.size >= 1000) return;
         if (/^[0-9\s:._\-/\+$,#&'"\[\]{}()\\<>=!*?|`@%]+$/.test(str)) return;
         if (/[一-鿿]/.test(str)) return;
         if (!untranslatedSet.has(str)) {
@@ -221,7 +222,8 @@
         if (el.isContentEditable) return true;
         const cls = el.classList;
         if (cls && (cls.contains('monaco-editor') || cls.contains('CodeMirror')
-                 || cls.contains('cm-editor') || cls.contains('view-lines'))) return true;
+                 || cls.contains('cm-editor') || cls.contains('view-lines')
+                 || cls.contains('xterm') || cls.contains('terminal'))) return true;
         return false;
     }
 
@@ -252,7 +254,6 @@
 
         if (root.nodeType === 1) {
             if (isSkipElement(root)) return;
-            try { injectLanguageSwitcher(); } catch (e) {}
         } else if (root.nodeType === 3 && insideSkipZone(root.parentElement)) {
             return;
         }
@@ -332,25 +333,28 @@
         if (!target) return;
         const obs = new MutationObserver((mutations) => {
             obs.disconnect();
-            for (const mutation of mutations) {
-                if (mutation.type === 'childList') {
-                    mutation.addedNodes.forEach(n => {
-                        if (n.nodeType === 1 && isSkipElement(n)) return;
-                        if (n.nodeType === 3 && insideSkipZone(n.parentElement)) return;
-                        translateDOM(n);
-                    });
-                } else if (mutation.type === 'characterData') {
-                    const node = mutation.target;
-                    if (!insideSkipZone(node.parentElement)) {
-                        const val = node.nodeValue;
-                        const translated = translateText(val);
-                        if (translated !== null && val !== translated) {
-                            node.nodeValue = translated;
+            try {
+                for (const mutation of mutations) {
+                    if (mutation.type === 'childList') {
+                        mutation.addedNodes.forEach(n => {
+                            if (n.nodeType === 1 && isSkipElement(n)) return;
+                            if (n.nodeType === 3 && insideSkipZone(n.parentElement)) return;
+                            translateDOM(n);
+                        });
+                    } else if (mutation.type === 'characterData') {
+                        const node = mutation.target;
+                        if (!insideSkipZone(node.parentElement)) {
+                            const val = node.nodeValue;
+                            const translated = translateText(val);
+                            if (translated !== null && val !== translated) {
+                                node.nodeValue = translated;
+                            }
                         }
                     }
                 }
+            } finally {
+                obs.observe(target, { childList: true, subtree: true, characterData: true });
             }
-            obs.observe(target, { childList: true, subtree: true, characterData: true });
         });
         obs.observe(target, { childList: true, subtree: true, characterData: true });
     }

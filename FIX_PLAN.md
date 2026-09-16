@@ -22,9 +22,12 @@
 | S3 | 引擎小修 | en 短路 + clipboard 回退浮层 + alert/confirm 有效性验证 |
 | S4 | extract_untranslated.py Windows-only | 跨平台对齐 |
 
-**明确不在本次范围**（讨论中未选中，勿顺手改）：
-- patterns.json 两条 `${unit}` 模板垃圾规则的删除（正确规则已存在于其后）
-- `"刚刚"` / `"账户设置"` 字面引号修正
+**后续决策更新（v1.0.2）**：
+- 已将两条 `${unit}` 模板规则拆分为可直接执行字符串替换的秒/分钟/小时规则。
+- 已修正 `"刚刚"` / `"账户设置"` 的字面引号。
+- 原子替换失败时不再回退到危险的原位写入。
+
+**仍不在本次范围**：
 - patterns.json 重复规则去重、zh-CN.json 恒等映射与 `${...}` 残渣词条清理
 - status.bat 补 `C:\Python3xx` 回退探测
 
@@ -86,7 +89,7 @@
    - `modified` 集合内：size/hash/blocks 全部重算，`blocks` 按 4MB（4194304）切块逐块 SHA-256，`hash` 为整文件 SHA-256（≤4MB 文件退化为单块，与现状一致）。
    - 集合外：`size`、`integrity` 原样保留（内容未变 → 哈希依然有效），只更新 `offset`。
 4. 原子写：先写同目录临时文件（`app.asar.zh_tmp`）再 `os.replace`。
-   - **Windows 冲突注记**：客户端运行中可能持有 app.asar 句柄，`os.replace` 会 `PermissionError`。处理：捕获后回退到现行"原位 r+b 写入"路径，并打印一句降级说明。顺序：先试原子替换，失败再原位写。
+   - **Windows 冲突注记**：客户端运行中可能持有 app.asar 句柄，`os.replace` 会 `PermissionError`。v1.0.2 起直接提示关闭客户端并返回失败，绝不原位覆盖正在使用的归档。
 5. `restore_backup` 同样走新的写入器（modified=∅ 时全条目仅移位，语义不变——restore 是全量同版本写回，直接传全部文件即可，见实现时取舍）。
 
 **验收**：
@@ -122,8 +125,7 @@
   - round-trip：构造多目录、多尺寸（含 >4MB 与 0 字节）、含 `unpacked: true` 条目的假 asar → read → 修改 → write → read，断言 offset/size/integrity/内容。
   - C1 场景两个用例（见 §1 验收）。
   - C5 场景：未修改文件 integrity 逐字节保留。
-- `tests/test_patterns.py`：加载 `locales/patterns.json`，对代表性输入断言输出。
-  - **注意**：两条 `${unit}` 规则用户已决定暂不修 → 对应用例标 `@pytest.mark.xfail(reason="已知垃圾输出，见 FIX_PLAN 范围外声明")`，测试套件保持绿色同时固化该债务。
+- `tests/test_patterns.py`：加载 `locales/patterns.json`，对代表性输入断言输出；v1.0.2 已将紧凑时间单位和字面引号场景改为正常回归测试。
 - 运行方式：`python -m pytest tests/ -v`；不新增第三方依赖（纯 stdlib + pytest，pytest 进 `requirements.txt`）。
 
 ### 4.7 S2 build.py 去个人副作用
@@ -163,7 +165,7 @@
 
 ## 7. 总体验收
 
-- [ ] `python -m pytest tests/ -v` 全绿（含 2 条 xfail）。
+- [ ] `python -m pytest tests/ -v` 全绿（无 xfail）。
 - [ ] 真机（Windows 优先）：install → 新窗口见汉化；改外部词典 → 生效；restore → 官方还原。
 - [ ] `git ls-files -s` 中 6 个脚本均为 `100755`。
 - [ ] 两份 README 与 CI 产物名、词条数、热加载行为零出入。
