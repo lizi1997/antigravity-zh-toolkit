@@ -28,7 +28,7 @@
 - 🛡️ **重点汉化智能体权限询问**：覆盖读取/写入路径、执行命令、沙箱外运行警告、MCP 工具、规则保存范围及替代输入等常见权限文案。
 - ⚡ **原子 ASAR 补丁**：先在同目录生成完整临时文件并重算 SHA-256，再以原子替换写入；若客户端占用文件，程序会停止并提示先关闭 Antigravity，不会冒险原位覆盖。
 - 🌐 **开放式 Shadow DOM 支持**：基于 `TreeWalker` 与 `MutationObserver` 递归处理普通 DOM 和可访问的开放式 Shadow DOM；closed Shadow DOM、跨域 iframe、webview 及原生系统组件不在覆盖范围内。
-- 📖 **词典解耦，改词免重编**：词库独立为标准 `locales/zh-CN.json`（**1,255+** 词条）与 `locales/patterns.json`（**112+** 正则规则）。
+- 📖 **词典解耦，改词免重编**：词库独立为标准 `locales/zh-CN.json`（**1,282** 词条）与 `locales/patterns.json`（**121** 正则规则）。
   - Windows 词典目录：`%APPDATA%\Antigravity\locales\`
   - macOS 词典目录：`~/Library/Application Support/Antigravity/locales/`
   - 直接用任意文本编辑器修改词典，重新运行安装脚本即生效（无需重新构建二进制）；支持运行时文件读取的客户端还会每 2 秒自动热加载，保存后立即生效！
@@ -70,13 +70,13 @@ install.bat
 
 ### 🍎 macOS 系统
 
-#### 方式 1：双击一键安装包（适用于提供 ZIP 的版本）
-1. 如果 [Releases 页面](https://github.com/lizi1997/antigravity-zh-toolkit/releases) 提供 **`antigravity-zh-macos-arm64.zip`**，下载并解压；
+#### 方式 1：双击一键安装包（推荐，适用于 M1 / M2 / M3 / M4 芯片）
+1. 从 [Releases 页面](https://github.com/lizi1997/antigravity-zh-toolkit/releases) 下载 **`antigravity-zh-macos-arm64.zip`** 并解压；
 2. 打开解压后的文件夹，直接 **双击 `安装汉化.command`** 即可自动弹窗完成汉化注入！
    > 💡 **首次打开提示**：若 macOS 弹出安全提示“无法打开”，只需在文件上 **右键点击 ➔ 选择「打开」** 即可。
 3. 在 Antigravity 中按 **`Cmd + Shift + N`** 或重启客户端，立即生效！
 
-> `v1.0.1` 仅提供单独的 `antigravity-zh-macos-arm64` 与 `.tar.gz` 二进制包；请在终端为二进制授予执行权限后运行。完整双击安装包从后续版本开始提供。
+> 💡 **安装包说明**：从 `v1.0.2` 版本开始，Releases 页面已正式提供完整双击安装 ZIP 包（`antigravity-zh-macos-arm64.zip`），解压后直接双击 `安装汉化.command` 即可完成安装；如需在终端运行也可直接使用独立二进制文件。
 
 #### 方式 2：从源码一键运行（适用于所有 Mac，包括老款 Intel 芯片）
 > 提示：本项目代码基于 Python 原生库编写，**零第三方依赖**，macOS 自带的 Python 3 即可秒级运行：
@@ -121,8 +121,8 @@ antigravity-zh-toolkit/
 ├── status.bat / status.sh       # 状态检查脚本
 ├── build.bat  / build.sh        # 本地构建编译打包脚本
 ├── locales/
-│   ├── zh-CN.json               # 核心汉化静态词典 (1,255+ 词条)
-│   └── patterns.json            # 动态正则模板库 (112+ 规则)
+│   ├── zh-CN.json               # 核心汉化静态词典 (1,282 词条)
+│   └── patterns.json            # 动态正则模板库 (121 规则)
 ├── engine/
 │   ├── ag_localization_engine.js# 注入 Electron 渲染层的现代化汉化引擎（生成文件）
 │   └── engine_template.js       # 引擎构建代码模板（源文件）
@@ -151,6 +151,22 @@ python scripts/build.py
 #    - Windows: dist/antigravity-zh.exe
 #    - macOS:   dist/antigravity-zh
 ```
+
+---
+
+## 🔐 下载校验与隐私说明
+
+**校验下载完整性**：从 v1.0.3 起，每个 Release 都附带 `SHA256SUMS.txt` 校验和文件。下载后建议先校验再运行：
+
+```bash
+# macOS / Linux
+sha256sum -c SHA256SUMS.txt
+
+# Windows (PowerShell)
+Get-Content SHA256SUMS.txt | ForEach-Object { $h, $f = $_ -split '  ', 2; if ((Get-FileHash $f -Algorithm SHA256).Hash.ToLower() -ne $h) { "MISMATCH: $f" } else { "OK: $f" } }
+```
+
+**数据与隐私**：本工具完全本地运行，不做任何网络请求、不上传任何数据。引擎记录的"未翻译词条"仅保存在客户端本地的 localStorage 中（上限一千条），只有你主动按下导出快捷键（Ctrl+Alt+L / Option+Cmd+L）时才会复制到剪贴板。
 
 ---
 

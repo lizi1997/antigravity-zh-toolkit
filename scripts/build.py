@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Antigravity Localization Toolkit - Build & Packaging Script (v1.0.1)
+Antigravity Localization Toolkit - Build & Packaging Script (v1.0.3)
 Cross-platform build utility for Windows, macOS, and Linux.
 
 Regenerates two GENERATED artifacts - keep them in sync by always editing the
@@ -27,7 +27,7 @@ SCRIPTS_DIR = os.path.join(REPO_ROOT, "scripts")
 PATCHER_TEMPLATE = r'''#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Antigravity Localization Patcher & Manager v1.0.1
+Antigravity Localization Patcher & Manager v1.0.3
 Cross-Platform In-Place ASAR injection and management utility (Windows / macOS / Linux).
 
 GENERATED FILE - DO NOT EDIT.
@@ -44,6 +44,7 @@ import shutil
 import hashlib
 import argparse
 import subprocess
+import tempfile
 from pathlib import Path
 
 SIGNATURE_PRELOAD = "// Antigravity Client Modern Chinese Localization Engine"
@@ -175,7 +176,10 @@ def is_antigravity_running():
         return _find_antigravity_process_path_windows() is not None
     try:
         my_pid = str(os.getpid())
-        out = subprocess.check_output(["pgrep", "-i", "-f", "antigravity"]).decode("utf-8", errors="ignore")
+        # Exact process-name match only: "-f" would substring-match full command
+        # lines (installer shells and tool paths contain "antigravity"), making
+        # the check report the IDE as running when it is not.
+        out = subprocess.check_output(["pgrep", "-i", "-x", "Antigravity"]).decode("utf-8", errors="ignore")
         pids = [p.strip() for p in out.split() if p.strip() and p.strip() != my_pid]
         return len(pids) > 0
     except Exception:
@@ -207,6 +211,27 @@ def file_sha256(path):
             h.update(chunk)
     return h.hexdigest()
 
+def write_backup_sidecar(asar_path, bak_path):
+    """Record the official backup's SHA-256 next to it, so later re-patches
+    and restores can detect a tampered or replaced backup."""
+    sidecar = bak_path + ".sha256"
+    try:
+        Path(sidecar).write_text(file_sha256(asar_path) + "\n", encoding="utf-8")
+        print(f"[+] Recorded backup checksum: {sidecar}")
+    except Exception as e:
+        print(f"[!] Could not write backup checksum {sidecar}: {e}")
+
+def backup_matches_sidecar(bak_path):
+    """True when the backup has no sidecar (legacy) or its hash matches."""
+    sidecar = bak_path + ".sha256"
+    if not os.path.exists(sidecar):
+        return True
+    try:
+        expected = Path(sidecar).read_text(encoding="utf-8").strip()
+    except Exception:
+        return True
+    return file_sha256(bak_path) == expected
+
 def compute_integrity(data):
     blocks = [hashlib.sha256(data[i:i + ASAR_BLOCK_SIZE]).hexdigest()
               for i in range(0, len(data), ASAR_BLOCK_SIZE)]
@@ -222,10 +247,6 @@ def _write_all(fd, data):
     while view:
         written = os.write(fd, view)
         view = view[written:]
-
-# Windows CRT defaults os.open to text mode unless O_BINARY is passed, which
-# would silently corrupt every \n into \r\n inside the binary archive.
-_O_BINARY = getattr(os, "O_BINARY", 0)
 
 def write_asar_inplace(path, header, files_data, modified=None):
     """Serialize `header` + `files_data` into an ASAR archive at `path`.
@@ -274,14 +295,18 @@ def write_asar_inplace(path, header, files_data, modified=None):
     for curr, off in sorted(offsets.items(), key=lambda kv: kv[1]):
         payload += files_data[curr]
 
-    tmp_path = path + ".zh_tmp"
+    # mkstemp creates the temp file exclusively with an unpredictable name in
+    # the same directory (same volume, so os.replace stays atomic) and opens
+    # it in binary mode on Windows, so no CRLF translation can corrupt bytes.
+    tmp_fd, tmp_path = tempfile.mkstemp(
+        prefix=os.path.basename(path) + ".zh_tmp_", dir=os.path.dirname(path)
+    )
     try:
-        fd = os.open(tmp_path, os.O_WRONLY | os.O_CREAT | os.O_TRUNC | _O_BINARY)
         try:
-            _write_all(fd, payload)
-            os.fsync(fd)
+            _write_all(tmp_fd, payload)
+            os.fsync(tmp_fd)
         finally:
-            os.close(fd)
+            os.close(tmp_fd)
         try:
             os.replace(tmp_path, path)
         except PermissionError as exc:
@@ -416,6 +441,10 @@ def apply_patch(install_dir=None, force=False):
             print("[!] Dictionaries changed but no official backup exists to re-patch from; keeping current patch.")
             return True
         print("[*] Dictionaries/engine changed since last patch; re-patching from official backup...")
+        if not backup_matches_sidecar(bak_path):
+            print("[!] Backup checksum mismatch - app.asar.bak may have been replaced or modified.")
+            print("[!] Refusing to patch from it; keeping the current patch. Run `restore` to re-baseline.")
+            return True
         header, files = read_asar(bak_path)
         if "dist/preload.js" not in files:
             print("[!] Error: dist/preload.js missing from backup?!")
@@ -427,6 +456,10 @@ def apply_patch(install_dir=None, force=False):
             print("[!] --force requested but no official backup exists; keeping current patch as-is.")
             return True
         print("[*] Current build already patched; re-patching from clean official backup...")
+        if not backup_matches_sidecar(bak_path):
+            print("[!] Backup checksum mismatch - app.asar.bak may have been replaced or modified.")
+            print("[!] Refusing to patch from it; keeping the current patch. Run `restore` to re-baseline.")
+            return True
         header, files = read_asar(bak_path)
         if "dist/preload.js" not in files:
             print("[!] Error: dist/preload.js missing from backup?!")
@@ -434,6 +467,7 @@ def apply_patch(install_dir=None, force=False):
     elif not os.path.exists(bak_path):
         print(f"[*] Creating backup of official app.asar -> {bak_path}...")
         shutil.copy2(asar_path, bak_path)
+        write_backup_sidecar(asar_path, bak_path)
     else:
         # The current build is an unpatched official archive, which is by
         # definition authoritative: replace a stale (older-version) backup with
@@ -444,6 +478,7 @@ def apply_patch(install_dir=None, force=False):
         else:
             print("[*] Detected app update: refreshing official backup (existing one was stale)")
             shutil.copy2(asar_path, bak_path)
+            write_backup_sidecar(asar_path, bak_path)
 
     print("[*] Injecting modern localization engine into dist/preload.js...")
     preload_str = files["dist/preload.js"].decode("utf-8")
@@ -494,6 +529,10 @@ def restore_backup(install_dir=None):
             print(f"[!] Size mismatch: current app.asar is {cur_size} bytes, backup is {bak_size} bytes.")
             print("[!] The backup may come from a different (older) client version; restoring rolls the app back to it.")
 
+    if not backup_matches_sidecar(bak_path):
+        print("[!] WARNING: backup checksum mismatch - app.asar.bak may have been modified or replaced.")
+        print("[!] Restoring it anyway as requested.")
+
     print("[*] Restoring original app.asar from backup...")
     try:
         header, files = read_asar(bak_path)
@@ -533,7 +572,7 @@ def show_status(install_dir=None):
     return False
 
 def main():
-    parser = argparse.ArgumentParser(description="Antigravity Modern Chinese Localization Patcher v1.0.2")
+    parser = argparse.ArgumentParser(description="Antigravity Modern Chinese Localization Patcher v1.0.3")
     parser.add_argument("action", nargs="?", default="patch", choices=["patch", "restore", "status"], help="Action to perform (default: patch)")
     parser.add_argument("--dir", help="Custom Antigravity installation directory")
     parser.add_argument("--force", action="store_true", help="Force re-patching even if already patched")
@@ -562,7 +601,7 @@ if __name__ == "__main__":
 
 def build(compile_exe=True):
     print("=" * 60)
-    print("  Antigravity-ZH Toolkit Builder (v1.0.2)")
+    print("  Antigravity-ZH Toolkit Builder (v1.0.3)")
     print("=" * 60)
 
     template_path = os.path.join(ENGINE_DIR, "engine_template.js")
@@ -649,7 +688,7 @@ def build(compile_exe=True):
         return True
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Antigravity-ZH Builder v1.0.2")
+    parser = argparse.ArgumentParser(description="Antigravity-ZH Builder v1.0.3")
     parser.add_argument("--no-exe", action="store_true", help="Skip PyInstaller compilation")
     args = parser.parse_args()
     build(compile_exe=not args.no_exe)

@@ -28,7 +28,7 @@
 - 🛡️ **Agent Permission Localization**: Covers common file access, command execution, unsandboxed warnings, MCP tools, rule scopes, and fallback-input prompts.
 - ⚡ **Atomic ASAR Patching**: Builds a complete temporary archive, recalculates SHA-256 integrity, and atomically replaces the target. If Antigravity locks the file, patching stops and asks you to close the client instead of rewriting the live archive.
 - 🌐 **Open Shadow DOM Support**: Uses `TreeWalker` and `MutationObserver` for the regular DOM and accessible open shadow roots. Closed shadow roots, cross-origin iframes, webviews, and native system components are outside its coverage.
-- 📖 **External Dictionaries, No Rebuild Needed**: Decoupled dictionary files in `locales/zh-CN.json` (**1,255+** entries) and `locales/patterns.json` (**112+** regex rules).
+- 📖 **External Dictionaries, No Rebuild Needed**: Decoupled dictionary files in `locales/zh-CN.json` (**1,282** entries) and `locales/patterns.json` (**121** regex rules).
   - Dictionary directory: `%APPDATA%\Antigravity\locales\` (Windows) / `~/Library/Application Support/Antigravity/locales/` (macOS)
   - Edit them with any text editor and re-run the installer to apply - no binary rebuild required. Clients that allow runtime file access additionally hot-reload dictionary edits automatically (checked every 2s).
 - 🔍 **One-Click Untranslated Text Extraction**: Press **`Ctrl + Alt + L`** (macOS: **`Option + Cmd + L`**) anywhere in Antigravity to copy all unlocalized text on screen directly to your clipboard in JSON format.
@@ -69,13 +69,13 @@ install.bat
 
 ### 🍎 macOS
 
-#### Method 1: Double-Click Package (when a ZIP is available)
-1. If the [Releases Page](https://github.com/lizi1997/antigravity-zh-toolkit/releases) provides **`antigravity-zh-macos-arm64.zip`**, download and unzip it;
+#### Method 1: Double-Click Package (Recommended for M1/M2/M3/M4)
+1. Download **`antigravity-zh-macos-arm64.zip`** from the [Releases Page](https://github.com/lizi1997/antigravity-zh-toolkit/releases) and unzip it;
 2. Open the unzipped folder and double-click **`安装汉化.command`**!
    > 💡 Note: If macOS displays "cannot be opened from unidentified developer", simply right-click the file and choose **Open**.
 3. Restart Antigravity or press **`Cmd + Shift + N`** to see the changes.
 
-> `v1.0.1` only provides the standalone `antigravity-zh-macos-arm64` binary and its `.tar.gz` archive. Grant the binary execute permission and run it from Terminal. Complete double-click packages are provided by later releases.
+> 💡 **Package Notes**: Starting from `v1.0.2`, the Releases page provides the complete double-click ZIP package (`antigravity-zh-macos-arm64.zip`). Simply unzip and double-click `安装汉化.command` to install; standalone binaries are also available for Terminal usage.
 
 #### Method 2: Run from Source (Works for all Macs, including legacy Intel)
 ```bash
@@ -119,8 +119,8 @@ antigravity-zh-toolkit/
 ├── status.bat  / status.sh      # Status check scripts
 ├── build.bat   / build.sh       # Local build scripts
 ├── locales/
-│   ├── zh-CN.json               # Core dictionary (1,250+ entries)
-│   └── patterns.json            # Regex templates (112+ patterns)
+│   ├── zh-CN.json               # Core dictionary (1,282 entries)
+│   └── patterns.json            # Regex templates (121 patterns)
 ├── engine/
 │   ├── ag_localization_engine.js# Modern localization engine injected into Electron
 │   └── engine_template.js       # Engine compilation template
@@ -148,6 +148,22 @@ python scripts/build.py
 #    - Windows: dist/antigravity-zh.exe
 #    - macOS:   dist/antigravity-zh
 ```
+
+---
+
+## 🔐 Download Verification & Privacy
+
+**Verify your download**: since v1.0.3, every Release ships with a `SHA256SUMS.txt` checksum file. Verify before running:
+
+```bash
+# macOS / Linux
+sha256sum -c SHA256SUMS.txt
+
+# Windows (PowerShell)
+Get-Content SHA256SUMS.txt | ForEach-Object { $h, $f = $_ -split '  ', 2; if ((Get-FileHash $f -Algorithm SHA256).Hash.ToLower() -ne $h) { "MISMATCH: $f" } else { "OK: $f" } }
+```
+
+**Data & privacy**: this toolkit runs entirely locally — it makes no network requests and uploads nothing. Untranslated strings captured by the engine are stored only in the client's local localStorage (capped at a thousand entries) and are copied to the clipboard only when you explicitly press the export shortcut (Ctrl+Alt+L / Option+Cmd+L).
 
 ---
 

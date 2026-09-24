@@ -199,7 +199,7 @@ def test_no_tmp_file_left_behind(tmp_path):
     header, files = patcher.read_asar(str(p))
     files["a.js"] = b"BBBB"
     patcher.write_asar_inplace(str(p), header, files, modified={"a.js"})
-    assert not os.path.exists(str(p) + ".zh_tmp")
+    assert list(tmp_path.glob("*.zh_tmp_*")) == []
 
 
 def test_atomic_replace_failure_preserves_original(tmp_path, monkeypatch):
@@ -218,7 +218,7 @@ def test_atomic_replace_failure_preserves_original(tmp_path, monkeypatch):
         patcher.write_asar_inplace(str(p), header, files, modified={"a.js"})
 
     assert p.read_bytes() == original
-    assert not os.path.exists(str(p) + ".zh_tmp")
+    assert list(tmp_path.glob("*.zh_tmp_*")) == []
 
 
 # ---------------------------------------------------------------------------
@@ -375,6 +375,90 @@ def test_c1_invalid_external_dict_falls_back_to_embedded(install_dir, locales_di
     _, files = patcher.read_asar(asar)
     preload = files["dist/preload.js"].decode("utf-8")
     assert '"Configure the browser subagent. It requires"' in preload  # embedded dict
+
+
+# ---------------------------------------------------------------------------
+# Backup checksum sidecar (.bak.sha256)
+# ---------------------------------------------------------------------------
+
+def read_sidecar(install_dir):
+    return Path(asar_path_for(install_dir) + ".bak.sha256").read_text(encoding="utf-8").strip()
+
+
+def test_backup_sidecar_written_on_first_patch(install_dir, locales_dir):
+    asar = asar_path_for(install_dir)
+    make_fake_app(asar, "console.log('v1 official');")
+    assert patcher.apply_patch(install_dir) is True
+    assert read_sidecar(install_dir) == patcher.file_sha256(asar + ".bak")
+
+    # A legitimate dictionary change still re-patches from the verified backup.
+    zh_path = locales_dir / "zh-CN.json"
+    zh = json.loads(zh_path.read_text(encoding="utf-8"))
+    zh["SidecarHappyPath"] = "正常路径"
+    zh_path.write_text(json.dumps(zh, ensure_ascii=False, indent=2), encoding="utf-8")
+    assert patcher.apply_patch(install_dir) is True
+    _, files = patcher.read_asar(asar)
+    assert "SidecarHappyPath" in files["dist/preload.js"].decode("utf-8")
+
+
+def test_repatch_refuses_tampered_backup(install_dir, locales_dir, capsys):
+    asar = asar_path_for(install_dir)
+    make_fake_app(asar, "console.log('v1 official');")
+    assert patcher.apply_patch(install_dir) is True
+
+    # Swap the backup's preload for foreign content behind the tool's back.
+    tampered = "console.log('tampered preload');"
+    header, files = patcher.read_asar(asar + ".bak")
+    files["dist/preload.js"] = tampered.encode("utf-8")
+    patcher.write_asar_inplace(asar + ".bak", header, files)
+
+    # Dictionary change triggers the re-patch-from-backup path; the sidecar
+    # mismatch must keep the current patch instead of injecting bak content.
+    zh_path = locales_dir / "zh-CN.json"
+    zh = json.loads(zh_path.read_text(encoding="utf-8"))
+    zh["SidecarTampered"] = "备份被篡改"
+    zh_path.write_text(json.dumps(zh, ensure_ascii=False, indent=2), encoding="utf-8")
+
+    assert patcher.apply_patch(install_dir) is True
+    assert "checksum mismatch" in capsys.readouterr().out
+    _, files = patcher.read_asar(asar)
+    preload = files["dist/preload.js"].decode("utf-8")
+    assert "tampered preload" not in preload
+    assert preload.count(patcher.SIGNATURE_PRELOAD) == 1
+
+
+def test_restore_warns_on_checksum_mismatch(install_dir, locales_dir, capsys):
+    asar = asar_path_for(install_dir)
+    make_fake_app(asar, "console.log('v1 official');")
+    assert patcher.apply_patch(install_dir) is True
+
+    bak = asar + ".bak"
+    header, files = patcher.read_asar(bak)
+    files["dist/preload.js"] = b"console.log('replaced backup');"
+    patcher.write_asar_inplace(bak, header, files)
+
+    # Restore is the user's explicit intent: warn loudly, then proceed.
+    assert patcher.restore_backup(install_dir) is True
+    assert "checksum mismatch" in capsys.readouterr().out
+    _, files = patcher.read_asar(asar)
+    assert files["dist/preload.js"] == b"console.log('replaced backup');"
+
+
+def test_legacy_backup_without_sidecar_still_repatches(install_dir, locales_dir):
+    """Backups created before the sidecar existed must keep working."""
+    asar = asar_path_for(install_dir)
+    make_fake_app(asar, "console.log('v1 official');")
+    assert patcher.apply_patch(install_dir) is True
+    os.remove(asar + ".bak.sha256")
+
+    zh_path = locales_dir / "zh-CN.json"
+    zh = json.loads(zh_path.read_text(encoding="utf-8"))
+    zh["LegacyBackup"] = "旧版备份"
+    zh_path.write_text(json.dumps(zh, ensure_ascii=False, indent=2), encoding="utf-8")
+
+    assert patcher.apply_patch(install_dir) is True
+    _, files = patcher.read_asar(asar)
+    assert "LegacyBackup" in files["dist/preload.js"].decode("utf-8")
 
 
 def test_patch_seeds_locale_files(install_dir, locales_dir):

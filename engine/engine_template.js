@@ -1,4 +1,4 @@
-// Antigravity Client Modern Chinese Localization Engine v1.0.0
+// Antigravity Client Modern Chinese Localization Engine v1.0.3
 // Sandboxed Electron compatible with embedded dictionary and real-time DOM translation
 // Supports external dictionaries from the Antigravity locales directory:
 // the patcher splices them in at injection time, and when the preload has fs
@@ -29,10 +29,16 @@
         for (const key in translations) {
             lowerTranslations[key.toLowerCase()] = translations[key];
         }
-        patterns = rawPatterns.map(p => ({
-            regex: new RegExp(p.pattern, p.flags || 'i'),
-            replace: p.replacement
-        }));
+        patterns = [];
+        const source = Array.isArray(rawPatterns) ? rawPatterns : [];
+        for (const p of source) {
+            try {
+                // Whitelisted flags only: a hand-edited patterns.json must
+                // never throw here and take the whole engine down at load.
+                const flags = (typeof p.flags === 'string' && /^[imsuy]+$/.test(p.flags)) ? p.flags : 'i';
+                patterns.push({ regex: new RegExp(p.pattern, flags), replace: p.replacement });
+            } catch (e) { /* skip malformed rule */ }
+        }
     }
     rebuildIndexes();
 
@@ -163,6 +169,13 @@
         }
     }
 
+    // Dictionary values are plain text: escape "$" so "$&"-style replacement
+    // patterns are never interpreted. Pattern rules intentionally keep "$1"
+    // capture semantics.
+    function escapeDollar(s) {
+        return String(s).replace(/\$/g, '$$');
+    }
+
     function translateText(text) {
         if (currentLang === 'en') return null;
         if (!text) return null;
@@ -173,15 +186,17 @@
         if (/[一-鿿]/.test(trimmed)) return null;
         if (trimmed.length > 500) return null;
 
-        // 1. Exact match
-        if (translations[trimmed]) {
-            return text.replace(trimmed, translations[trimmed]);
+        // 1. Exact match. Own-property check only: plain objects must never
+        // fall through to inherited Object.prototype members ("toString" etc.),
+        // which String.replace would otherwise invoke as a replacer function.
+        if (Object.prototype.hasOwnProperty.call(translations, trimmed)) {
+            return text.replace(trimmed, escapeDollar(translations[trimmed]));
         }
 
         // 2. Case-insensitive match
         const lower = trimmed.toLowerCase();
-        if (lowerTranslations[lower]) {
-            return text.replace(trimmed, lowerTranslations[lower]);
+        if (Object.prototype.hasOwnProperty.call(lowerTranslations, lower)) {
+            return text.replace(trimmed, escapeDollar(lowerTranslations[lower]));
         }
 
         // 3. Dynamic regex patterns

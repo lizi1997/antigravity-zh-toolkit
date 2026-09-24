@@ -76,6 +76,9 @@ def test_zh_dictionary_loads():
         ("Models within this group: Gemini Flash, Gemini Pro", "该组包含的模型: Gemini Flash, Gemini Pro"),
         ("Alt+Enter Sends immediately", "Alt+Enter：立即发送"),
         ("Enter Queues after the turn", "Enter：在当前轮次后排队"),
+        ("This folder belongs to the WSL distro \"Ubuntu\", but this window is connected to \"Debian\".", "此文件夹属于 WSL 发行版“Ubuntu”，但当前窗口连接的是“Debian”。"),
+        ("Installing into Ubuntu…", "正在安装到 Ubuntu…"),
+        ("This location cannot be opened in WSL: C:\\foo", "无法在 WSL 中打开此位置: C:\\foo"),
     ],
 )
 def test_pattern_expected_translations(source, expected):
