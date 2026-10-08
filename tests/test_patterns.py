@@ -80,6 +80,7 @@ def test_zh_dictionary_loads():
         ("Installing into Ubuntu…", "正在安装到 Ubuntu…"),
         ("This location cannot be opened in WSL: C:\\foo", "无法在 WSL 中打开此位置: C:\\foo"),
         ("Preview unavailable — notebook parse failed", "无法预览：notebook parse failed"),
+        ("Comment (Ctrl+Alt+M)", "评论（Ctrl+Alt+M）"),
     ],
 )
 def test_pattern_expected_translations(source, expected):

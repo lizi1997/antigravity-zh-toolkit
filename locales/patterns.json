@@ -608,5 +608,10 @@
     "pattern": "^Preview unavailable\\s+[—–-]\\s+(.+)$",
     "flags": "i",
     "replacement": "无法预览：$1"
+  },
+  {
+    "pattern": "^Comment \\((.+)\\)$",
+    "flags": "i",
+    "replacement": "评论（$1）"
   }
 ]

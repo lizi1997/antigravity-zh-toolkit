@@ -28,7 +28,7 @@
 - 🛡️ **Agent Permission Localization**: Covers common file access, command execution, unsandboxed warnings, MCP tools, rule scopes, and fallback-input prompts.
 - ⚡ **Atomic ASAR Patching**: Builds a complete temporary archive, recalculates SHA-256 integrity, and atomically replaces the target. If Antigravity locks the file, patching stops and asks you to close the client instead of rewriting the live archive.
 - 🌐 **Open Shadow DOM Support**: Uses `TreeWalker` and `MutationObserver` for the regular DOM and accessible open shadow roots. Closed shadow roots, cross-origin iframes, webviews, and native system components are outside its coverage.
-- 📖 **External Dictionaries, No Rebuild Needed**: Decoupled dictionary files in `locales/zh-CN.json` (**1,291** entries) and `locales/patterns.json` (**122** regex rules).
+- 📖 **External Dictionaries, No Rebuild Needed**: Decoupled dictionary files in `locales/zh-CN.json` (**1,293** entries) and `locales/patterns.json` (**123** regex rules).
   - Dictionary directory: `%APPDATA%\Antigravity\locales\` (Windows) / `~/Library/Application Support/Antigravity/locales/` (macOS)
   - Edit them with any text editor and re-run the installer to apply - no binary rebuild required. Clients that allow runtime file access additionally hot-reload dictionary edits automatically (checked every 2s).
 - 🔍 **One-Click Untranslated Text Extraction**: Press **`Ctrl + Alt + L`** (macOS: **`Option + Cmd + L`**) anywhere in Antigravity to copy all unlocalized text on screen directly to your clipboard in JSON format.
@@ -119,8 +119,8 @@ antigravity-zh-toolkit/
 ├── status.bat  / status.sh      # Status check scripts
 ├── build.bat   / build.sh       # Local build scripts
 ├── locales/
-│   ├── zh-CN.json               # Core dictionary (1,291 entries)
-│   └── patterns.json            # Regex templates (122 patterns)
+│   ├── zh-CN.json               # Core dictionary (1,293 entries)
+│   └── patterns.json            # Regex templates (123 patterns)
 ├── engine/
 │   ├── ag_localization_engine.js# Modern localization engine injected into Electron
 │   └── engine_template.js       # Engine compilation template

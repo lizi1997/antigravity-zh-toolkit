@@ -200,6 +200,8 @@
   "Search": "搜索",
   "Show in File Explorer": "在文件资源管理器中显示",
   "Show in File Manager": "在文件管理器中显示",
+  "Add inline comment": "添加行内评论",
+  "Comment": "评论",
   "Copy File Name": "复制文件名",
   "Copy File Path": "复制文件路径",
   "Copy conversation markdown": "复制对话 Markdown",
@@ -1921,6 +1923,11 @@
     "pattern": "^Preview unavailable\\s+[—–-]\\s+(.+)$",
     "flags": "i",
     "replacement": "无法预览：$1"
+  },
+  {
+    "pattern": "^Comment \\((.+)\\)$",
+    "flags": "i",
+    "replacement": "评论（$1）"
   }
 ]/*AG_ZH_PATTERNS_END*/;
 
