@@ -603,5 +603,10 @@
     "pattern": "^Installing into (.+?)[…\\.]{1,3}$",
     "flags": "i",
     "replacement": "正在安装到 $1…"
+  },
+  {
+    "pattern": "^Preview unavailable\\s+[—–-]\\s+(.+)$",
+    "flags": "i",
+    "replacement": "无法预览：$1"
   }
 ]
