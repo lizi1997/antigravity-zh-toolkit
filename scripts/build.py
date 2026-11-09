@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Antigravity Localization Toolkit - Build & Packaging Script (v1.0.3)
+Antigravity Localization Toolkit - Build & Packaging Script (v1.0.4)
 Cross-platform build utility for Windows, macOS, and Linux.
 
 Regenerates two GENERATED artifacts - keep them in sync by always editing the
@@ -27,7 +27,7 @@ SCRIPTS_DIR = os.path.join(REPO_ROOT, "scripts")
 PATCHER_TEMPLATE = r'''#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Antigravity Localization Patcher & Manager v1.0.3
+Antigravity Localization Patcher & Manager v1.0.4
 Cross-Platform In-Place ASAR injection and management utility (Windows / macOS / Linux).
 
 GENERATED FILE - DO NOT EDIT.
@@ -347,6 +347,44 @@ def patch_menu_js(content_str):
         print(f"[!] {missed} menu replacement(s) not found - the client UI may have changed in an update")
     return content_str
 
+def patch_updater_js(content_str):
+    replacements = [
+        ("title: 'Check for Updates'", "title: '检查更新'", -1),
+        ('title: "Check for Updates"', 'title: "检查更新"', -1),
+        ("message: 'No updates available'", "message: '当前已是最新版本'", -1),
+        ('message: "No updates available"', 'message: "当前已是最新版本"', -1),
+    ]
+    applied = []
+    for old, new, count in replacements:
+        hits = content_str.count(old)
+        if hits:
+            content_str = content_str.replace(old, new, count)
+            applied.append(f"hit x{hits}: {old[:44]}")
+    if applied:
+        print("[*] Native updater patch results:")
+        for line in applied:
+            print(f"      {line}")
+    return content_str
+
+def patch_main_js(content_str):
+    replacements = [
+        ("title: 'Confirm Quit'", "title: '确认退出'", -1),
+        ("message: 'Are you sure you want to quit?'", "message: '确定要退出吗？'", -1),
+        ("detail: 'There may be agents or background tasks running.'", "detail: '可能有正在运行的智能体或后台任务。'", -1),
+        ("buttons: ['Cancel', 'Quit']", "buttons: ['取消', '退出']", -1),
+    ]
+    applied = []
+    for old, new, count in replacements:
+        hits = content_str.count(old)
+        if hits:
+            content_str = content_str.replace(old, new, count)
+            applied.append(f"hit x{hits}: {old[:44]}")
+    if applied:
+        print("[*] Native main dialog patch results:")
+        for line in applied:
+            print(f"      {line}")
+    return content_str
+
 def load_valid_json_text(path):
     """Return the file text when it parses as JSON, else None."""
     try:
@@ -492,6 +530,18 @@ def apply_patch(install_dir=None, force=False):
         files["dist/menu.js"] = patch_menu_js(menu_str).encode("utf-8")
         modified.add("dist/menu.js")
 
+    if "dist/updater.js" in files:
+        print("[*] Patching native updater in dist/updater.js...")
+        updater_str = files["dist/updater.js"].decode("utf-8")
+        files["dist/updater.js"] = patch_updater_js(updater_str).encode("utf-8")
+        modified.add("dist/updater.js")
+
+    if "dist/main.js" in files:
+        print("[*] Patching native dialogs in dist/main.js...")
+        main_str = files["dist/main.js"].decode("utf-8")
+        files["dist/main.js"] = patch_main_js(main_str).encode("utf-8")
+        modified.add("dist/main.js")
+
     print("[*] Writing patched files to app.asar...")
     try:
         write_asar_inplace(asar_path, header, files, modified=modified)
@@ -572,7 +622,7 @@ def show_status(install_dir=None):
     return False
 
 def main():
-    parser = argparse.ArgumentParser(description="Antigravity Modern Chinese Localization Patcher v1.0.3")
+    parser = argparse.ArgumentParser(description="Antigravity Modern Chinese Localization Patcher v1.0.4")
     parser.add_argument("action", nargs="?", default="patch", choices=["patch", "restore", "status"], help="Action to perform (default: patch)")
     parser.add_argument("--dir", help="Custom Antigravity installation directory")
     parser.add_argument("--force", action="store_true", help="Force re-patching even if already patched")
@@ -601,7 +651,7 @@ if __name__ == "__main__":
 
 def build(compile_exe=True):
     print("=" * 60)
-    print("  Antigravity-ZH Toolkit Builder (v1.0.3)")
+    print("  Antigravity-ZH Toolkit Builder (v1.0.4)")
     print("=" * 60)
 
     template_path = os.path.join(ENGINE_DIR, "engine_template.js")
@@ -688,7 +738,7 @@ def build(compile_exe=True):
         return True
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Antigravity-ZH Builder v1.0.3")
+    parser = argparse.ArgumentParser(description="Antigravity-ZH Builder v1.0.4")
     parser.add_argument("--no-exe", action="store_true", help="Skip PyInstaller compilation")
     args = parser.parse_args()
     build(compile_exe=not args.no_exe)

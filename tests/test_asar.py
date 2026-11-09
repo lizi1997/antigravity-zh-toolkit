@@ -482,3 +482,19 @@ def test_patch_menu_uses_conservative_first_occurrence():
     assert patched.count("addItemToSubmenu(menu, '文件 (File)'") == 1
     assert patched.count("addItemToSubmenu(menu, 'File'") == 1  # second call untouched
     assert "新建窗口 (New Window)" in patched
+
+def test_patch_updater_dialogs():
+    body = "const options = { title: 'Check for Updates', message: 'No updates available' };"
+    patched = patcher.patch_updater_js(body)
+    assert "title: '检查更新'" in patched
+    assert "message: '当前已是最新版本'" in patched
+
+
+def test_patch_main_dialogs():
+    body = "const options = { title: 'Confirm Quit', message: 'Are you sure you want to quit?', detail: 'There may be agents or background tasks running.', buttons: ['Cancel', 'Quit'] };"
+    patched = patcher.patch_main_js(body)
+    assert "title: '确认退出'" in patched
+    assert "message: '确定要退出吗？'" in patched
+    assert "detail: '可能有正在运行的智能体或后台任务。'" in patched
+    assert "buttons: ['取消', '退出']" in patched
+

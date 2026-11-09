@@ -613,5 +613,100 @@
     "pattern": "^Comment \\((.+)\\)$",
     "flags": "i",
     "replacement": "评论（$1）"
+  },
+  {
+    "pattern": "^Comments \\((.+)\\)$",
+    "flags": "i",
+    "replacement": "评论（$1）"
+  },
+  {
+    "pattern": "^Comment on page (\\d+)$",
+    "flags": "i",
+    "replacement": "第 $1 页的评论"
+  },
+  {
+    "pattern": "^Read URL: (.+)$",
+    "flags": "i",
+    "replacement": "读取 URL：$1"
+  },
+  {
+    "pattern": "^Show (\\d+) breakdowns?$",
+    "flags": "i",
+    "replacement": "显示 $1 项明细"
+  },
+  {
+    "pattern": "^(\\d+) demoted$",
+    "flags": "i",
+    "replacement": "$1 项已降级"
+  },
+  {
+    "pattern": "^(\\d+) tools? excluded$",
+    "flags": "i",
+    "replacement": "$1 个工具已排除"
+  },
+  {
+    "pattern": "^(\\d+) excluded$",
+    "flags": "i",
+    "replacement": "$1 项已排除"
+  },
+  {
+    "pattern": "^(\\d+) tools$",
+    "flags": "i",
+    "replacement": "$1 个工具"
+  },
+  {
+    "pattern": "^(\\d+) rules? exceeded the rules budget and (?:was|were) demoted from full inline content to a file-path pointer\\.$",
+    "flags": "i",
+    "replacement": "$1 条规则超出规则预算，已从完整内容降级为文件路径指针。"
+  },
+  {
+    "pattern": "^(\\d+) items? in (.+) exceeded the customization budget and (?:was|were) excluded from context\\.$",
+    "flags": "i",
+    "replacement": "$2 中有 $1 项超出自定义配置预算，已从上下文中排除。"
+  },
+  {
+    "pattern": "^Exceeded the rules token budget\\. Full rule content \\(([0-9,]+) tokens\\) was replaced with a lightweight file-path pointer in context\\.$",
+    "flags": "i",
+    "replacement": "已超出规则 token 预算。完整规则内容（$1 个 token）已替换为轻量的文件路径指针。"
+  },
+  {
+    "pattern": "^All tools in this MCP server \\(([0-9,]+) tokens\\) exceeded the customization budget and were excluded from context\\.$",
+    "flags": "i",
+    "replacement": "此 MCP 服务器中的全部工具（$1 个 token）已超出自定义配置预算，并从上下文中排除。"
+  },
+  {
+    "pattern": "^(\\d+) tools? in this MCP server \\(([0-9,]+) tokens\\) exceeded the customization budget and were excluded from context\\.$",
+    "flags": "i",
+    "replacement": "此 MCP 服务器中有 $1 个工具（$2 个 token）已超出自定义配置预算，并从上下文中排除。"
+  },
+  {
+    "pattern": "^Exceeded the customization token budget \\(([0-9,]+) tokens\\) and was excluded from context\\.$",
+    "flags": "i",
+    "replacement": "已超出自定义配置 token 预算（$1 个 token），并从上下文中排除。"
+  },
+  {
+    "pattern": "^Failed to update agent: (.+)$",
+    "flags": "i",
+    "replacement": "更新智能体失败：$1"
+  },
+  {
+    "pattern": "^Failed to remove agent: (.+)$",
+    "flags": "i",
+    "replacement": "移除智能体失败：$1"
+  },
+  {
+    "pattern": "^Failed to remove plugin: (.+)$",
+    "flags": "i",
+    "replacement": "移除插件失败：$1"
+  },
+  {
+    "pattern": "^Failed to toggle plugin: (.+)$",
+    "flags": "i",
+    "replacement": "切换插件失败：$1"
+  },
+  {
+    "pattern": "^The WSL distro \"(.+)\" is no longer installed\\.$",
+    "flags": "i",
+    "replacement": "WSL 发行版“$1”已不再安装。"
   }
 ]

@@ -64,7 +64,7 @@ jobs:
                   if exp not in text:
                       print(f"[!] {path}: advertised count '{exp}' missing (actual: {entries} entries / {rules} rules)")
                       failed = True
-              for m in re.finditer(r'\b1,\d{3}\b', text):
+              for m in re.finditer(r'\b\d+,\d{3}\b', text):
                   if m.group(0) != f'{entries:,}':
                       print(f"[!] {path}: stale entry count '{m.group(0)}' (actual: {entries:,})")
                       failed = True

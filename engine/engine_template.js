@@ -1,4 +1,4 @@
-// Antigravity Client Modern Chinese Localization Engine v1.0.3
+// Antigravity Client Modern Chinese Localization Engine v1.0.4
 // Sandboxed Electron compatible with embedded dictionary and real-time DOM translation
 // Supports external dictionaries from the Antigravity locales directory:
 // the patcher splices them in at injection time, and when the preload has fs
