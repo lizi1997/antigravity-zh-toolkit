@@ -114,11 +114,17 @@ def test_bom_prefixed_dictionary_is_accepted(tmp_path):
 
 def test_build_rejects_an_empty_translation(tmp_path):
     """An empty translation would blank out the UI text it belongs to."""
+    import shutil
     locales = tmp_path / "locales"
+    engine_dir = tmp_path / "engine"
+    scripts_dir = tmp_path / "scripts"
     locales.mkdir()
+    engine_dir.mkdir()
+    scripts_dir.mkdir()
     (locales / "zh-CN.json").write_text(
         json.dumps({"Save": ""}, ensure_ascii=False, indent=2), encoding="utf-8")
     (locales / "patterns.json").write_text("[]", encoding="utf-8")
+    shutil.copy(REPO_ROOT / "engine" / "engine_template.js", engine_dir / "engine_template.js")
 
     src = (REPO_ROOT / "scripts" / "build.py").read_text(encoding="utf-8")
     assert "empty_values" in src, "the empty-translation guard is missing"
@@ -126,15 +132,20 @@ def test_build_rejects_an_empty_translation(tmp_path):
     # the guard is exercised by the real builder
     result = subprocess.run(
         [sys.executable, "-c",
-         "import importlib.util,sys,json;"
+         "import importlib.util,sys;"
          "spec=importlib.util.spec_from_file_location('b', r'%s');"
          "b=importlib.util.module_from_spec(spec);"
+         "spec.loader.exec_module(b);"
          "b.LOCALES_DIR=r'%s';"
-         "sys.argv=['build.py','--no-exe'];"
-         "b.build(compile_exe=False)" % (REPO_ROOT / "scripts" / "build.py", locales)],
+         "b.ENGINE_DIR=r'%s';"
+         "b.SCRIPTS_DIR=r'%s';"
+         "b.build(compile_exe=False)" % (
+             REPO_ROOT / "scripts" / "build.py", locales, engine_dir, scripts_dir)],
         capture_output=True, text=True, encoding="utf-8", errors="replace")
+    combined = (result.stdout + result.stderr).lower()
     assert result.returncode != 0, "the build accepted an empty translation"
-    assert "empty" in (result.stdout + result.stderr).lower()
+    assert "attributeerror" not in combined, result.stdout + result.stderr
+    assert "empty translation" in combined, result.stdout + result.stderr
 
 
 # ---------------------------------------------------------------------------
@@ -220,29 +231,18 @@ def test_install_script_falls_back_to_python_when_the_binary_fails(tmp_path):
     if probe.returncode != 0:
         pytest.skip("bash is not runnable in this environment")
 
-    def to_posix(path):
-        """Windows path -> the path the POSIX shell (WSL) can open."""
-        text = str(path).replace("\\", "/")
-        if len(text) > 1 and text[1] == ":":
-            text = "/mnt/" + text[0].lower() + text[2:]
-        return text
-
     work = tmp_path / "pkg"
     (work / "scripts").mkdir(parents=True)
     binary = work / "antigravity-zh-macos-arm64"
-    binary.write_text("#!/bin/sh\nexit 126\n")
+    binary.write_text("#!/bin/sh\nexit 126\n", encoding="utf-8", newline="\n")
     binary.chmod(0o755)
     (work / "scripts" / "patcher.py").write_text(
-        "import sys\nprint('PYTHON_FALLBACK', sys.argv[1])\n")
-    shutil.copy(REPO_ROOT / "install.sh", work / "install.sh")
+        "import sys\nprint('PYTHON_FALLBACK', sys.argv[1])\n",
+        encoding="utf-8", newline="\n")
+    install_src = (REPO_ROOT / "install.sh").read_text(encoding="utf-8")
+    (work / "install.sh").write_text(install_src, encoding="utf-8", newline="\n")
 
-    # Only the control flow matters here, so the real patcher call is replaced
-    # by a stub that proves the fallback path is reached.
-    script = work / "run.sh"
-    script.write_text(
-        "cd '%s'\n"
-        "sed -i 's|^run_tool patch$|python3 ./scripts/patcher.py patch|' install.sh\n"
-        "bash install.sh\n" % to_posix(work), newline="\n")
-    r = subprocess.run([bash, to_posix(script)], capture_output=True, text=True,
-                       encoding="utf-8", errors="replace", timeout=120)
-    assert "PYTHON_FALLBACK" in r.stdout, r.stdout + r.stderr
+    r = subprocess.run([bash, "install.sh"], cwd=str(work), capture_output=True,
+                       text=True, encoding="utf-8", errors="replace", timeout=120)
+    assert r.returncode == 0, r.stdout + r.stderr
+    assert "PYTHON_FALLBACK patch" in r.stdout, r.stdout + r.stderr
