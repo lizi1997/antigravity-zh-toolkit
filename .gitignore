@@ -17,6 +17,9 @@ dist/
 
 # Backup files
 *.bak
+
+# Extractor output (untranslated candidates, must never be committed)
+locales/missing_strings.json
 *.swp
 *~
 app.asar.bak
@@ -50,6 +53,7 @@ antigravity-zh-macos-arm64
 *.tar.gz
 
 # Local metadata
+.agents/
 .mimosa/
 .zcode/
 .zcodeignore

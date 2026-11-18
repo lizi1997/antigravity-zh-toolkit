@@ -1,5 +1,10 @@
 name: Build and Release
 
+# A new push on the same ref must not race with a running one.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
 on:
   push:
     branches:
@@ -13,6 +18,7 @@ jobs:
   test:
     name: Test and verify generated files
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     permissions:
       contents: read
 
@@ -64,9 +70,11 @@ jobs:
                   if exp not in text:
                       print(f"[!] {path}: advertised count '{exp}' missing (actual: {entries} entries / {rules} rules)")
                       failed = True
-              for m in re.finditer(r'\b\d+,\d{3}\b', text):
-                  if m.group(0) != f'{entries:,}':
-                      print(f"[!] {path}: stale entry count '{m.group(0)}' (actual: {entries:,})")
+              # Only numbers that are labelled as an entry count are checked;
+              # an unrelated "1,000 tokens" in the prose must not fail the build.
+              for m in re.finditer(r'(\d+,\d{3})\**\s*(?:词条|entries)', text):
+                  if m.group(1) != f'{entries:,}':
+                      print(f"[!] {path}: stale entry count '{m.group(1)}' (actual: {entries:,})")
                       failed = True
           if not failed:
               print(f"[+] README counts match locales: {entries} entries / {rules} rules")
@@ -78,6 +86,7 @@ jobs:
     needs: test
     if: startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch'
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
     permissions:
       contents: read
     strategy:
@@ -137,6 +146,9 @@ jobs:
               tar -czvf "../${{ matrix.release_file }}.tar.gz" .
               cd ..
             fi
+          else
+            echo "::error::the build produced no ${{ matrix.dist_file }}"
+            exit 1
           fi
 
       - name: Upload Build Artifact
@@ -152,6 +164,7 @@ jobs:
     name: Create GitHub Release
     needs: build
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     if: startsWith(github.ref, 'refs/tags/')
     permissions:
       contents: write
@@ -171,6 +184,15 @@ jobs:
           mkdir -p release_assets
           find all_artifacts -type f \( -name "*.exe" -o -name "*.zip" -o -name "*.tar.gz" -o -name "antigravity-zh-macos-arm64" \) -exec cp {} release_assets/ \;
           ls -la release_assets/
+          # A release must never ship without the artifacts it advertises.
+          missing=""
+          for expected in antigravity-zh-windows.exe antigravity-zh-macos-arm64 antigravity-zh-macos-arm64.zip; do
+            [ -f "release_assets/$expected" ] || missing="$missing $expected"
+          done
+          if [ -n "$missing" ]; then
+            echo "::error::missing release artifact(s):$missing"
+            exit 1
+          fi
 
       - name: Generate SHA256 checksums
         working-directory: release_assets

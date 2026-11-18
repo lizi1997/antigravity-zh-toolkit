@@ -10,8 +10,21 @@ import os
 import sys
 import re
 import json
+import struct
+import zlib
 import argparse
 from pathlib import Path
+
+def get_user_locales_dir():
+    """The user's editable dictionary directory (same location as the patcher)."""
+    if sys.platform == "darwin":
+        base = os.path.expanduser("~/Library/Application Support/Antigravity/locales")
+    elif sys.platform.startswith("linux"):
+        base = os.path.expanduser("~/.config/Antigravity/locales")
+    else:
+        base = os.path.join(os.environ.get("APPDATA", ""), "Antigravity", "locales")
+    os.makedirs(base, exist_ok=True)
+    return base
 
 def is_valid_ui_string(s):
     s = s.strip()
@@ -46,6 +59,35 @@ def extract_from_binary(bin_path):
         s = m.group().decode("utf-8", errors="ignore")
         if is_valid_ui_string(s):
             strings.add(s.strip())
+
+    # Also scan embedded zip entries (e.g. deflate-compressed main.js inside language_server)
+    pos = 0
+    quoted_re = re.compile(r'"((?:[^"\\\n]|\\.)*)"')
+    while True:
+        idx = data.find(b'PK\x03\x04', pos)
+        if idx == -1 or idx + 30 > len(data):
+            break
+        ver, flag, method, mtime, mdate, crc, csize, usize, fnlen, exlen = struct.unpack(
+            '<HHHHHIIIHH', data[idx+4:idx+30]
+        )
+        if 0 < fnlen < 200 and exlen < 1000 and idx + 30 + fnlen + exlen + csize <= len(data):
+            fname = data[idx+30:idx+30+fnlen].decode('utf-8', errors='ignore')
+            if method == 8 and fname.endswith(('.js', '.html')) and not fname.startswith('prism/'):
+                start = idx + 30 + fnlen + exlen
+                try:
+                    raw = zlib.decompress(data[start:start+csize], -15).decode('utf-8', errors='ignore')
+                    for m in quoted_re.finditer(raw):
+                        val = m.group(1)
+                        try:
+                            val = json.loads(f'"{val}"')
+                        except Exception:
+                            pass
+                        if is_valid_ui_string(val):
+                            strings.add(val.strip())
+                except Exception:
+                    pass
+        pos = idx + 4
+
     print(f"[*] Found {len(strings)} raw candidate strings in {os.path.basename(bin_path)}")
     return strings
 
@@ -97,7 +139,13 @@ def run_extraction(output_file=None, custom_dir=None):
 
     print(f"[+] Total missing untranslated candidate strings: {len(missing)}")
 
-    out_path = output_file or os.path.join(toolkit_dir, "locales", "missing_strings.json")
+    # Keep the candidates OUT of the repository: locales/*.json is picked up
+    # by the CI packaging step and would ship an untranslated file. The values
+    # are empty by design - they are candidates, not translations.
+    if output_file:
+        out_path = output_file
+    else:
+        out_path = os.path.join(get_user_locales_dir(), "missing_strings.json")
     Path(os.path.abspath(out_path)).write_text(
         json.dumps(missing, ensure_ascii=False, indent=2), encoding="utf-8"
     )

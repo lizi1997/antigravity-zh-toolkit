@@ -51,6 +51,9 @@ SIGNATURE_PRELOAD = "// Antigravity Client Modern Chinese Localization Engine"
 ASAR_BLOCK_SIZE = 4194304
 DICT_ZH_SENTINELS = ("/*AG_ZH_ZH_START*/", "/*AG_ZH_ZH_END*/")
 DICT_PATTERNS_SENTINELS = ("/*AG_ZH_PATTERNS_START*/", "/*AG_ZH_PATTERNS_END*/")
+# Archive members the patcher rewrites. They are excluded from the build
+# fingerprint because a patched archive must still match its clean backup.
+PATCH_TARGETS = ("dist/preload.js", "dist/menu.js", "dist/main.js", "dist/updater.js")
 
 EMBEDDED_ENGINE_CODE = __EMBEDDED_ENGINE_PLACEHOLDER__
 EMBEDDED_ZH_JSON = __EMBEDDED_ZH_JSON_PLACEHOLDER__
@@ -162,6 +165,12 @@ def _find_antigravity_process_path_windows():
     return None
 
 def get_locales_dir():
+    """The user's editable dictionary directory (the one documented in README).
+
+    This is the only place the tool writes to and the only place a user is
+    expected to edit. The dictionary shipped next to the tool is read-only
+    input and gets merged in by resolve_dictionary_texts().
+    """
     if sys.platform == "darwin":
         base = os.path.expanduser("~/Library/Application Support/Antigravity/locales")
     elif sys.platform.startswith("linux"):
@@ -170,6 +179,27 @@ def get_locales_dir():
         base = os.path.join(os.environ.get("APPDATA", ""), "Antigravity", "locales")
     os.makedirs(base, exist_ok=True)
     return base
+
+def get_bundled_locales_dir():
+    """The read-only dictionary shipped next to the tool.
+
+    Covers both layouts:
+      * a release package or a source checkout - `locales/` next to
+        scripts/patcher.py (the macOS bundle keeps it at macos_dist/locales)
+      * a PyInstaller one-file binary - `locales/` next to the executable
+
+    It is never written to; the user's editable copy lives in
+    get_locales_dir().
+    """
+    candidates = []
+    if getattr(sys, "frozen", False):
+        candidates.append(os.path.join(os.path.dirname(os.path.abspath(sys.executable)), "locales"))
+    candidates.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "locales"))
+    for c in candidates:
+        c = os.path.abspath(c)
+        if os.path.isfile(os.path.join(c, "zh-CN.json")):
+            return c
+    return None
 
 def is_antigravity_running():
     if sys.platform == "win32":
@@ -187,9 +217,18 @@ def is_antigravity_running():
 
 def read_asar(asar_path):
     data = Path(os.path.abspath(asar_path)).read_bytes()
+    if len(data) < 16:
+        raise ValueError("Not an ASAR archive: file is too small to hold a header")
     u1, u2 = struct.unpack_from("<II", data, 0)
+    if u1 != 4:
+        # Chromium's pickle format always starts with a uint32 payload size of
+        # 4. Without this check a truncated or foreign file was accepted and
+        # its members were silently sliced out of the wrong offsets.
+        raise ValueError(f"Not an ASAR archive: unexpected header magic {u1} (expected 4)")
     base_offset = 8 + u2
     u3, json_len = struct.unpack_from("<II", data, 8)
+    if base_offset > len(data) or 16 + json_len > len(data):
+        raise ValueError("Not an ASAR archive: the header length exceeds the file size")
     header = json.loads(data[16:16 + json_len].decode("utf-8"))
 
     files_data = {}
@@ -200,7 +239,14 @@ def read_asar(asar_path):
                 extract_files(entry, curr)
             elif "size" in entry and "offset" in entry:
                 start = base_offset + int(entry["offset"])
-                files_data[curr] = data[start:start + entry["size"]]
+                size = int(entry["size"])
+                # A truncated archive used to yield short slices without any
+                # error, and re-writing it would have frozen the corruption.
+                if start < 0 or size < 0 or start + size > len(data):
+                    raise ValueError(
+                        f"Corrupt ASAR archive: entry {curr} spans {start}..{start + size} "
+                        f"but the file is only {len(data)} bytes")
+                files_data[curr] = data[start:start + size]
     extract_files(header)
     return header, files_data
 
@@ -232,6 +278,54 @@ def backup_matches_sidecar(bak_path):
         return True
     return file_sha256(bak_path) == expected
 
+def ensure_backup_sidecar(bak_path):
+    """Write the missing `.sha256` sidecar for a backup created before it existed.
+
+    The sidecar was only ever written when a backup was created or refreshed,
+    so every installation that already had a backup kept it sidecar-less
+    forever - and `backup_matches_sidecar()` trusts a sidecar-less backup
+    unconditionally, leaving tamper detection permanently disabled for those
+    installations. Back-filling the sidecar restores it.
+    """
+    sidecar = bak_path + ".sha256"
+    if os.path.exists(sidecar) or not os.path.exists(bak_path):
+        return False
+    try:
+        Path(sidecar).write_text(file_sha256(bak_path) + "\n", encoding="utf-8")
+        print(f"[+] Recorded backup checksum: {sidecar}")
+        return True
+    except Exception as e:
+        print(f"[!] Could not write backup checksum {sidecar}: {e}")
+        return False
+
+def compute_build_fingerprint(header, files):
+    """Stable identity of a client build, ignoring the files the patcher edits.
+
+    Two archives with the same fingerprint come from the same client build.
+    The patched targets are excluded because the patcher changes them itself;
+    the unpacked entry paths are included because their payload lives outside
+    the archive and must therefore match too.
+    """
+    h = hashlib.sha256()
+    unpacked = []
+
+    def _walk(node, prefix=""):
+        for name, entry in node.get("files", {}).items():
+            path = f"{prefix}/{name}" if prefix else name
+            if "files" in entry:
+                _walk(entry, path)
+            elif "offset" not in entry:
+                unpacked.append(path)
+
+    _walk(header)
+    for path in sorted(unpacked):
+        h.update(b"U\0" + path.encode("utf-8") + b"\0")
+    for path in sorted(files):
+        if path in PATCH_TARGETS:
+            continue
+        h.update(path.encode("utf-8") + b"\0" + hashlib.sha256(files[path]).digest())
+    return h.hexdigest()
+
 def compute_integrity(data):
     blocks = [hashlib.sha256(data[i:i + ASAR_BLOCK_SIZE]).hexdigest()
               for i in range(0, len(data), ASAR_BLOCK_SIZE)]
@@ -257,8 +351,8 @@ def write_asar_inplace(path, header, files_data, modified=None):
     and scratch builds); untouched files keep their original integrity
     metadata, which stays valid because their content is unchanged.
 
-    Writing is atomic when possible (temp file + os.replace). If the target is
-    held open by the running client, we fall back to an in-place rewrite.
+    Writing is atomic (temp file in the same directory + os.replace) so a
+    locked or read-only target fails cleanly without corrupting app.asar.
     """
     path = os.path.abspath(path)
     offsets = {}
@@ -295,12 +389,31 @@ def write_asar_inplace(path, header, files_data, modified=None):
     for curr, off in sorted(offsets.items(), key=lambda kv: kv[1]):
         payload += files_data[curr]
 
-    # mkstemp creates the temp file exclusively with an unpredictable name in
-    # the same directory (same volume, so os.replace stays atomic) and opens
-    # it in binary mode on Windows, so no CRLF translation can corrupt bytes.
-    tmp_fd, tmp_path = tempfile.mkstemp(
-        prefix=os.path.basename(path) + ".zh_tmp_", dir=os.path.dirname(path)
-    )
+    # Avoid tempfile.mkstemp() on Windows: when NTFS ACLs or a sandbox deny
+    # write access to `dir` while `os.access(dir, os.W_OK)` still returns True
+    # (because W_OK only inspects the DOS read-only bit), Python's stdlib
+    # `_mkstemp_inner` retries `TMP_MAX` (2,147,483,647) times and hangs.
+    parent_dir = os.path.dirname(path)
+    base_name = os.path.basename(path)
+    open_flags = os.O_WRONLY | os.O_CREAT | os.O_EXCL | getattr(os, "O_BINARY", 0)
+    tmp_fd = None
+    tmp_path = None
+    for _ in range(16):
+        candidate = os.path.join(parent_dir, f"{base_name}.zh_tmp_{os.urandom(8).hex()}")
+        try:
+            tmp_fd = os.open(candidate, open_flags, 0o600)
+            tmp_path = candidate
+            break
+        except FileExistsError:
+            continue
+        except PermissionError as exc:
+            if os.path.exists(candidate):
+                continue
+            raise PermissionError(
+                f"Permission denied writing to {parent_dir}. Run with sufficient permissions and try again."
+            ) from exc
+    if tmp_fd is None or tmp_path is None:
+        raise RuntimeError(f"Could not allocate temporary file in {parent_dir}")
     try:
         try:
             _write_all(tmp_fd, payload)
@@ -320,92 +433,208 @@ def write_asar_inplace(path, header, files_data, modified=None):
             except OSError:
                 pass
 
-def patch_menu_js(content_str):
-    replacements = [
-        ("label: 'New Window'", "label: '新建窗口 (New Window)'", -1),
-        ("label: 'Docs'", "label: '官方文档 (Docs)'", -1),
-        ("label: updater_1.MenuUpdateStep.CheckForUpdates", "label: '检查更新 (Check for Updates)'", -1),
-        # Only the first occurrence of the submenu lookup keys is rewritten so
-        # later addItemToSubmenu calls still find the original 'File'/'Help' keys.
-        ("addItemToSubmenu(menu, 'File'", "addItemToSubmenu(menu, '文件 (File)'", 1),
-        ("addItemToSubmenu(menu, 'Help'", "addItemToSubmenu(menu, '帮助 (Help)'", 1),
-    ]
+def apply_literal_replacements(content_str, groups, label):
+    """Apply literal replacements and report hits *and* actual replacements.
+
+    `groups` is a list of groups; every group holds the alternative spellings
+    of one logical string (for example the single- and double-quoted form of a
+    dialog title). A group counts as a hit when *any* of its alternatives
+    matched - otherwise a client that only uses one quoting style would report
+    a spurious miss.
+
+    `hits` is how often the literal occurs in the source; `replaced` is how
+    many occurrences were really rewritten (a replacement may cap the count).
+    Reporting only `hits` made the log claim success for replacements that
+    never happened - the menu lookup-key rewrite used to print "hit x3" while
+    only the first occurrence was touched.
+    """
     applied = []
     missed = 0
-    for old, new, count in replacements:
-        hits = content_str.count(old)
-        if hits:
-            content_str = content_str.replace(old, new, count)
-            applied.append(f"hit x{hits}: {old[:44]}")
+    replaced_total = 0
+    for group in groups:
+        group_hits = 0
+        group_replaced = 0
+        matched_literal = None
+        for old, new, count in group:
+            hits = content_str.count(old)
+            if hits:
+                content_str = content_str.replace(old, new, count)
+                after = content_str.count(old)
+                replaced = hits - after if count >= 0 else hits
+                group_hits += hits
+                group_replaced += replaced
+                if matched_literal is None:
+                    matched_literal = old
+        if group_hits:
+            applied.append(f"hit x{group_hits}, replaced x{group_replaced}: {matched_literal[:44]}")
+            replaced_total += group_replaced
         else:
-            applied.append(f"MISS     : {old[:44]}")
+            applied.append(f"MISS     : {group[0][0][:44]}")
             missed += 1
-    print("[*] Native menu patch results:")
+    print(f"[*] {label} patch results:")
     for line in applied:
         print(f"      {line}")
     if missed:
-        print(f"[!] {missed} menu replacement(s) not found - the client UI may have changed in an update")
+        print(f"[!] {missed} {label} replacement(s) not found - the client UI may have changed in an update")
+    return content_str, replaced_total, missed
+
+def patch_menu_js(content_str):
+    # The submenu *lookup keys* ('File' / 'Help') must stay untouched.
+    # addItemToSubmenu() resolves a submenu with `item.label === submenuLabel`,
+    # and the base application menu is built by Electron - the patch cannot
+    # rename those labels. Rewriting the lookup key therefore made the lookup
+    # fail and silently dropped the "New Window" item together with its
+    # CmdOrCtrl+Shift+N accelerator. Only the visible labels are localized.
+    groups = [
+        [("label: 'New Window'", "label: '新建窗口 (New Window)'", -1)],
+        [("label: 'Docs'", "label: '官方文档 (Docs)'", -1)],
+        # NOTE: the "Check for Updates" label is deliberately NOT rewritten.
+        # updateMenuState() overwrites item.label with the raw updater state on
+        # every updater event, so a translated label would be erased again -
+        # and the click handler resolves its action by that label.
+    ]
+    content_str, _, _ = apply_literal_replacements(content_str, groups, "Native menu")
     return content_str
 
 def patch_updater_js(content_str):
-    replacements = [
-        ("title: 'Check for Updates'", "title: '检查更新'", -1),
-        ('title: "Check for Updates"', 'title: "检查更新"', -1),
-        ("message: 'No updates available'", "message: '当前已是最新版本'", -1),
-        ('message: "No updates available"', 'message: "当前已是最新版本"', -1),
+    groups = [
+        [("title: 'Check for Updates'", "title: '检查更新'", -1),
+         ('title: "Check for Updates"', 'title: "检查更新"', -1)],
+        [("message: 'No updates available'", "message: '当前已是最新版本'", -1),
+         ('message: "No updates available"', 'message: "当前已是最新版本"', -1)],
     ]
-    applied = []
-    for old, new, count in replacements:
-        hits = content_str.count(old)
-        if hits:
-            content_str = content_str.replace(old, new, count)
-            applied.append(f"hit x{hits}: {old[:44]}")
-    if applied:
-        print("[*] Native updater patch results:")
-        for line in applied:
-            print(f"      {line}")
+    content_str, _, _ = apply_literal_replacements(content_str, groups, "Native updater")
     return content_str
 
 def patch_main_js(content_str):
-    replacements = [
-        ("title: 'Confirm Quit'", "title: '确认退出'", -1),
-        ("message: 'Are you sure you want to quit?'", "message: '确定要退出吗？'", -1),
-        ("detail: 'There may be agents or background tasks running.'", "detail: '可能有正在运行的智能体或后台任务。'", -1),
-        ("buttons: ['Cancel', 'Quit']", "buttons: ['取消', '退出']", -1),
+    groups = [
+        [("title: 'Confirm Quit'", "title: '确认退出'", -1)],
+        [("message: 'Are you sure you want to quit?'", "message: '确定要退出吗？'", -1)],
+        [("detail: 'There may be agents or background tasks running.'", "detail: '可能有正在运行的智能体或后台任务。'", -1)],
+        [("buttons: ['Cancel', 'Quit']", "buttons: ['取消', '退出']", -1)],
     ]
-    applied = []
-    for old, new, count in replacements:
-        hits = content_str.count(old)
-        if hits:
-            content_str = content_str.replace(old, new, count)
-            applied.append(f"hit x{hits}: {old[:44]}")
-    if applied:
-        print("[*] Native main dialog patch results:")
-        for line in applied:
-            print(f"      {line}")
+    content_str, _, _ = apply_literal_replacements(content_str, groups, "Native main dialog")
     return content_str
 
 def load_valid_json_text(path):
     """Return the file text when it parses as JSON, else None."""
     try:
-        text = Path(os.path.abspath(path)).read_text(encoding="utf-8")
+        # utf-8-sig transparently strips a BOM. Windows editors add one, and a
+        # plain utf-8 read would make json.loads() fail on the whole file.
+        text = Path(os.path.abspath(path)).read_text(encoding="utf-8-sig")
         json.loads(text)
         return text
     except Exception:
         return None
 
+def merge_dict_texts(base_text, override_text):
+    """Merge two JSON objects; the override wins per key."""
+    merged = dict(json.loads(base_text))
+    merged.update(json.loads(override_text))
+    return json.dumps(merged, ensure_ascii=False, indent=2)
+
+def merge_pattern_texts(base_text, override_text):
+    """Merge two JSON rule lists.
+
+    The override is the user's copy:
+      * a rule the user changed keeps the base rule's position but the user's
+        content, so an upstream revision does not silently win;
+      * a rule the user added is placed first, so it takes priority.
+    """
+    base = json.loads(base_text)
+    override = json.loads(override_text)
+    index_of = {}
+    merged = []
+    for rule in base:
+        index_of[(rule.get("pattern"), rule.get("flags"))] = len(merged)
+        merged.append(rule)
+    fresh = []
+    for rule in override:
+        key = (rule.get("pattern"), rule.get("flags"))
+        if key in index_of:
+            merged[index_of[key]] = rule
+        else:
+            fresh.append(rule)
+    return json.dumps(fresh + merged, ensure_ascii=False, indent=2)
+
+def base_dictionary_texts():
+    """The dictionary the tool ships: the embedded copy plus the bundle that
+    sits next to the tool (a release package or a source checkout).
+
+    Returns (zh_text, patterns_text) as JSON strings.
+    """
+    zh_base = EMBEDDED_ZH_JSON
+    pat_base = EMBEDDED_PATTERNS_JSON
+
+    bundled_dir = get_bundled_locales_dir()
+    if bundled_dir:
+        bundled_zh = load_valid_json_text(os.path.join(bundled_dir, "zh-CN.json"))
+        bundled_pat = load_valid_json_text(os.path.join(bundled_dir, "patterns.json"))
+        if bundled_zh and not contains_sentinel_marker(bundled_zh):
+            zh_base = merge_dict_texts(zh_base, bundled_zh)
+        if bundled_pat and not contains_sentinel_marker(bundled_pat):
+            pat_base = merge_pattern_texts(pat_base, bundled_pat)
+    return zh_base, pat_base
+
 def resolve_dictionary_texts(locales_dir):
-    """Prefer user-edited external dictionaries; validate before use."""
+    """Merge the embedded dictionary with the bundled and the user's copy.
+
+    Precedence, later wins per key: embedded < bundled < user.
+
+    The user's dictionary is never discarded. An earlier version compared the
+    entry counts and threw the whole file away when the user's copy had fewer
+    entries - that silently deleted the user's own translations.
+    """
+    zh_base, pat_base = base_dictionary_texts()
+
     zh_path = os.path.join(locales_dir, "zh-CN.json")
     pat_path = os.path.join(locales_dir, "patterns.json")
     zh_text = load_valid_json_text(zh_path)
     pat_text = load_valid_json_text(pat_path)
     if zh_text is None and os.path.exists(zh_path):
-        print("[!] External zh-CN.json is invalid JSON; using embedded dictionary")
+        print("[!] External zh-CN.json could not be parsed (invalid JSON or an encoding problem);")
+        print("[!] falling back to the bundled dictionary - your edits were NOT applied.")
     if pat_text is None and os.path.exists(pat_path):
-        print("[!] External patterns.json is invalid JSON; using embedded patterns")
-    return (zh_text if zh_text is not None else EMBEDDED_ZH_JSON,
-            pat_text if pat_text is not None else EMBEDDED_PATTERNS_JSON)
+        print("[!] External patterns.json could not be parsed; falling back to the bundled rules.")
+    if zh_text is not None:
+        try:
+            raw_user = json.loads(zh_text)
+            padded = [k for k in raw_user if k != k.strip()]
+            if padded:
+                cleaned = {}
+                for k, v in raw_user.items():
+                    sk = k.strip()
+                    if not sk:
+                        continue
+                    if k == sk or sk not in raw_user:
+                        cleaned[sk] = v
+                zh_text = json.dumps(cleaned, ensure_ascii=False, indent=2)
+                print(f"[*] Normalized {len(padded)} key(s) with leading/trailing whitespace from external zh-CN.json.")
+        except Exception:
+            pass
+    for label, user_text in (("zh-CN.json", zh_text), ("patterns.json", pat_text)):
+        if user_text is not None and contains_sentinel_marker(user_text):
+            print(f"[!] External {label} contains an engine splice marker; ignoring that file.")
+            if label == "zh-CN.json":
+                zh_text = None
+            else:
+                pat_text = None
+
+    if zh_text is not None:
+        zh_base = merge_dict_texts(zh_base, zh_text)
+    if pat_text is not None:
+        pat_base = merge_pattern_texts(pat_base, pat_text)
+    return zh_base, pat_base
+
+def contains_sentinel_marker(text):
+    """True when the text embeds one of the engine's splice markers.
+
+    The markers are plain comments in the engine source, so a dictionary value
+    containing one of them cannot escape a string literal on its own - but the
+    *next* splice searches for the markers textually and would then cut the
+    engine in the wrong place. Reject such content outright.
+    """
+    return any(marker in text for marker in (DICT_ZH_SENTINELS + DICT_PATTERNS_SENTINELS))
 
 def splice_engine_dicts(engine_code, zh_text, pat_text):
     """Swap the sentinel-wrapped dictionary blocks inside the engine code."""
@@ -428,8 +657,14 @@ def splice_engine_dicts(engine_code, zh_text, pat_text):
     return spliced
 
 def seed_locale_files(locales_dir):
-    """Drop editable copies of the embedded dictionaries (never overwrite)."""
-    for fname, text in (("zh-CN.json", EMBEDDED_ZH_JSON), ("patterns.json", EMBEDDED_PATTERNS_JSON)):
+    """Drop editable copies of the shipped dictionaries (never overwrite).
+
+    An existing user file is left exactly as the user left it: the read path
+    merges the shipped dictionary with the user's copy, so upstream additions
+    reach the client without touching the user's translations.
+    """
+    zh_base, pat_base = base_dictionary_texts()
+    for fname, text in (("zh-CN.json", zh_base), ("patterns.json", pat_base)):
         target = Path(os.path.abspath(os.path.join(locales_dir, fname)))
         if target.exists():
             continue
@@ -473,35 +708,49 @@ def apply_patch(install_dir=None, force=False):
     if current_patched and not force:
         if engine_code in files["dist/preload.js"].decode("utf-8", errors="ignore"):
             print("[*] Antigravity is already patched with the current engine and dictionaries!")
+            ensure_backup_sidecar(bak_path)
             seed_locale_files(locales_dir)
             return True
         if not os.path.exists(bak_path):
             print("[!] Dictionaries changed but no official backup exists to re-patch from; keeping current patch.")
-            return True
+            print("[!] The new dictionaries were NOT applied. Restore the official app.asar first, then patch again.")
+            return False
         print("[*] Dictionaries/engine changed since last patch; re-patching from official backup...")
         if not backup_matches_sidecar(bak_path):
             print("[!] Backup checksum mismatch - app.asar.bak may have been replaced or modified.")
             print("[!] Refusing to patch from it; keeping the current patch. Run `restore` to re-baseline.")
-            return True
-        header, files = read_asar(bak_path)
-        if "dist/preload.js" not in files:
+            return False
+        bak_header, bak_files = read_asar(bak_path)
+        if "dist/preload.js" not in bak_files:
             print("[!] Error: dist/preload.js missing from backup?!")
             return False
+        if compute_build_fingerprint(bak_header, bak_files) != compute_build_fingerprint(header, files):
+            print("[!] The official backup belongs to a DIFFERENT client build than the installed app.asar.")
+            print("[!] Refusing to rebuild from it - that would roll the client back to an older version.")
+            print("[!] Run `restore` to re-baseline the backup, then patch again.")
+            return False
+        header, files = bak_header, bak_files
     elif current_patched and force:
         if not os.path.exists(bak_path):
             # No clean origin to re-patch from; injecting twice would duplicate
             # the engine, so keep the existing patch instead.
             print("[!] --force requested but no official backup exists; keeping current patch as-is.")
-            return True
+            return False
         print("[*] Current build already patched; re-patching from clean official backup...")
         if not backup_matches_sidecar(bak_path):
             print("[!] Backup checksum mismatch - app.asar.bak may have been replaced or modified.")
             print("[!] Refusing to patch from it; keeping the current patch. Run `restore` to re-baseline.")
-            return True
-        header, files = read_asar(bak_path)
-        if "dist/preload.js" not in files:
+            return False
+        bak_header, bak_files = read_asar(bak_path)
+        if "dist/preload.js" not in bak_files:
             print("[!] Error: dist/preload.js missing from backup?!")
             return False
+        if compute_build_fingerprint(bak_header, bak_files) != compute_build_fingerprint(header, files):
+            print("[!] The official backup belongs to a DIFFERENT client build than the installed app.asar.")
+            print("[!] Refusing to rebuild from it - that would roll the client back to an older version.")
+            print("[!] Run `restore` to re-baseline the backup, then patch again.")
+            return False
+        header, files = bak_header, bak_files
     elif not os.path.exists(bak_path):
         print(f"[*] Creating backup of official app.asar -> {bak_path}...")
         shutil.copy2(asar_path, bak_path)
@@ -517,6 +766,10 @@ def apply_patch(install_dir=None, force=False):
             print("[*] Detected app update: refreshing official backup (existing one was stale)")
             shutil.copy2(asar_path, bak_path)
             write_backup_sidecar(asar_path, bak_path)
+
+    # A backup created before the sidecar existed never gets one on its own;
+    # back-fill it so tamper detection is not permanently disabled.
+    ensure_backup_sidecar(bak_path)
 
     print("[*] Injecting modern localization engine into dist/preload.js...")
     preload_str = files["dist/preload.js"].decode("utf-8")
@@ -574,10 +827,17 @@ def restore_backup(install_dir=None):
         return False
 
     if os.path.exists(asar_path):
-        cur_size, bak_size = os.path.getsize(asar_path), os.path.getsize(bak_path)
-        if cur_size != bak_size:
-            print(f"[!] Size mismatch: current app.asar is {cur_size} bytes, backup is {bak_size} bytes.")
-            print("[!] The backup may come from a different (older) client version; restoring rolls the app back to it.")
+        # Compare the client build, not the file size: the patcher injects the
+        # engine, so a patched archive is always larger than its own backup and
+        # a size comparison reported a version mismatch on every restore.
+        try:
+            cur_header, cur_files = read_asar(asar_path)
+            bak_header, bak_files = read_asar(bak_path)
+            if compute_build_fingerprint(cur_header, cur_files) != compute_build_fingerprint(bak_header, bak_files):
+                print("[!] The backup belongs to a DIFFERENT client build than the installed app.asar.")
+                print("[!] Restoring it would roll the client back to another version.")
+        except Exception as e:
+            print(f"[!] Could not compare the backup against the installed archive: {e}")
 
     if not backup_matches_sidecar(bak_path):
         print("[!] WARNING: backup checksum mismatch - app.asar.bak may have been modified or replaced.")
@@ -649,6 +909,14 @@ if __name__ == "__main__":
     main()
 '''
 
+# Module-level twin of the helper inside PATCHER_TEMPLATE (that copy is what
+# ships inside scripts/patcher.py). Keep both in sync.
+def contains_sentinel_marker(text):
+    """True when the text embeds one of the engine's splice markers."""
+    markers = ("/*AG_ZH_ZH_START*/", "/*AG_ZH_ZH_END*/",
+               "/*AG_ZH_PATTERNS_START*/", "/*AG_ZH_PATTERNS_END*/")
+    return any(marker in text for marker in markers)
+
 def build(compile_exe=True):
     print("=" * 60)
     print("  Antigravity-ZH Toolkit Builder (v1.0.4)")
@@ -663,8 +931,41 @@ def build(compile_exe=True):
     pat_json_str = Path(pat_path).read_text(encoding="utf-8")
     template = Path(template_path).read_text(encoding="utf-8")
     # Fail fast on broken dictionary sources before generating anything.
-    json.loads(zh_json_str)
+    zh_obj = json.loads(zh_json_str)
     json.loads(pat_json_str)
+
+    # The engine looks entries up by the *trimmed* UI text, so a key with
+    # leading/trailing whitespace can never match anything. Reject it here
+    # instead of shipping a silently dead entry.
+    padded_keys = [k for k in zh_obj if k != k.strip()]
+    if padded_keys:
+        preview = ", ".join(repr(k) for k in padded_keys[:5])
+        raise SystemExit(
+            f"[!] locales/zh-CN.json has {len(padded_keys)} key(s) with leading/trailing "
+            f"whitespace - they can never match because the engine trims the UI text "
+            f"before looking it up.\n    {preview}\n"
+            f"[!] Fix the keys (or move the variable part into locales/patterns.json) and rebuild."
+        )
+
+    # A dictionary value carrying a splice marker would make the next splice cut
+    # the engine in the wrong place.
+    for label, text in (("zh-CN.json", zh_json_str), ("patterns.json", pat_json_str)):
+        if contains_sentinel_marker(text):
+            raise SystemExit(
+                f"[!] locales/{label} contains an engine splice marker "
+                f"(AG_ZH_ZH_START/END, AG_ZH_PATTERNS_START/END).\n"
+                f"[!] That marker would break the engine splice - remove it and rebuild."
+            )
+
+    # An empty translation would blank out the UI text it belongs to.
+    empty_values = [k for k, v in zh_obj.items() if not v.strip()]
+    if empty_values:
+        preview = ", ".join(repr(k) for k in empty_values[:5])
+        raise SystemExit(
+            f"[!] locales/zh-CN.json has {len(empty_values)} entry/entries with an empty "
+            f"translation - the engine would render an empty label.\n    {preview}\n"
+            f"[!] Fill them in or remove them and rebuild."
+        )
 
     full_engine_js = (
         "// GENERATED by scripts/build.py - DO NOT EDIT.\n"
@@ -714,8 +1015,9 @@ def build(compile_exe=True):
             # Keep a copy at the repo root for double-click installs.
             try:
                 shutil.copy2(output_bin, os.path.join(REPO_ROOT, binary_name))
-            except Exception:
-                pass
+                print("[+] Copied to repo root.")
+            except Exception as e:
+                print(f"[!] Could not copy the binary to the repo root: {e}")
 
             if not is_win:
                 try:
@@ -727,7 +1029,6 @@ def build(compile_exe=True):
             print("\n" + "=" * 60)
             print(f"  [+] Build Succeeded!")
             print(f"  [+] Binary: {output_bin}")
-            print(f"  [+] Copied to repo root.")
             print("=" * 60)
             return True
         except subprocess.CalledProcessError as e:
@@ -741,4 +1042,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Antigravity-ZH Builder v1.0.4")
     parser.add_argument("--no-exe", action="store_true", help="Skip PyInstaller compilation")
     args = parser.parse_args()
-    build(compile_exe=not args.no_exe)
+    # The exit code has to reflect the build result: CI uses it to decide
+    # whether a release may be published.
+    raise SystemExit(0 if build(compile_exe=not args.no_exe) else 1)

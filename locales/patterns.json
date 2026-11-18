@@ -708,5 +708,195 @@
     "pattern": "^The WSL distro \"(.+)\" is no longer installed\\.$",
     "flags": "i",
     "replacement": "WSL 发行版“$1”已不再安装。"
+  },
+  {
+    "pattern": "^(In addition to the custom skills folder, )(.*?)( will search the following paths in order to find skills for the agent\\.)$",
+    "flags": "i",
+    "replacement": "除了自定义技能文件夹，$2 将按顺序搜索以下路径，以寻找智能体的技能。"
+  },
+  {
+    "pattern": "^(Changes the base URL on each extension page\\. You must restart )([^.]+)\\.?\\s*$",
+    "flags": "i",
+    "replacement": "更改每个扩展页面的基准 URL。您必须重启 $2。"
+  },
+  {
+    "pattern": "^(.+?)( will use your AI credits to fulfill model requests once you're out of model quota\\.)$",
+    "flags": "i",
+    "replacement": "$1 将在您的模型配额用尽时使用您的 AI 积分来满足模型请求。"
+  },
+  {
+    "pattern": "^(.+?)( will always use your model quota first before using AI credits\\.)$",
+    "flags": "i",
+    "replacement": "$1 将始终在开始使用 AI 积分之前优先使用您的模型配额。"
+  },
+  {
+    "pattern": "^Sign in to use (.+)$",
+    "flags": "i",
+    "replacement": "登录以使用 $1"
+  },
+  {
+    "pattern": "^(\\d+) tokens?$",
+    "flags": "i",
+    "replacement": "$1 个 Token"
+  },
+  {
+    "pattern": "^Build with (.+)$",
+    "flags": "i",
+    "replacement": "使用 $1"
+  },
+  {
+    "pattern": "^There are currently no Build with (.+?) plugins available\\.$",
+    "flags": "i",
+    "replacement": "目前没有使用 $1 插件可供使用。"
+  },
+  {
+    "pattern": "^No MCP servers found for (.+)$",
+    "flags": "i",
+    "replacement": "未找到匹配的 MCP 服务器：$1"
+  },
+  {
+    "pattern": "^No handlers configured for (.+)$",
+    "flags": "i",
+    "replacement": "未配置处理程序：$1"
+  },
+  {
+    "pattern": "^Add New Handler to (.+)$",
+    "flags": "i",
+    "replacement": "添加新处理程序到 $1"
+  },
+  {
+    "pattern": "^You can upgrade to a higher (.+?) plan to receive the highest rate limits\\.$",
+    "flags": "i",
+    "replacement": "您可以升级到更高级别的 $1 方案，以获得最高速率限制。"
+  },
+  {
+    "pattern": "^You can upgrade to a (.+?) plan to receive (?:the highest|higher) rate limits\\.$",
+    "flags": "i",
+    "replacement": "您可以升级到 $1 方案，以获得更高的速率限制。"
+  },
+  {
+    "pattern": "^Inherits your Global Permissions when working (.+)\\.$",
+    "flags": "i",
+    "replacement": "在 $1 中工作时继承您的全局权限。"
+  },
+  {
+    "pattern": "^(\\d+)\\s+projects?$",
+    "flags": "i",
+    "replacement": "$1 个项目"
+  },
+  {
+    "pattern": "^(\\d+)\\s+selected$",
+    "flags": "i",
+    "replacement": "已选择 $1 项"
+  },
+  {
+    "pattern": "^Stop (\\d+) selected$",
+    "flags": "i",
+    "replacement": "停止所选的 $1 项"
+  },
+  {
+    "pattern": "^(.+?)\\s+\\(Experimental\\)$",
+    "flags": "i",
+    "replacement": "$1（实验性）"
+  },
+  {
+    "pattern": "^(.+?)\\s+\\(Default\\)$",
+    "flags": "i",
+    "replacement": "$1（默认）"
+  },
+  {
+    "pattern": "^(.+?)\\s+\\(Archived\\)$",
+    "flags": "i",
+    "replacement": "$1（已归档）"
+  },
+  {
+    "pattern": "^(.+?)\\s+\\(Remote\\)$",
+    "flags": "i",
+    "replacement": "$1（远程）"
+  },
+  {
+    "pattern": "^(\\d+)\\s+Files?\\s+With\\s+Changes$",
+    "flags": "i",
+    "replacement": "$1 个文件有更改"
+  },
+  {
+    "pattern": "^(\\d+)\\s+Side\\s+Questions?$",
+    "flags": "i",
+    "replacement": "$1 个侧边提问"
+  },
+  {
+    "pattern": "^Thinking\\s*\\((\\d+)s\\)[…\\.]*$",
+    "flags": "i",
+    "replacement": "思考中 ($1 秒)…"
+  },
+  {
+    "pattern": "^Thinking for\\s+(\\d+)s$",
+    "flags": "i",
+    "replacement": "思考了 $1 秒"
+  },
+  {
+    "pattern": "^Working\\s*·\\s*(\\d+)s$",
+    "flags": "i",
+    "replacement": "工作中 · $1 秒"
+  },
+  {
+    "pattern": "^Using browser\\s*\\((\\d+)s\\)$",
+    "flags": "i",
+    "replacement": "正在使用浏览器 ($1 秒)"
+  },
+  {
+    "pattern": "^Sign in from the (.+?) panel\\.$",
+    "flags": "i",
+    "replacement": "请从 $1 面板登录。"
+  },
+  {
+    "pattern": "^Account this MCP server uses:\\s*(.+)$",
+    "flags": "i",
+    "replacement": "此 MCP 服务器使用的账户：$1"
+  },
+  {
+    "pattern": "^Signed in:\\s*(.+)$",
+    "flags": "i",
+    "replacement": "已登录：$1"
+  },
+  {
+    "pattern": "^Sign-in failed:\\s*(.+)$",
+    "flags": "i",
+    "replacement": "登录失败：$1"
+  },
+  {
+    "pattern": "^Connecting to (.+?)[…\\.]{1,3}$",
+    "flags": "i",
+    "replacement": "正在连接到 $1…"
+  },
+  {
+    "pattern": "^Connected to (.+)$",
+    "flags": "i",
+    "replacement": "已连接到 $1"
+  },
+  {
+    "pattern": "^Couldn't connect to (.+)$",
+    "flags": "i",
+    "replacement": "无法连接到 $1"
+  },
+  {
+    "pattern": "^Your quota for (.+?) has been reached\\. Switch to another available model to continue\\.$",
+    "flags": "i",
+    "replacement": "您的 $1 配额已用尽。请切换到其他可用模型以继续。"
+  },
+  {
+    "pattern": "^Your quota for (.+?) will reset on (.+?)\\. Switch to another available model to continue\\.$",
+    "flags": "i",
+    "replacement": "您的 $1 配额将于 $2 重置。请切换到其他可用模型以继续。"
+  },
+  {
+    "pattern": "^Your plan's baseline quota will refresh on (.+)\\.$",
+    "flags": "i",
+    "replacement": "您方案的基础配额将于 $1 刷新。"
+  },
+  {
+    "pattern": "^Recording shortcut for (.+)\\. Press keys to bind, Enter to save, Escape to cancel\\.$",
+    "flags": "i",
+    "replacement": "正在为“$1”录制快捷键。请按键绑定，按 Enter 保存，按 Escape 取消。"
   }
 ]

@@ -28,9 +28,11 @@
 - 🛡️ **Agent Permission Localization**: Covers common file access, command execution, unsandboxed warnings, MCP tools, rule scopes, and fallback-input prompts.
 - ⚡ **Atomic ASAR Patching**: Builds a complete temporary archive, recalculates SHA-256 integrity, and atomically replaces the target. If Antigravity locks the file, patching stops and asks you to close the client instead of rewriting the live archive.
 - 🌐 **Open Shadow DOM Support**: Uses `TreeWalker` and `MutationObserver` for the regular DOM and accessible open shadow roots. Closed shadow roots, cross-origin iframes, webviews, and native system components are outside its coverage.
-- 📖 **External Dictionaries, No Rebuild Needed**: Decoupled dictionary files in `locales/zh-CN.json` (**2,070** entries) and `locales/patterns.json` (**142** regex rules).
+- 📖 **External Dictionaries, No Rebuild Needed**: Decoupled dictionary files in `locales/zh-CN.json` (**2,792** entries) and `locales/patterns.json` (**180** regex rules).
   - Dictionary directory: `%APPDATA%\Antigravity\locales\` (Windows) / `~/Library/Application Support/Antigravity/locales/` (macOS)
-  - Edit them with any text editor and re-run the installer to apply - no binary rebuild required. Clients that allow runtime file access additionally hot-reload dictionary edits automatically (checked every 2s).
+  - Edit them with any text editor and re-run the installer to apply - no binary rebuild required.
+  - ⚠️ **Runtime hot reloading is not available in the current client**: the renderer runs sandboxed, so the preload cannot read files. After editing a dictionary you **must re-run the installer** - it re-embeds the dictionary into `app.asar`.
+  - ⚡ **Dictionaries are merged by key, your edits are never lost**: the installer merges the shipped dictionary with yours (yours wins on a collision), so new upstream strings reach the client while the entries you changed or removed stay exactly as you left them.
 - 🔍 **One-Click Untranslated Text Extraction**: Press **`Ctrl + Alt + L`** (macOS: **`Option + Cmd + L`**) anywhere in Antigravity to copy all unlocalized text on screen directly to your clipboard in JSON format.
 - 🛡️ **Safe Backup & Instant Rollback**: Automatically creates `app.asar.bak` with one-click restore to official releases.
 
@@ -119,8 +121,8 @@ antigravity-zh-toolkit/
 ├── status.bat  / status.sh      # Status check scripts
 ├── build.bat   / build.sh       # Local build scripts
 ├── locales/
-│   ├── zh-CN.json               # Core dictionary (2,070 entries)
-│   └── patterns.json            # Regex templates (142 patterns)
+│   ├── zh-CN.json               # Core dictionary (2,792 entries)
+│   └── patterns.json            # Regex templates (180 patterns)
 ├── engine/
 │   ├── ag_localization_engine.js# Modern localization engine injected into Electron
 │   └── engine_template.js       # Engine compilation template

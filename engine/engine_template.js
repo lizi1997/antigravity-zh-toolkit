@@ -1,8 +1,10 @@
 // Antigravity Client Modern Chinese Localization Engine v1.0.4
 // Sandboxed Electron compatible with embedded dictionary and real-time DOM translation
-// Supports external dictionaries from the Antigravity locales directory:
-// the patcher splices them in at injection time, and when the preload has fs
-// access (non-sandboxed) they are also hot-reloaded at runtime.
+// Dictionary source of truth: the embedded copy the patcher splices into
+// dist/preload.js at injection time. Runtime hot loading from the Antigravity
+// locales directory additionally requires a non-sandboxed preload, which the
+// current client does not provide - see the "External dictionary hot loading"
+// section below.
 
 (function() {
     let currentLang = 'zh';
@@ -26,7 +28,10 @@
 
     function rebuildIndexes() {
         lowerTranslations = {};
-        for (const key in translations) {
+        // Object.keys, not for..in: for..in also walks the prototype chain, so
+        // an inherited property would be promoted to an own key and could
+        // shadow an unrelated UI string.
+        for (const key of Object.keys(translations)) {
             lowerTranslations[key.toLowerCase()] = translations[key];
         }
         patterns = [];
@@ -35,7 +40,10 @@
             try {
                 // Whitelisted flags only: a hand-edited patterns.json must
                 // never throw here and take the whole engine down at load.
-                const flags = (typeof p.flags === 'string' && /^[imsuy]+$/.test(p.flags)) ? p.flags : 'i';
+                // 'y' (sticky) is deliberately excluded: a sticky regex only
+                // matches at lastIndex 0, and String.replace() does not
+                // advance it, so such a rule would silently never apply.
+                const flags = (typeof p.flags === 'string' && /^[imsu]+$/.test(p.flags)) ? p.flags : 'i';
                 patterns.push({ regex: new RegExp(p.pattern, flags), replace: p.replacement });
             } catch (e) { /* skip malformed rule */ }
         }
@@ -43,11 +51,22 @@
     rebuildIndexes();
 
     // ---------------------------------------------------------------------------
-    // External dictionary hot loading. Only works in non-sandboxed preloads;
-    // sandboxed ones silently fall back to the embedded dictionary (which the
-    // patcher already merged with the external files at injection time).
+    // External dictionary hot loading.
+    //
+    // This path ONLY works in a non-sandboxed preload. Antigravity runs the
+    // renderer with `nodeIntegration: false` and no explicit `sandbox: false`,
+    // and since Electron 20 that combination enables the renderer sandbox -
+    // a sandboxed preload has no Node `require('fs')`, so `nodeFs()` returns
+    // null and hot loading never happens. Verified on Antigravity / Electron
+    // 44.5.1: `require('fs')` throws "module not found: fs".
+    //
+    // Consequence: the embedded dictionary (spliced in by the patcher at
+    // injection time) is the ONLY source that reaches the client. Dictionary
+    // edits therefore require a successful re-patch - they are NOT picked up
+    // live. When fs is unavailable we say so once instead of failing silently.
     // ---------------------------------------------------------------------------
     let _fs;
+    let _fsWarned = false;
     function nodeFs() {
         if (_fs !== undefined) return _fs;
         _fs = null;
@@ -55,6 +74,11 @@
             if (typeof require === 'function') _fs = require('fs');
         } catch (e) {
             _fs = null;
+        }
+        if (!_fs && !_fsWarned) {
+            _fsWarned = true;
+            console.warn('[AG-ZH] Runtime dictionary hot loading is unavailable in this client '
+                + '(sandboxed preload). Re-run the patcher after editing the dictionary.');
         }
         return _fs;
     }
@@ -81,8 +105,8 @@
 
     function applyExternalDicts(zh, pats) {
         const merged = {};
-        for (const k in EMBEDDED_TRANSLATIONS) merged[k] = EMBEDDED_TRANSLATIONS[k];
-        if (zh) for (const k in zh) merged[k] = zh[k];
+        for (const k of Object.keys(EMBEDDED_TRANSLATIONS)) merged[k] = EMBEDDED_TRANSLATIONS[k];
+        if (zh) for (const k of Object.keys(zh)) merged[k] = zh[k];
         translations = merged;
         rawPatterns = (pats && pats.length) ? pats : EMBEDDED_PATTERNS;
         rebuildIndexes();
@@ -173,7 +197,10 @@
     // patterns are never interpreted. Pattern rules intentionally keep "$1"
     // capture semantics.
     function escapeDollar(s) {
-        return String(s).replace(/\$/g, '$$');
+        // The replacer MUST be a function: with a string replacement "$$"
+        // collapses straight back to "$", which makes the escaping a no-op and
+        // lets "$&" / "$'" in a translation be expanded by String.replace.
+        return String(s).replace(/\$/g, () => '$$');
     }
 
     function translateText(text) {
@@ -264,11 +291,18 @@
         return next;
     }
 
+    function hasTranslatableOwnAttrs(el) {
+        return el && el.nodeType === 1 && (el.tagName === 'TEXTAREA' || el.isContentEditable);
+    }
+
     function translateDOM(root) {
         if (!root) return;
 
         if (root.nodeType === 1) {
-            if (isSkipElement(root)) return;
+            if (isSkipElement(root)) {
+                if (hasTranslatableOwnAttrs(root)) translateElementAttrs(root);
+                return;
+            }
         } else if (root.nodeType === 3 && insideSkipZone(root.parentElement)) {
             return;
         }
@@ -303,12 +337,16 @@
             }
         }
 
-        // Walk DOM Subtree
-        try {
-            const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT);
-            let node = walker.nextNode();
-            while (node) {
+        // Walk DOM Subtree. Each node is handled in its own try/catch: a
+        // single throwing node must not abort the remaining nodes of the
+        // subtree, otherwise one bad element leaves a whole UI section in
+        // English - silently.
+        const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT);
+        let node = walker.nextNode();
+        while (node) {
+            try {
                 if (node.nodeType === 1 && isSkipElement(node)) {
+                    if (hasTranslatableOwnAttrs(node)) translateElementAttrs(node);
                     node = skipSubtree(walker, node);
                     continue;
                 }
@@ -335,14 +373,24 @@
                         }
                     }
                 }
-                node = walker.nextNode();
+            } catch (e) {
+                // Skip this node only; the rest of the subtree is still scanned.
             }
-        } catch (e) {}
+            node = walker.nextNode();
+        }
     }
 
     function nodeIsInputButton(node) {
         return node.tagName === 'INPUT' && (node.type === 'button' || node.type === 'submit' || node.type === 'reset');
     }
+
+    const OBSERVER_OPTIONS = {
+        childList: true,
+        subtree: true,
+        characterData: true,
+        attributes: true,
+        attributeFilter: TRANSLATABLE_ATTRS
+    };
 
     function observeSubtree(target) {
         if (!target) return;
@@ -352,7 +400,10 @@
                 for (const mutation of mutations) {
                     if (mutation.type === 'childList') {
                         mutation.addedNodes.forEach(n => {
-                            if (n.nodeType === 1 && isSkipElement(n)) return;
+                            if (n.nodeType === 1 && isSkipElement(n)) {
+                                if (hasTranslatableOwnAttrs(n)) translateElementAttrs(n);
+                                return;
+                            }
                             if (n.nodeType === 3 && insideSkipZone(n.parentElement)) return;
                             translateDOM(n);
                         });
@@ -365,13 +416,18 @@
                                 node.nodeValue = translated;
                             }
                         }
+                    } else if (mutation.type === 'attributes') {
+                        const el = mutation.target;
+                        if (el && el.nodeType === 1 && (!insideSkipZone(el) || hasTranslatableOwnAttrs(el))) {
+                            translateElementAttrs(el);
+                        }
                     }
                 }
             } finally {
-                obs.observe(target, { childList: true, subtree: true, characterData: true });
+                obs.observe(target, OBSERVER_OPTIONS);
             }
         });
-        obs.observe(target, { childList: true, subtree: true, characterData: true });
+        obs.observe(target, OBSERVER_OPTIONS);
     }
 
     function startMainObserver() {

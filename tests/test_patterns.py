@@ -52,6 +52,93 @@ def test_zh_dictionary_loads():
     assert all(isinstance(k, str) and isinstance(v, str) for k, v in zh.items())
 
 
+def test_dictionary_keys_have_no_surrounding_whitespace():
+    """The engine looks entries up by the *trimmed* UI text.
+
+    A key with leading/trailing whitespace therefore can never match, which
+    silently leaves that UI string in English forever.
+    """
+    zh = json.loads((LOCALES_DIR / "zh-CN.json").read_text(encoding="utf-8"))
+    padded = [k for k in zh if k != k.strip()]
+    assert padded == [], f"keys can never match: {padded[:5]}"
+
+
+def test_every_dictionary_entry_is_reachable():
+    """Every entry must be findable through the engine's lookup order.
+
+    Mirrors engine_template.js translateText(): exact match, then the
+    lowercase index, then the pattern rules.
+    """
+    zh = json.loads((LOCALES_DIR / "zh-CN.json").read_text(encoding="utf-8"))
+    pats = load_patterns()
+    lower = {k.lower(): v for k, v in zh.items()}
+
+    def lookup(text):
+        t = text.strip()
+        if not t or re.search(r"[\u4e00-\u9fff]", t):
+            return None
+        if t in zh:
+            return zh[t]
+        if t.lower() in lower:
+            return lower[t.lower()]
+        for p in pats:
+            flags = re.IGNORECASE
+            if "m" in (p.get("flags") or ""):
+                flags |= re.MULTILINE
+            try:
+                rx = re.compile(p["pattern"], flags)
+            except re.error:
+                continue
+            if rx.search(t):
+                return True
+        return None
+
+    unreachable = []
+    for key in zh:
+        # The engine never looks up text that already contains CJK.
+        if re.search(r"[\u4e00-\u9fff]", key):
+            continue
+        if lookup(key) is None:
+            unreachable.append(key)
+    assert unreachable == [], f"unreachable entries: {unreachable[:5]}"
+
+
+@pytest.mark.parametrize(
+    ("source", "expected"),
+    [
+        # Fragment-shaped strings: the variable part lives in the middle, so
+        # only a pattern rule can match the full sentence.
+        ("In addition to the custom skills folder, Antigravity will search the following paths in order to find skills for the agent.",
+         "除了自定义技能文件夹，Antigravity 将按顺序搜索以下路径，以寻找智能体的技能。"),
+        ("Changes the base URL for marketplace search results. You must restart Antigravity to use the new marketplace after changing this value.",
+         "更改插件市场搜索结果的基准 URL。更改此值后，您必须重启 Antigravity 才能使用新的插件市场。"),
+        ("Changes the base URL on each extension page. You must restart Antigravity.",
+         "更改每个扩展页面的基准 URL。您必须重启 Antigravity。"),
+        ("Receive product updates, tips, and promotions from Google Antigravity via email.",
+         "通过电子邮件接收来自 Google Antigravity 的产品更新、提示和促销信息。"),
+        ("When toggled on, Antigravity collects usage data to help Google enhance performance and features.",
+         "开启后，Antigravity 将收集使用数据，以帮助 Google 提升性能并改进功能。"),
+        ("This request will use your AI credits to fulfill model requests once you're out of model quota.",
+         "This request 将在您的模型配额用尽时使用您的 AI 积分来满足模型请求。"),
+        ("Requests will always use your model quota first before using AI credits.",
+         "Requests 将始终在开始使用 AI 积分之前优先使用您的模型配额。"),
+        ("Sign in to use Advanced", "登录以使用 Advanced"),
+        ("5 tokens", "5 个 Token"),
+        ("3 comments", "3 条评论"),
+        ("Build with Gemini 3 Pro", "使用 Gemini 3 Pro"),
+        ("There are currently no Build with Gemini 3 Pro plugins available.",
+         "目前没有使用 Gemini 3 Pro 插件可供使用。"),
+        ("No MCP servers found for My Server", "未找到匹配的 MCP 服务器：My Server"),
+        ("No handlers configured for My Hook", "未配置处理程序：My Hook"),
+        ("Add New Handler to My Hook", "添加新处理程序到 My Hook"),
+    ],
+)
+def test_previously_unreachable_strings_are_translated(source, expected):
+    """Regression guard for the 31 dictionary entries that used to carry
+    surrounding whitespace and could never be matched."""
+    assert translate_pattern_pass(source) == expected
+
+
 @pytest.mark.parametrize(
     ("source", "expected"),
     [

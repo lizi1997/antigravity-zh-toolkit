@@ -28,10 +28,12 @@
 - 🛡️ **重点汉化智能体权限询问**：覆盖读取/写入路径、执行命令、沙箱外运行警告、MCP 工具、规则保存范围及替代输入等常见权限文案。
 - ⚡ **原子 ASAR 补丁**：先在同目录生成完整临时文件并重算 SHA-256，再以原子替换写入；若客户端占用文件，程序会停止并提示先关闭 Antigravity，不会冒险原位覆盖。
 - 🌐 **开放式 Shadow DOM 支持**：基于 `TreeWalker` 与 `MutationObserver` 递归处理普通 DOM 和可访问的开放式 Shadow DOM；closed Shadow DOM、跨域 iframe、webview 及原生系统组件不在覆盖范围内。
-- 📖 **词典解耦，改词免重编**：词库独立为标准 `locales/zh-CN.json`（**2,070** 词条）与 `locales/patterns.json`（**142** 正则规则）。
+- 📖 **词典解耦，改词免重编**：词库独立为标准 `locales/zh-CN.json`（**2,792** 词条）与 `locales/patterns.json`（**180** 正则规则）。
   - Windows 词典目录：`%APPDATA%\Antigravity\locales\`
   - macOS 词典目录：`~/Library/Application Support/Antigravity/locales/`
-  - 直接用任意文本编辑器修改词典，重新运行安装脚本即生效（无需重新构建二进制）；支持运行时文件读取的客户端还会每 2 秒自动热加载，保存后立即生效！
+  - 直接用任意文本编辑器修改词典，重新运行安装脚本即生效（无需重新构建二进制）。
+  - ⚠️ **当前版本客户端的渲染进程运行在沙箱中，不支持运行时热加载**（preload 无法访问文件系统）。因此改完词典后**必须重新运行一次安装脚本**才会生效 —— 安装脚本会把词典重新拼装进 `app.asar`。
+  - ⚡ **词典按 key 合并，你的修改不会被丢弃**：安装脚本会把「随包发布版词典」与「你的词典」按 key 合并（同名以你的为准），因此新版本的新词条会自动进入客户端，而你已经改过或删掉的词条也会完整保留。
 - 🔍 **一键捕获未翻译词条**：运行中按下快捷键 **`Ctrl + Alt + L`**（macOS: **`Option + Cmd + L`**），实时提取屏幕上遇到的所有未汉化英文词汇到剪贴板，闭环扩充词库极为简单。
 - 🛡️ **安全备份与秒级还原**：自动生成官方原始备份 `app.asar.bak`，支持一键无损复原纯净官方版本。
 
@@ -121,8 +123,8 @@ antigravity-zh-toolkit/
 ├── status.bat / status.sh       # 状态检查脚本
 ├── build.bat  / build.sh        # 本地构建编译打包脚本
 ├── locales/
-│   ├── zh-CN.json               # 核心汉化静态词典 (2,070 词条)
-│   └── patterns.json            # 动态正则模板库 (142 规则)
+│   ├── zh-CN.json               # 核心汉化静态词典 (2,792 词条)
+│   └── patterns.json            # 动态正则模板库 (180 规则)
 ├── engine/
 │   ├── ag_localization_engine.js# 注入 Electron 渲染层的现代化汉化引擎（生成文件）
 │   └── engine_template.js       # 引擎构建代码模板（源文件）
