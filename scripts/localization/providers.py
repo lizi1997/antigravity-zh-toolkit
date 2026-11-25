@@ -21,6 +21,7 @@ import json
 import os
 import shlex
 import subprocess
+import sys
 from dataclasses import dataclass, field
 
 from .qa import GLOSSARY
@@ -291,6 +292,20 @@ def resolve_providers(provider, dictionary, overlay=None, provider_cmd=None,
         # The explicit overlay always participates: it is the highest-confidence
         # layer and skipping it would silently drop human decisions.
         chain.insert(0, FileProvider(overlay, label=overlay_label))
+
+    if provider == "all":
+        # `--provider all` without an overlay/cmd used to degrade to just `tm`
+        # with no trace. Say so on stderr (stdout stays machine-readable).
+        skipped = []
+        if not overlay:
+            skipped.append("file(no --translations and no candidate translations)")
+        if not provider_cmd:
+            skipped.append("cmd(no --provider-cmd)")
+        if skipped:
+            names = "+".join(p.name for p in chain) or "none"
+            print("[l10n] --provider all: skipped {} (no input); "
+                  "effective chain is {}".format(", ".join(skipped), names),
+                  file=sys.stderr)
 
     return chain
 

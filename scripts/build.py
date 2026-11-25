@@ -38,6 +38,7 @@ are silently overwritten by the next build.
 
 import os
 import sys
+import stat
 import struct
 import json
 import shutil
@@ -45,6 +46,7 @@ import hashlib
 import argparse
 import subprocess
 import tempfile
+import time
 from pathlib import Path
 
 SIGNATURE_PRELOAD = "// Antigravity Client Modern Chinese Localization Engine"
@@ -176,9 +178,126 @@ def get_locales_dir():
     elif sys.platform.startswith("linux"):
         base = os.path.expanduser("~/.config/Antigravity/locales")
     else:
-        base = os.path.join(os.environ.get("APPDATA", ""), "Antigravity", "locales")
+        appdata = os.environ.get("APPDATA") or os.path.join(
+            os.path.expanduser("~"), "AppData", "Roaming")
+        if not appdata:
+            raise RuntimeError(
+                "Cannot locate the Antigravity locales directory: "
+                "neither %APPDATA% nor the home directory is available.")
+        base = os.path.join(appdata, "Antigravity", "locales")
     os.makedirs(base, exist_ok=True)
     return base
+
+def _resolve_install_dir(install_dir):
+    """Validate the install dir and locate app.asar. Returns (dir, asar, bak).
+
+    Raises ValueError with a human-readable reason when the directory is
+    unusable, so a typo in --dir can never silently read or write an
+    unrelated app.asar. A symlinked app.asar is refused outright: os.replace
+    would swap the link itself instead of the file it points to.
+    """
+    if not install_dir:
+        install_dir = get_default_install_dir()
+    if not install_dir:
+        raise ValueError("Antigravity installation not found. Specify with --dir")
+    resolved = os.path.realpath(os.path.abspath(install_dir))
+    if not os.path.isdir(resolved):
+        raise ValueError(f"Not a directory: {install_dir}")
+    asar_path = os.path.join(resolved, "app.asar")
+    if not os.path.isfile(asar_path):
+        nested = os.path.join(resolved, "resources", "app.asar")
+        if os.path.isfile(nested):
+            asar_path = nested
+    if os.path.islink(asar_path):
+        raise ValueError(
+            f"Refusing to touch a symlinked app.asar: {asar_path}. "
+            "Point --dir at the real installation directory.")
+    if not os.path.isfile(asar_path):
+        raise ValueError(
+            f"No Antigravity app.asar found under {resolved}. "
+            "Pass the directory that directly contains app.asar "
+            "(or its parent when app.asar lives in resources/).")
+    return resolved, asar_path, asar_path + ".bak"
+
+def _acquire_lock(directory):
+    """Create an exclusive patch lock. Returns the lock path, or None if busy.
+
+    A lock older than 15 minutes is treated as stale (previous run crashed)
+    and is removed. Any other error while creating the lock is raised: the
+    write path would fail there anyway, with a less clear message.
+    """
+    lock_path = os.path.join(directory, "app.asar.zhlock")
+    try:
+        fd = os.open(lock_path,
+                     os.O_WRONLY | os.O_CREAT | os.O_EXCL | getattr(os, "O_BINARY", 0),
+                     0o600)
+        try:
+            os.write(fd, str(os.getpid()).encode("utf-8"))
+        finally:
+            os.close(fd)
+        return lock_path
+    except FileExistsError:
+        try:
+            age = time.time() - os.path.getmtime(lock_path)
+        except OSError:
+            return None
+        if age > 900:
+            try:
+                os.remove(lock_path)
+            except OSError:
+                return None
+            return _acquire_lock(directory)
+        return None
+
+def _release_lock(lock_path):
+    if lock_path:
+        try:
+            os.remove(lock_path)
+        except OSError:
+            pass
+
+def _atomic_copy2(src, dst):
+    """Copy src to dst atomically: tmp + fsync + verify + os.replace.
+
+    A plain shutil.copy2 can leave a truncated backup behind when two
+    instances run concurrently or the machine loses power mid-copy - and a
+    truncated .bak fails every later re-patch and restore. The checksum is
+    verified before the rename, and the source file mode is preserved.
+    """
+    dst = os.path.abspath(dst)
+    parent = os.path.dirname(dst)
+    open_flags = os.O_WRONLY | os.O_CREAT | os.O_EXCL | getattr(os, "O_BINARY", 0)
+    tmp_fd = None
+    tmp_path = None
+    for _ in range(16):
+        candidate = os.path.join(parent, f".{os.path.basename(dst)}.tmp_{os.urandom(8).hex()}")
+        try:
+            tmp_fd = os.open(candidate, open_flags, 0o600)
+            tmp_path = candidate
+            break
+        except FileExistsError:
+            continue
+    if tmp_fd is None or tmp_path is None:
+        raise RuntimeError(f"Could not allocate temporary file in {parent}")
+    try:
+        with os.fdopen(tmp_fd, "wb") as f:
+            with open(src, "rb") as s:
+                shutil.copyfileobj(s, f, 1024 * 1024)
+            f.flush()
+            os.fsync(f.fileno())
+        if file_sha256(tmp_path) != file_sha256(src):
+            raise IOError("Backup verification failed: checksum mismatch after copy")
+        try:
+            os.chmod(tmp_path, stat.S_IMODE(os.stat(src).st_mode))
+        except OSError:
+            pass
+        os.replace(tmp_path, dst)
+    finally:
+        if tmp_path and os.path.exists(tmp_path):
+            try:
+                os.remove(tmp_path)
+            except OSError:
+                pass
 
 def get_bundled_locales_dir():
     """The read-only dictionary shipped next to the tool.
@@ -355,6 +474,13 @@ def write_asar_inplace(path, header, files_data, modified=None):
     locked or read-only target fails cleanly without corrupting app.asar.
     """
     path = os.path.abspath(path)
+    # Preserve the original file mode across the atomic replace: the temp
+    # file is created 0600, and without this the installed app.asar would
+    # silently change from 0644 to 0600 on every patch/restore.
+    try:
+        src_mode = stat.S_IMODE(os.stat(path).st_mode)
+    except OSError:
+        src_mode = None
     offsets = {}
     current_offset = 0
 
@@ -420,6 +546,11 @@ def write_asar_inplace(path, header, files_data, modified=None):
             os.fsync(tmp_fd)
         finally:
             os.close(tmp_fd)
+        if src_mode is not None:
+            try:
+                os.chmod(tmp_path, src_mode)
+            except OSError:
+                pass
         try:
             os.replace(tmp_path, path)
         except PermissionError as exc:
@@ -528,9 +659,29 @@ def load_valid_json_text(path):
         return None
 
 def merge_dict_texts(base_text, override_text):
-    """Merge two JSON objects; the override wins per key."""
-    merged = dict(json.loads(base_text))
-    merged.update(json.loads(override_text))
+    """Merge two JSON objects; the override wins per key.
+
+    Defensive: an override that is valid JSON but not an object (a user
+    hand-editing the dictionary can easily produce `[]`), or that carries
+    non-string keys/values, is ignored with a warning instead of crashing
+    the patch or silently emptying the dictionary.
+    """
+    try:
+        merged = dict(json.loads(base_text))
+        override = json.loads(override_text)
+    except Exception:
+        print("[!] Dictionary merge failed (invalid JSON); keeping base dictionary.")
+        return base_text
+    if not isinstance(override, dict):
+        print("[!] Dictionary override is valid JSON but not an object; ignoring it.")
+        return base_text
+    if any(not isinstance(k, str) for k in override):
+        print("[!] Dictionary override has non-string key(s); ignoring it.")
+        return base_text
+    if any(not isinstance(v, str) for v in override.values()):
+        print("[!] Dictionary override has non-string value(s); ignoring it.")
+        return base_text
+    merged.update(override)
     return json.dumps(merged, ensure_ascii=False, indent=2)
 
 def merge_pattern_texts(base_text, override_text):
@@ -540,9 +691,21 @@ def merge_pattern_texts(base_text, override_text):
       * a rule the user changed keeps the base rule's position but the user's
         content, so an upstream revision does not silently win;
       * a rule the user added is placed first, so it takes priority.
+
+    Defensive: an override that is valid JSON but not a list is ignored, and
+    individual malformed rules are skipped with a count instead of raising
+    AttributeError on `rule.get`.
     """
     base = json.loads(base_text)
-    override = json.loads(override_text)
+    try:
+        override = json.loads(override_text)
+    except Exception:
+        print("[!] Pattern merge failed (invalid JSON); keeping base rules.")
+        return base_text
+    if not isinstance(base, list) or not isinstance(override, list):
+        print("[!] Pattern file is valid JSON but not a rule list; keeping base rules.")
+        return base_text
+    skipped = 0
     index_of = {}
     merged = []
     for rule in base:
@@ -550,11 +713,16 @@ def merge_pattern_texts(base_text, override_text):
         merged.append(rule)
     fresh = []
     for rule in override:
+        if not isinstance(rule, dict) or "pattern" not in rule or "replacement" not in rule:
+            skipped += 1
+            continue
         key = (rule.get("pattern"), rule.get("flags"))
         if key in index_of:
             merged[index_of[key]] = rule
         else:
             fresh.append(rule)
+    if skipped:
+        print(f"[!] Skipped {skipped} malformed pattern rule(s) (not rule objects); keeping the rest.")
     return json.dumps(fresh + merged, ensure_ascii=False, indent=2)
 
 def base_dictionary_texts():
@@ -599,7 +767,11 @@ def resolve_dictionary_texts(locales_dir):
     if zh_text is not None:
         try:
             raw_user = json.loads(zh_text)
-            padded = [k for k in raw_user if k != k.strip()]
+            if not isinstance(raw_user, dict):
+                print("[!] External zh-CN.json is valid JSON but not an object; ignoring it.")
+                zh_text = None
+                raw_user = {}
+            padded = [k for k in raw_user if isinstance(k, str) and k != k.strip()]
             if padded:
                 cleaned = {}
                 for k, v in raw_user.items():
@@ -675,18 +847,29 @@ def seed_locale_files(locales_dir):
             print(f"[!] Could not seed {target}: {e}")
 
 def apply_patch(install_dir=None, force=False):
-    if not install_dir:
-        install_dir = get_default_install_dir()
-    if not install_dir or not os.path.exists(install_dir):
-        print("[!] Error: Antigravity installation not found. Specify with --dir")
+    try:
+        install_dir, asar_path, bak_path = _resolve_install_dir(install_dir)
+    except ValueError as e:
+        print(f"[!] Error: {e}")
         return False
 
-    asar_path = os.path.join(install_dir, "app.asar") if os.path.exists(os.path.join(install_dir, "app.asar")) else os.path.join(install_dir, "resources", "app.asar")
-    bak_path = asar_path + ".bak"
-
-    if not os.path.exists(asar_path):
-        print(f"[!] Error: {asar_path} does not exist.")
+    if is_antigravity_running() and not force:
+        print("[!] Antigravity appears to be running. Close it first, then run again")
+        print("[!] (or pass --force to patch anyway, then restart the client).")
         return False
+
+    lock_path = _acquire_lock(install_dir)
+    if lock_path is None:
+        print("[!] Another patch/restore operation appears to be in progress")
+        print(f"[!] (lock file present in {install_dir}). If no other instance is")
+        print("[!] running, remove app.asar.zhlock and try again.")
+        return False
+    try:
+        return _apply_patch_locked(install_dir, asar_path, bak_path, force=force)
+    finally:
+        _release_lock(lock_path)
+
+def _apply_patch_locked(install_dir, asar_path, bak_path, force=False):
 
     print("[*] Reading current app.asar...")
     try:
@@ -701,7 +884,11 @@ def apply_patch(install_dir=None, force=False):
 
     current_patched = SIGNATURE_PRELOAD in files["dist/preload.js"].decode("utf-8", errors="ignore")
 
-    locales_dir = get_locales_dir()
+    try:
+        locales_dir = get_locales_dir()
+    except Exception as e:
+        print(f"[!] Error: {e}")
+        return False
     zh_text, pat_text = resolve_dictionary_texts(locales_dir)
     engine_code = splice_engine_dicts(EMBEDDED_ENGINE_CODE, zh_text, pat_text)
 
@@ -753,7 +940,11 @@ def apply_patch(install_dir=None, force=False):
         header, files = bak_header, bak_files
     elif not os.path.exists(bak_path):
         print(f"[*] Creating backup of official app.asar -> {bak_path}...")
-        shutil.copy2(asar_path, bak_path)
+        try:
+            _atomic_copy2(asar_path, bak_path)
+        except Exception as e:
+            print(f"[!] Could not create backup: {e}")
+            return False
         write_backup_sidecar(asar_path, bak_path)
     else:
         # The current build is an unpatched official archive, which is by
@@ -764,34 +955,56 @@ def apply_patch(install_dir=None, force=False):
             print(f"[*] Official backup already exists at {bak_path}")
         else:
             print("[*] Detected app update: refreshing official backup (existing one was stale)")
-            shutil.copy2(asar_path, bak_path)
+            try:
+                _atomic_copy2(asar_path, bak_path)
+            except Exception as e:
+                print(f"[!] Could not refresh backup: {e}")
+                return False
             write_backup_sidecar(asar_path, bak_path)
 
     # A backup created before the sidecar existed never gets one on its own;
     # back-fill it so tamper detection is not permanently disabled.
     ensure_backup_sidecar(bak_path)
 
+    def _decode_target(arc_path):
+        # A non-UTF-8 member used to raise an uncaught UnicodeDecodeError and
+        # abort with a stack trace. Refuse that file instead; untouched
+        # members are simply left as-is because nothing is written yet.
+        try:
+            return files[arc_path].decode("utf-8")
+        except UnicodeDecodeError:
+            print(f"[!] {arc_path} is not valid UTF-8; refusing to patch it.")
+            return None
+
     print("[*] Injecting modern localization engine into dist/preload.js...")
-    preload_str = files["dist/preload.js"].decode("utf-8")
+    preload_str = _decode_target("dist/preload.js")
+    if preload_str is None:
+        return False
     new_preload = preload_str.rstrip() + "\n\n" + engine_code + "\n"
     files["dist/preload.js"] = new_preload.encode("utf-8")
     modified = {"dist/preload.js"}
 
     if "dist/menu.js" in files:
         print("[*] Patching native menus in dist/menu.js...")
-        menu_str = files["dist/menu.js"].decode("utf-8")
+        menu_str = _decode_target("dist/menu.js")
+        if menu_str is None:
+            return False
         files["dist/menu.js"] = patch_menu_js(menu_str).encode("utf-8")
         modified.add("dist/menu.js")
 
     if "dist/updater.js" in files:
         print("[*] Patching native updater in dist/updater.js...")
-        updater_str = files["dist/updater.js"].decode("utf-8")
+        updater_str = _decode_target("dist/updater.js")
+        if updater_str is None:
+            return False
         files["dist/updater.js"] = patch_updater_js(updater_str).encode("utf-8")
         modified.add("dist/updater.js")
 
     if "dist/main.js" in files:
         print("[*] Patching native dialogs in dist/main.js...")
-        main_str = files["dist/main.js"].decode("utf-8")
+        main_str = _decode_target("dist/main.js")
+        if main_str is None:
+            return False
         files["dist/main.js"] = patch_main_js(main_str).encode("utf-8")
         modified.add("dist/main.js")
 
@@ -812,36 +1025,75 @@ def apply_patch(install_dir=None, force=False):
     print("========================================================\n")
     return True
 
-def restore_backup(install_dir=None):
-    if not install_dir:
-        install_dir = get_default_install_dir()
-    if not install_dir or not os.path.exists(install_dir):
-        print("[!] Error: Antigravity installation not found. Specify with --dir")
+def restore_backup(install_dir=None, force=False):
+    try:
+        install_dir, asar_path, bak_path = _resolve_install_dir(install_dir)
+    except ValueError as e:
+        print(f"[!] Error: {e}")
         return False
 
-    asar_path = os.path.join(install_dir, "app.asar") if os.path.exists(os.path.join(install_dir, "app.asar")) else os.path.join(install_dir, "resources", "app.asar")
-    bak_path = asar_path + ".bak"
+    if is_antigravity_running() and not force:
+        print("[!] Antigravity appears to be running. Close it first, then run again")
+        print("[!] (or pass --force to restore anyway, then restart the client).")
+        return False
 
     if not os.path.exists(bak_path):
         print(f"[!] No backup file found at {bak_path}")
         return False
 
+    lock_path = _acquire_lock(install_dir)
+    if lock_path is None:
+        print("[!] Another patch/restore operation appears to be in progress")
+        print(f"[!] (lock file present in {install_dir}). If no other instance is")
+        print("[!] running, remove app.asar.zhlock and try again.")
+        return False
+    try:
+        return _restore_backup_locked(install_dir, asar_path, bak_path, force=force)
+    finally:
+        _release_lock(lock_path)
+
+def _restore_backup_locked(install_dir, asar_path, bak_path, force=False):
     if os.path.exists(asar_path):
         # Compare the client build, not the file size: the patcher injects the
         # engine, so a patched archive is always larger than its own backup and
         # a size comparison reported a version mismatch on every restore.
+        # A mismatched backup used to be restored anyway with only a printed
+        # warning, silently rolling the client back to an older version.
         try:
             cur_header, cur_files = read_asar(asar_path)
             bak_header, bak_files = read_asar(bak_path)
             if compute_build_fingerprint(cur_header, cur_files) != compute_build_fingerprint(bak_header, bak_files):
                 print("[!] The backup belongs to a DIFFERENT client build than the installed app.asar.")
-                print("[!] Restoring it would roll the client back to another version.")
+                print("[!] Refusing to roll the client back to another version.")
+                print("[!] If you really want this backup, delete the current app.asar first")
+                print("[!] (or pass --force), keeping in mind the client will be downgraded.")
+                if not force:
+                    return False
         except Exception as e:
             print(f"[!] Could not compare the backup against the installed archive: {e}")
+            if not force:
+                return False
 
     if not backup_matches_sidecar(bak_path):
         print("[!] WARNING: backup checksum mismatch - app.asar.bak may have been modified or replaced.")
-        print("[!] Restoring it anyway as requested.")
+        if not force:
+            print("[!] Refusing to restore a tampered backup; pass --force to proceed anyway.")
+            return False
+        print("[!] Restoring it anyway as requested (--force).")
+
+    # Keep a timestamped copy of the archive being replaced, so a bad backup
+    # never leaves the user with no way back.
+    if os.path.exists(asar_path):
+        try:
+            import datetime
+            stamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+            pre_path = asar_path + f".pre-restore-{stamp}"
+            _atomic_copy2(asar_path, pre_path)
+            print(f"[*] Saved pre-restore copy: {pre_path}")
+        except Exception as e:
+            print(f"[!] Could not save a pre-restore copy: {e}")
+            if not force:
+                return False
 
     print("[*] Restoring original app.asar from backup...")
     try:
@@ -853,18 +1105,89 @@ def restore_backup(install_dir=None):
         print(f"[!] Restore failed: {e}")
         return False
 
+def update_patch(install_dir=None, force=False):
+    """One-command refresh, meant to be re-run after every client update.
+
+    Detects whether the installed client changed since the last patch
+    (backup missing or refreshed), re-applies the patch idempotently, and
+    prints a short summary of what happened. Safe to run on a schedule:
+    when everything is already current it is a read-only no-op.
+    """
+    try:
+        install_dir, asar_path, bak_path = _resolve_install_dir(install_dir)
+    except ValueError as e:
+        print(f"[!] Error: {e}")
+        return False
+
+    had_backup = os.path.exists(bak_path)
+    bak_sha_before = file_sha256(bak_path) if had_backup else None
+    patched_before = False
+    if os.path.exists(asar_path):
+        try:
+            _, before_files = read_asar(asar_path)
+            patched_before = SIGNATURE_PRELOAD in before_files.get(
+                "dist/preload.js", b"").decode("utf-8", errors="ignore")
+        except Exception:
+            pass
+
+    print("[*] update: checking installed client against backup...")
+    if not apply_patch(install_dir, force=force):
+        return False
+
+    bak_sha_after = file_sha256(bak_path) if os.path.exists(bak_path) else None
+    if not had_backup and bak_sha_after:
+        print("[*] update: no backup existed; created one from the installed client.")
+    elif bak_sha_before != bak_sha_after:
+        print("[*] update: client update detected; official backup refreshed and patch re-applied.")
+        print("[*] update: if the new client added English UI, run the extractor + localize pipeline")
+        print("           (or press Ctrl+Alt+L in the client) to collect the new strings.")
+    elif not patched_before:
+        print("[*] update: patch applied to the installed client.")
+    else:
+        print("[*] update: already current; nothing to do.")
+    return True
+
+def run_watch(install_dir=None, interval_s=1800, iterations=None):
+    """Resident watcher: re-patch whenever the installed app.asar changes.
+
+    Each round is just apply_patch(), which is idempotent: an unchanged
+    client is a read-only no-op, and a round is skipped while the client is
+    running (patching a live client is refused without --force). `iterations`
+    bounds the loop for tests; the CLI runs forever until Ctrl+C.
+    """
+    if interval_s < 60:
+        print(f"[!] Interval {interval_s}s is too short; using 60s minimum.")
+        interval_s = 60
+    print(f"[*] watch: checking every {interval_s}s (Ctrl+C to stop)...")
+    count = 0
+    try:
+        while True:
+            count += 1
+            print(f"[*] watch: round {count} at {time.strftime('%Y-%m-%d %H:%M:%S')}")
+            try:
+                if is_antigravity_running():
+                    print("[*] watch: client is running; skipping this round.")
+                elif not apply_patch(install_dir):
+                    print("[!] watch: round failed (see above); will retry next round.")
+            except Exception as e:
+                print(f"[!] watch: round failed with {e!r}; will retry next round.")
+            if iterations is not None and count >= iterations:
+                break
+            time.sleep(interval_s)
+    except KeyboardInterrupt:
+        print("[*] watch: stopped.")
+    return True
+
 def show_status(install_dir=None):
-    if not install_dir:
-        install_dir = get_default_install_dir()
     print("=== Antigravity Localization Status ===")
     print(f"Platform:    {sys.platform}")
+    try:
+        install_dir, asar_path, bak_path = _resolve_install_dir(install_dir)
+    except ValueError as e:
+        print(f"Install Dir: {install_dir}")
+        print(f"Status: Not installed or not found ({e}).")
+        return False
     print(f"Install Dir: {install_dir}")
-    if not install_dir:
-        print("Status: Not installed or not found.")
-        return
-
-    asar_path = os.path.join(install_dir, "app.asar") if os.path.exists(os.path.join(install_dir, "app.asar")) else os.path.join(install_dir, "resources", "app.asar")
-    bak_path = asar_path + ".bak"
     print(f"app.asar exists: {os.path.exists(asar_path)}")
     print(f"Backup exists:   {os.path.exists(bak_path)}")
     print(f"Client running:  {is_antigravity_running()}")
@@ -883,16 +1206,21 @@ def show_status(install_dir=None):
 
 def main():
     parser = argparse.ArgumentParser(description="Antigravity Modern Chinese Localization Patcher v1.0.5")
-    parser.add_argument("action", nargs="?", default="patch", choices=["patch", "restore", "status"], help="Action to perform (default: patch)")
-    parser.add_argument("--dir", help="Custom Antigravity installation directory")
-    parser.add_argument("--force", action="store_true", help="Force re-patching even if already patched")
+    parser.add_argument("action", nargs="?", default="patch", choices=["patch", "restore", "status", "update", "watch"], help="Action to perform (default: patch)")
+    parser.add_argument("--dir", help="Custom Antigravity installation directory (must contain app.asar or a resources/app.asar; symlinked app.asar is refused)")
+    parser.add_argument("--force", action="store_true", help="Force re-patching even if already patched; also bypasses the running-client, version-mismatch and tampered-backup guards (the client must be restarted afterwards)")
+    parser.add_argument("--interval", type=int, default=1800, help="Watch interval in seconds (watch only, minimum 60)")
 
     args = parser.parse_args()
 
     if args.action == "patch":
         ok = apply_patch(args.dir, force=args.force)
     elif args.action == "restore":
-        ok = restore_backup(args.dir)
+        ok = restore_backup(args.dir, force=args.force)
+    elif args.action == "update":
+        ok = update_patch(args.dir, force=args.force)
+    elif args.action == "watch":
+        ok = run_watch(args.dir, interval_s=args.interval)
     elif args.action == "status":
         ok = show_status(args.dir)
 
@@ -927,12 +1255,24 @@ def build(compile_exe=True):
     pat_path = os.path.join(LOCALES_DIR, "patterns.json")
 
     print("[1/3] Loading locales and building ag_localization_engine.js...")
-    zh_json_str = Path(zh_path).read_text(encoding="utf-8")
-    pat_json_str = Path(pat_path).read_text(encoding="utf-8")
+    zh_json_str = Path(zh_path).read_text(encoding="utf-8-sig")
+    pat_json_str = Path(pat_path).read_text(encoding="utf-8-sig")
     template = Path(template_path).read_text(encoding="utf-8")
     # Fail fast on broken dictionary sources before generating anything.
+    # utf-8-sig matches the patcher/LSP tooling: a BOM saved by Windows
+    # Notepad must not break the release build while patching accepts it.
     zh_obj = json.loads(zh_json_str)
-    json.loads(pat_json_str)
+    pat_obj = json.loads(pat_json_str)
+    if not isinstance(zh_obj, dict):
+        raise SystemExit(
+            "[!] locales/zh-CN.json must be a JSON object (string keys to string values), "
+            f"got {type(zh_obj).__name__}."
+        )
+    if not isinstance(pat_obj, list):
+        raise SystemExit(
+            "[!] locales/patterns.json must be a JSON list of rule objects, "
+            f"got {type(pat_obj).__name__}."
+        )
 
     # The engine looks entries up by the *trimmed* UI text, so a key with
     # leading/trailing whitespace can never match anything. Reject it here
@@ -956,6 +1296,18 @@ def build(compile_exe=True):
                 f"(AG_ZH_ZH_START/END, AG_ZH_PATTERNS_START/END).\n"
                 f"[!] That marker would break the engine splice - remove it and rebuild."
             )
+
+    # A non-string dictionary value would crash the empty-value check below
+    # with AttributeError; report it by name instead.
+    non_string_values = {k: type(v).__name__ for k, v in zh_obj.items()
+                         if not isinstance(v, str)}
+    if non_string_values:
+        preview = ", ".join(f"{k!r} ({t})" for k, t in list(non_string_values.items())[:5])
+        raise SystemExit(
+            f"[!] locales/zh-CN.json has {len(non_string_values)} entry/entries with a non-string "
+            f"translation - every value must be a string.\n    {preview}\n"
+            f"[!] Fix them or remove them and rebuild."
+        )
 
     # An empty translation would blank out the UI text it belongs to.
     empty_values = [k for k, v in zh_obj.items() if not v.strip()]

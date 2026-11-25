@@ -3745,11 +3745,14 @@
 
     let translations = EMBEDDED_TRANSLATIONS;
     let rawPatterns = EMBEDDED_PATTERNS;
-    let lowerTranslations = {};
+    // Null-prototype maps: the user-editable dictionary is merged key by key,
+    // and a "__proto__" key would otherwise pollute the prototype instead of
+    // becoming an own property (prototype pollution via dictionary).
+    let lowerTranslations = Object.create(null);
     let patterns = [];
 
     function rebuildIndexes() {
-        lowerTranslations = {};
+        lowerTranslations = Object.create(null);
         // Object.keys, not for..in: for..in also walks the prototype chain, so
         // an inherited property would be promoted to an own key and could
         // shadow an unrelated UI string.
@@ -3826,7 +3829,7 @@
     let externalStamp = null;
 
     function applyExternalDicts(zh, pats) {
-        const merged = {};
+        const merged = Object.create(null);
         for (const k of Object.keys(EMBEDDED_TRANSLATIONS)) merged[k] = EMBEDDED_TRANSLATIONS[k];
         if (zh) for (const k of Object.keys(zh)) merged[k] = zh[k];
         translations = merged;
@@ -3837,7 +3840,7 @@
     function tryLoadExternalDicts() {
         const fs = nodeFs();
         const dir = externalLocalesDir();
-        if (!fs || !dir) return;
+        if (!fs || !dir) return false;
         try {
             let zh = null, pats = null, stamp = '';
             try {
@@ -3853,9 +3856,12 @@
             if (stamp !== externalStamp) {
                 externalStamp = stamp;
                 applyExternalDicts(zh, pats);
+                return true;
             }
+            return false;
         } catch (e) {
             // Corrupt external dictionaries must never take the client down.
+            return false;
         }
     }
 
@@ -3906,7 +3912,16 @@
 
     function recordUntranslated(str) {
         if (!str || str.length < 2 || str.length > 300) return;
-        if (untranslatedSet.size >= 1000) return;
+        if (untranslatedSet.size >= 1000) {
+            // FIFO eviction: Set preserves insertion order, so drop the
+            // oldest ~10% to make room. Without this the collector locks up
+            // permanently at 1000 and only manual localStorage clearing helps.
+            let n = 100;
+            for (const oldest of untranslatedSet) {
+                untranslatedSet.delete(oldest);
+                if (--n <= 0) break;
+            }
+        }
         if (/^[0-9\s:._\-/\+$,#&'"\[\]{}()\\<>=!*?|`@%]+$/.test(str)) return;
         if (/[一-鿿]/.test(str)) return;
         if (!untranslatedSet.has(str)) {
@@ -4158,13 +4173,22 @@
     }
 
     function startPeriodicScan() {
+        // Safety-net scan only: the MutationObserver already handles
+        // incremental DOM updates. The full-tree walk runs solely when the
+        // external dictionaries actually changed, and hidden tabs are
+        // skipped entirely to avoid burning CPU in the background.
         setInterval(() => {
-            if (document.body) {
-                try { tryLoadExternalDicts(); } catch (e) {}
+            if (typeof document.hidden !== 'undefined' && document.hidden) return;
+            if (!document.body) return;
+            try {
+                let changed = false;
+                try { changed = tryLoadExternalDicts(); } catch (e) {}
                 try { injectLanguageSwitcher(); } catch (e) {}
-                translateDOM(document.body);
-            }
-        }, 2000);
+                if (changed && currentLang !== 'en') {
+                    try { translateDOM(document.body); } catch (e) {}
+                }
+            } catch (e) {}
+        }, 5000);
     }
 
     function injectLanguageSwitcher() {
@@ -4253,6 +4277,12 @@
 
     // Global shortcut Ctrl+Alt+L (macOS: Option+Cmd+L) to export untranslated text
     window.addEventListener('keydown', (e) => {
+        // Never hijack keystrokes typed into an editor or input: that would
+        // pop overlays/clipboard writes in the middle of editing.
+        try {
+            const t = e.target;
+            if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
+        } catch (err) {}
         const isL = (e.key === 'l' || e.key === 'L' || e.code === 'KeyL');
         const isModifier = e.altKey && (e.ctrlKey || e.metaKey);
         if (isModifier && isL) {

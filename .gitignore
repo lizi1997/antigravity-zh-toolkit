@@ -17,6 +17,9 @@ dist/
 
 # Backup files
 *.bak
+# SHA-256 sidecars next to backups (live in user install dirs, not the repo)
+*.bak.sha256
+*.l10n-tmp
 
 # Extractor output (untranslated candidates, must never be committed)
 locales/missing_strings.json

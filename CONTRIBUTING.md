@@ -71,7 +71,7 @@ python scripts/localize.py qa
    - 专有名词（如 `Google Chrome`、`Gemini`、`Claude`、`GitHub`、`MCP` 等）保持原样，不进行强行意译。
 3. **测试验证**：
    - 提交 PR 前，先跑测试套件：`python -m pytest tests/ -v`（需 `pip install pytest`）。
-   - 再运行 `python scripts/build.py --no-exe` 生成最新引擎，并运行 `python scripts/patcher.py patch` 检查实际界面渲染效果（已打补丁时重复执行是安全的幂等操作）。
+   - 再运行 `python scripts/build.py --no-exe` 生成最新引擎，并运行 `python scripts/patcher.py update` 检查实际界面渲染效果（`patch` 的超集：自动识别客户端更新并刷新备份；已是最新时重复执行是安全的只读空操作）。
 
 ---
 

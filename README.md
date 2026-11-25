@@ -96,9 +96,13 @@ chmod +x *.command *.sh
 | 操作说明 | Windows 操作 | macOS 操作（双击即用） | Python 原生 CLI |
 | :--- | :--- | :--- | :--- |
 | **一键安装汉化** | 双击 `install.bat` | 双击 `安装汉化.command` | `python scripts/patcher.py patch` |
+| **客户端更新后一键重打** | 双击 `update.bat` | 双击 `更新汉化.command` | `python scripts/patcher.py update` |
+| **常驻自动守望（每 30 分钟检查一次）** | `antigravity-zh.exe watch` | `./antigravity-zh-macos-arm64 watch` | `python scripts/patcher.py watch [--interval 秒数]` |
 | **一键还原官方** | 双击 `restore.bat` | 双击 `还原官方.command` | `python scripts/patcher.py restore` |
 | **查看状态检查** | 双击 `status.bat` | `./status.sh` | `python scripts/patcher.py status` |
 | **捕获未翻译词条** | 客户端内按 `Ctrl + Alt + L` | 客户端内按 `Option + Cmd + L` | *(前端实时捕获)* |
+
+> 💡 **客户端更新后只需双击 `update.bat`（macOS：`更新汉化.command`）**：自动检测版本变化 → 刷新官方备份 → 重打汉化，已是最新则什么都不做。想全自动可把 `update` 设为开机任务（Windows 任务计划程序 `/sc onlogon`，或 macOS LaunchAgent 定时调用），或常驻运行 `watch`（客户端运行时自动跳过，关闭后下一轮补打）。
 
 ---
 
@@ -116,10 +120,11 @@ antigravity-zh-toolkit/
 ├── README_EN.md                 # 英文说明文档
 ├── CONTRIBUTING.md              # 词条贡献指南
 ├── requirements.txt             # 开发者依赖配置
-├── install.bat / restore.bat    # Windows 双击安装/还原批处理
+├── install.bat / restore.bat / update.bat  # Windows 双击安装/还原/更新批处理
 ├── 安装汉化.command             # macOS 专属双击安装脚本
 ├── 还原官方.command             # macOS 专属双击还原脚本
-├── install.sh / restore.sh      # Linux / macOS 终端一键脚本
+├── 更新汉化.command             # macOS 专属双击更新脚本（客户端升级后重打）
+├── install.sh / restore.sh / update.sh  # Linux / macOS 终端一键脚本
 ├── status.bat / status.sh       # 状态检查脚本
 ├── build.bat  / build.sh        # 本地构建编译打包脚本
 ├── locales/

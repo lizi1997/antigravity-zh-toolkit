@@ -1,5 +1,8 @@
 # Antigravity-ZH Toolkit 全面代码质量、安全与工程架构审计报告
 
+> ⚠️ **本文档已冻结**：审计基线为 v1.0.4（commit `5bf1f`），其中词条数（2,070/142）等快照数据已过时。
+> 当前词典规模与行为以 `README.md`（CI 强制校验）及 `FIX_STATUS.md` 为准，本文件仅作历史存档，不再更新。
+
 **报告版本**：v2.0.0 (Master Release)  
 **审计基线**：antigravity-zh-toolkit (v1.0.4, commit `5bf1bfd`, main 分支)  
 **审计日期**：2026-11-09  

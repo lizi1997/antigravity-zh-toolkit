@@ -13,7 +13,7 @@
 ## 0. 一句话
 
 **默认 dry-run、零网络、只经 `build.py` 生成产物、失败自动回滚词典**；
-770 行的候选集在一条命令内给出 QA 报告 + 合并计划 + diff 预览，`--apply` 才落盘。
+761 行的候选集在一条命令内给出 QA 报告 + 合并计划 + diff 预览，`--apply` 才落盘。
 
 ---
 
@@ -53,6 +53,14 @@ python scripts/localize.py release --json
 > `AI Credits are used when you've exceeded your model quota…` 的译文没用到
 > 「积分」，`Customizations views` 的译文没用到「自定义配置」，而
 > `CONTRIBUTING.md` 明确要求这两个术语。要么修译文，要么显式豁免。
+
+### 「未翻译」三份口径对照
+
+| 文件 | 口径 | 消费方 |
+| :--- | :--- | :--- |
+| `UNTRANSLATED_UI_STRINGS.md` | 全量刮取（去重前，含噪音） | 人工审阅 |
+| `remaining_untranslated.csv`（987 行） | 全量刮取去重后 | 人工审阅 |
+| `untranslated_candidates.json`（761 条） | 去重 + 引擎规则过滤后 | `localize.py` 管线唯一输入 |
 
 ---
 

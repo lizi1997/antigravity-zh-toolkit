@@ -16,11 +16,19 @@ on:
 
 jobs:
   test:
-    name: Test and verify generated files
-    runs-on: ubuntu-latest
+    name: Test and verify generated files (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
     timeout-minutes: 20
     permissions:
       contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    defaults:
+      run:
+        # git-bash on Windows keeps heredocs and `test -x` working there too.
+        shell: bash
 
     steps:
       - name: Checkout repository
@@ -44,6 +52,22 @@ jobs:
 
       - name: Run tests
         run: pytest -q
+
+      - name: Check executable bits (no silent loss on Windows checkouts)
+        run: |
+          test -x install.sh || { echo "::error::install.sh lost its exec bit"; exit 1; }
+          test -x restore.sh || { echo "::error::restore.sh lost its exec bit"; exit 1; }
+          test -x status.sh || { echo "::error::status.sh lost its exec bit"; exit 1; }
+          test -x build.sh || { echo "::error::build.sh lost its exec bit"; exit 1; }
+          test -x "安装汉化.command" || { echo "::error::install .command lost its exec bit"; exit 1; }
+          test -x "还原官方.command" || { echo "::error::restore .command lost its exec bit"; exit 1; }
+
+      - name: Check no mixed line endings in tracked files
+        run: |
+          if git ls-files --eol | grep -i mixed; then
+            echo "::error::mixed line endings detected (see above); normalize the file and resubmit"
+            exit 1
+          fi
 
       - name: Check Python and JavaScript syntax
         run: |
@@ -135,7 +159,7 @@ jobs:
               # Create structured macOS distribution directory
               mkdir -p macos_dist/scripts macos_dist/locales
               cp "${{ matrix.release_file }}" macos_dist/
-              cp 安装汉化.command 还原官方.command install.sh restore.sh status.sh macos_dist/
+              cp 安装汉化.command 还原官方.command 更新汉化.command install.sh restore.sh status.sh update.sh macos_dist/
               cp scripts/patcher.py macos_dist/scripts/
               cp locales/*.json macos_dist/locales/
               cp README.md macos_dist/

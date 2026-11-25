@@ -22,10 +22,20 @@ def get_user_locales_dir():
     elif sys.platform.startswith("linux"):
         base = os.path.expanduser("~/.config/Antigravity/locales")
     else:
-        base = os.path.join(os.environ.get("APPDATA", ""), "Antigravity", "locales")
+        appdata = os.environ.get("APPDATA") or os.path.join(
+            os.path.expanduser("~"), "AppData", "Roaming")
+        if not appdata:
+            raise RuntimeError(
+                "Cannot locate the Antigravity locales directory: "
+                "neither %APPDATA% nor the home directory is available.")
+        base = os.path.join(appdata, "Antigravity", "locales")
     os.makedirs(base, exist_ok=True)
     return base
 
+# NOTE on recall vs precision: the length and shape filters here are a
+# deliberate "recall over precision" pre-filter for the offline pipeline
+# (scripts/localize.py QA H5/H12 apply the strict gates afterwards), so the
+# thresholds intentionally differ from the engine's runtime skip rules.
 def is_valid_ui_string(s):
     s = s.strip()
     if len(s) < 3 or len(s) > 200:
@@ -50,9 +60,21 @@ def is_valid_ui_string(s):
         return False
     return True
 
+# Files larger than this are skipped: reading a multi-hundred-MB binary
+# fully into memory can OOM the extractor on small machines.
+MAX_SCAN_BYTES = 300 * 1024 * 1024
+
 def extract_from_binary(bin_path):
     print(f"[*] Scanning binary: {bin_path}...")
+    try:
+        if os.path.getsize(bin_path) > MAX_SCAN_BYTES:
+            print(f"[!] Skipping {bin_path}: larger than {MAX_SCAN_BYTES // (1024 * 1024)} MB.")
+            return set()
+    except OSError as e:
+        print(f"[!] Cannot stat {bin_path}: {e}")
+        return set()
     strings = set()
+    zip_errors = 0
     pattern = re.compile(rb'[\x20-\x7e]{3,200}')
     data = Path(os.path.abspath(bin_path)).read_bytes()
     for m in pattern.finditer(data):
@@ -60,9 +82,13 @@ def extract_from_binary(bin_path):
         if is_valid_ui_string(s):
             strings.add(s.strip())
 
-    # Also scan embedded zip entries (e.g. deflate-compressed main.js inside language_server)
+    # Also scan embedded zip entries (e.g. deflate-compressed main.js inside language_server).
+    # Both double- and single-quoted JS string literals are collected.
     pos = 0
-    quoted_re = re.compile(r'"((?:[^"\\\n]|\\.)*)"')
+    quoted_res = (
+        re.compile(r'"((?:[^"\\\n]|\\.)*)"'),
+        re.compile(r"'((?:[^'\\\n]|\\.)*)'"),
+    )
     while True:
         idx = data.find(b'PK\x03\x04', pos)
         if idx == -1 or idx + 30 > len(data):
@@ -76,23 +102,30 @@ def extract_from_binary(bin_path):
                 start = idx + 30 + fnlen + exlen
                 try:
                     raw = zlib.decompress(data[start:start+csize], -15).decode('utf-8', errors='ignore')
-                    for m in quoted_re.finditer(raw):
-                        val = m.group(1)
-                        try:
-                            val = json.loads(f'"{val}"')
-                        except Exception:
-                            pass
-                        if is_valid_ui_string(val):
-                            strings.add(val.strip())
+                    for quoted_re in quoted_res:
+                        for m in quoted_re.finditer(raw):
+                            val = m.group(1)
+                            try:
+                                val = json.loads(f'"{val}"')
+                            except Exception:
+                                pass
+                            if is_valid_ui_string(val):
+                                strings.add(val.strip())
                 except Exception:
-                    pass
+                    zip_errors += 1
         pos = idx + 4
 
-    print(f"[*] Found {len(strings)} raw candidate strings in {os.path.basename(bin_path)}")
+    print(f"[*] Found {len(strings)} raw candidate strings in {os.path.basename(bin_path)}"
+          + (f" ({zip_errors} unreadable zip entr{'y' if zip_errors == 1 else 'ies'} skipped)" if zip_errors else ""))
     return strings
 
 def get_default_install_dirs():
-    """Platform-aware candidates for the Antigravity installation."""
+    """Platform-aware candidates for the Antigravity installation.
+
+    Mirrors the patcher candidate table (scripts/patcher.py): the extractor
+    must look everywhere the patcher installs to, or standard installs are
+    silently reported as "no candidates".
+    """
     if sys.platform == "darwin":
         return [
             "/Applications/Antigravity.app/Contents/Resources",
@@ -105,7 +138,14 @@ def get_default_install_dirs():
             "/usr/local/lib/antigravity/resources",
             os.path.expanduser("~/.local/share/antigravity/resources"),
         ]
-    return [os.path.expandvars(r"%LOCALAPPDATA%\Programs\antigravity")]
+    return [
+        os.path.expandvars(r"%LOCALAPPDATA%\Programs\antigravity\resources"),
+        os.path.expandvars(r"%LOCALAPPDATA%\Programs\antigravity"),
+        os.path.expandvars(r"%PROGRAMFILES%\antigravity\resources"),
+        os.path.expandvars(r"%PROGRAMFILES%\antigravity"),
+        os.path.expandvars(r"%PROGRAMFILES(X86)%\antigravity\resources"),
+        os.path.expandvars(r"%PROGRAMFILES(X86)%\antigravity"),
+    ]
 
 def run_extraction(output_file=None, custom_dir=None):
     script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -114,7 +154,9 @@ def run_extraction(output_file=None, custom_dir=None):
 
     existing_dict = {}
     if os.path.exists(locales_file):
-        existing_dict = json.loads(Path(os.path.abspath(locales_file)).read_text(encoding="utf-8"))
+        # utf-8-sig, same as the patcher: a BOM saved by Windows Notepad
+        # must not break extraction while patching accepts it.
+        existing_dict = json.loads(Path(os.path.abspath(locales_file)).read_text(encoding="utf-8-sig"))
     print(f"[*] Loaded existing dictionary: {len(existing_dict)} entries")
     lower_existing = {k.lower().strip(): v for k, v in existing_dict.items()}
 
@@ -127,9 +169,16 @@ def run_extraction(output_file=None, custom_dir=None):
             targets.append(os.path.join(resources, "bin", ls_name))
 
     all_candidates = set()
+    scanned = 0
     for t in targets:
         if os.path.exists(t):
+            scanned += 1
             all_candidates.update(extract_from_binary(t))
+    if not scanned:
+        searched = ", ".join(install_dirs)
+        print(f"[!] Error: no Antigravity installation found (searched: {searched}).")
+        print("[!] Pass --dir with the directory containing app.asar.")
+        raise SystemExit(2)
 
     missing = {}
     for s in sorted(all_candidates):
@@ -146,7 +195,11 @@ def run_extraction(output_file=None, custom_dir=None):
         out_path = output_file
     else:
         out_path = os.path.join(get_user_locales_dir(), "missing_strings.json")
-    Path(os.path.abspath(out_path)).write_text(
+    out_abs = os.path.abspath(out_path)
+    parent = os.path.dirname(out_abs)
+    if parent:
+        os.makedirs(parent, exist_ok=True)
+    Path(out_abs).write_text(
         json.dumps(missing, ensure_ascii=False, indent=2), encoding="utf-8"
     )
 

@@ -94,9 +94,13 @@ chmod +x *.command *.sh
 | Action | Windows | macOS (Double-Click) | Python CLI |
 | :--- | :--- | :--- | :--- |
 | **Apply Patch** | Double-click `install.bat` | Double-click `安装汉化.command` | `python scripts/patcher.py patch` |
+| **Re-patch After Client Update** | Double-click `update.bat` | Double-click `更新汉化.command` | `python scripts/patcher.py update` |
+| **Resident Auto-Watch (checks every 30 min)** | `antigravity-zh.exe watch` | `./antigravity-zh-macos-arm64 watch` | `python scripts/patcher.py watch [--interval SECONDS]` |
 | **Restore Official** | Double-click `restore.bat` | Double-click `还原官方.command` | `python scripts/patcher.py restore` |
 | **Check Status** | Double-click `status.bat` | Run `./status.sh` | `python scripts/patcher.py status` |
 | **Extract Missing Strings**| Press `Ctrl + Alt + L` | Press `Option + Cmd + L` | *(Real-time frontend capture)* |
+
+> 💡 **After a client update, just double-click `update.bat` (macOS: `更新汉化.command`)**: it detects the version change → refreshes the official backup → re-applies the patch, and does nothing when already current. For full automation, schedule `update` at logon (Windows Task Scheduler `/sc onlogon`, or a macOS LaunchAgent), or keep `watch` running (rounds are skipped while the client runs and catch up afterwards).
 
 ---
 
@@ -114,10 +118,11 @@ antigravity-zh-toolkit/
 ├── README_EN.md                 # English documentation
 ├── CONTRIBUTING.md              # Contribution guide
 ├── requirements.txt             # Development requirements
-├── install.bat / restore.bat    # Windows batch scripts
+├── install.bat / restore.bat / update.bat  # Windows batch scripts
 ├── 安装汉化.command             # macOS double-click installer
 ├── 还原官方.command             # macOS double-click uninstaller
-├── install.sh / restore.sh      # Unix terminal shell scripts
+├── 更新汉化.command             # macOS double-click updater (re-patch after client upgrades)
+├── install.sh / restore.sh / update.sh  # Unix terminal shell scripts
 ├── status.bat  / status.sh      # Status check scripts
 ├── build.bat   / build.sh       # Local build scripts
 ├── locales/

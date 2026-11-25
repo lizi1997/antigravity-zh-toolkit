@@ -443,8 +443,15 @@ def test_restore_warns_on_checksum_mismatch(install_dir, locales_dir, capsys):
     files["dist/preload.js"] = b"console.log('replaced backup');"
     patcher.write_asar_inplace(bak, header, files)
 
-    # Restore is the user's explicit intent: warn loudly, then proceed.
-    assert patcher.restore_backup(install_dir) is True
+    # A tampered backup is refused by default: warn loudly and leave the
+    # installed archive untouched.
+    assert patcher.restore_backup(install_dir) is False
+    assert "checksum mismatch" in capsys.readouterr().out
+    _, files = patcher.read_asar(asar)
+    assert b"replaced backup" not in files["dist/preload.js"]
+
+    # The user's explicit --force still restores it, with a warning.
+    assert patcher.restore_backup(install_dir, force=True) is True
     assert "checksum mismatch" in capsys.readouterr().out
     _, files = patcher.read_asar(asar)
     assert files["dist/preload.js"] == b"console.log('replaced backup');"

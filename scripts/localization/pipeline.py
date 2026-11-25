@@ -126,6 +126,23 @@ def prepare(options, dictionary):
         for source, targets in seen_targets.items()
         if len(targets) > 1 and source not in dictionary
     ]
+    # A conflicting candidate translation for a source that is already in the
+    # dictionary used to be skipped silently ("already present"). Surface it as
+    # minor so reviewers can see the drift; the dictionary entry still wins.
+    conflict_findings += [
+        qa_mod.Finding(
+            rule="H9",
+            severity="minor",
+            message="candidate translation conflicts with the existing dictionary entry (dictionary kept): {}".format(
+                sorted(textutils.preview(item, 60) for item in targets)
+            ),
+            source=source,
+            target="",
+            origin="candidates",
+        )
+        for source, targets in seen_targets.items()
+        if len(targets) > 1 and source in dictionary
+    ]
 
     overlay = {}
     if options.translations_path:
