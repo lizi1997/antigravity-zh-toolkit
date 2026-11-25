@@ -44,14 +44,14 @@ python scripts/localize.py qa
 ```
 
 规则：QA 报 blocker/major 时**不会写入**；确需放行必须显式
-`--waive <规则>`（会留痕在 run 报告里）。完整范围、已实现/未实现的规则与
-安全边界见 [`docs/auto-localization-mvp.md`](docs/auto-localization-mvp.md)。
+`--waive <规则>`（会留痕在 run 报告里）。完整规则列表与退出码见
+`python scripts/localize.py release --help`。
 
 > ⚠️ `--apply` 只写词典并重建生成物，**不会同步 `README.md`/`README_EN.md` 里的词条计数**；
 > 全量合并后请手动更新计数，否则 CI 的 README 门禁会红。
 >
-> 为什么做不到「全自动翻译」、推荐方案与分阶段路线，见
-> [`docs/AUTO_LOCALIZATION_FEASIBILITY.md`](docs/AUTO_LOCALIZATION_FEASIBILITY.md)。
+> 全 UI 100% 自动汉化在当前架构下**不可达**；可达的是一条离线优先、
+> 带硬门禁、可回滚的自动化流水线（零网络，默认 dry-run）。
 
 ---
 

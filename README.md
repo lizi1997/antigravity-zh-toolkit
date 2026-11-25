@@ -166,8 +166,8 @@ python scripts/localize.py release        # 只报告（退出码 0=通过 / 2=�
 python scripts/localize.py release --apply # 门禁通过后落盘 + 重建 + 回读校验
 ```
 
-- 用法与已实现/未实现的规则：[`docs/auto-localization-mvp.md`](docs/auto-localization-mvp.md)
-- **可行性结论（是否可能 100% 全自动）、推荐方案与分阶段路线**：[`docs/AUTO_LOCALIZATION_FEASIBILITY.md`](docs/AUTO_LOCALIZATION_FEASIBILITY.md)
+- 完整用法见 `python scripts/localize.py release --help`（规则列表、退出码、`--waive`）。
+  已实现 H1–H13、H21、H23，其余规则为显式 TODO，报告只认代码实现。
 
 > 结论先说：全 UI 100% 自动汉化在当前架构下**不可达**；可达的是一条离线优先、带硬门禁、可回滚的自动化流水线。
 

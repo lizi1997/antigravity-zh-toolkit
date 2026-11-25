@@ -5,10 +5,10 @@ The gate is the only place where a machine proposal may become a dictionary
 entry. It is pure, offline and unit-testable: every rule is a function of
 ``(source, target)`` plus, for two batch-level rules, the existing dictionary.
 
-Coverage is stated, not implied: :data:`RULES` marks each rule of the design
-document (``docs/auto-localization-design.md`` §4.4.3) as implemented or as an
+Coverage is stated, not implied: :data:`RULES` marks each design rule
+as implemented or as an
 explicit TODO, and every report carries that list. H1-H13, H21 and H23 are
-implemented here; H14-H20 and H22 are not (see ``docs/auto-localization-mvp.md``).
+implemented here; H14-H20 and H22 are not.
 """
 
 import re

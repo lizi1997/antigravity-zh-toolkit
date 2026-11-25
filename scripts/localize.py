@@ -7,8 +7,8 @@
     python scripts/localize.py qa                                                   # dictionary check
     python scripts/localize.py merge --translations overlay.tsv --apply             # dictionary only
 
-``release`` is a dry-run unless ``--apply`` is passed. See
-``docs/auto-localization-mvp.md`` for scope and honest limitations.
+``release`` is a dry-run unless ``--apply`` is passed. Run
+``python scripts/localize.py release --help`` for scope, rules and exit codes.
 """
 
 import os

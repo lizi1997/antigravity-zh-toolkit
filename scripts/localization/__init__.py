@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 """Offline localization pipeline - MVP vertical slice.
 
-This package implements the Phase 0-2 slice of ``docs/auto-localization-design.md``:
+This package implements the Phase 0-2 slice of the internal design
+(not shipped in this repo):
 
 * :mod:`localization.candidates` - load candidate strings and translation
   overlays (JSON list/map, JSONL, TSV).
@@ -18,7 +19,7 @@ This package implements the Phase 0-2 slice of ``docs/auto-localization-design.m
   ``--apply`` writes the dictionary and rebuilds generated artifacts through
   ``scripts/build.py``, with rollback when the rebuild or its verification fails.
 
-Deliberately **not** implemented (see ``docs/auto-localization-mvp.md``): the
+Deliberately **not** implemented: the
 extractor/probe rewrite, pattern-rule synthesis, engine hit counters,
 ``patcher patch --dry-run``, client snapshots, runtime verification and any
 network translation backend.

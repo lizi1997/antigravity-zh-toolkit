@@ -257,8 +257,7 @@ class OnlineProvider(BaseProvider):
 
     def propose(self, candidates):
         raise ProviderFailure(
-            "the 'online' provider is an interface stub in the MVP: no network backend exists "
-            "(see docs/auto-localization-mvp.md)"
+            "the 'online' provider is an interface stub in the MVP: no network backend exists"
         )
 
 

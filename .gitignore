@@ -33,6 +33,11 @@ FIX_STATUS.md
 PROJECT_TEXT_ZH_AUDIT.md
 UNTRANSLATED_UI_STRINGS.md
 remaining_untranslated.csv
+
+# Internal design/process docs (author's private notes, kept locally only).
+# The pipeline's --help output is the public contract; README/CONTRIBUTING
+# must not link into docs/.
+docs/
 *.swp
 *~
 app.asar.bak
