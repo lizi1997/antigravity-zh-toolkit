@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Antigravity Localization Toolkit - Build & Packaging Script (v1.0.5)
+Antigravity Localization Toolkit - Build & Packaging Script (v1.0.6)
 Cross-platform build utility for Windows, macOS, and Linux.
 
 Regenerates two GENERATED artifacts - keep them in sync by always editing the
@@ -27,7 +27,7 @@ SCRIPTS_DIR = os.path.join(REPO_ROOT, "scripts")
 PATCHER_TEMPLATE = r'''#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Antigravity Localization Patcher & Manager v1.0.5
+Antigravity Localization Patcher & Manager v1.0.6
 Cross-Platform In-Place ASAR injection and management utility (Windows / macOS / Linux).
 
 GENERATED FILE - DO NOT EDIT.
@@ -1205,7 +1205,7 @@ def show_status(install_dir=None):
     return False
 
 def main():
-    parser = argparse.ArgumentParser(description="Antigravity Modern Chinese Localization Patcher v1.0.5")
+    parser = argparse.ArgumentParser(description="Antigravity Modern Chinese Localization Patcher v1.0.6")
     parser.add_argument("action", nargs="?", default="patch", choices=["patch", "restore", "status", "update", "watch"], help="Action to perform (default: patch)")
     parser.add_argument("--dir", help="Custom Antigravity installation directory (must contain app.asar or a resources/app.asar; symlinked app.asar is refused)")
     parser.add_argument("--force", action="store_true", help="Force re-patching even if already patched; also bypasses the running-client, version-mismatch and tampered-backup guards (the client must be restarted afterwards)")
@@ -1247,7 +1247,7 @@ def contains_sentinel_marker(text):
 
 def build(compile_exe=True):
     print("=" * 60)
-    print("  Antigravity-ZH Toolkit Builder (v1.0.5)")
+    print("  Antigravity-ZH Toolkit Builder (v1.0.6)")
     print("=" * 60)
 
     template_path = os.path.join(ENGINE_DIR, "engine_template.js")
@@ -1391,7 +1391,7 @@ def build(compile_exe=True):
         return True
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Antigravity-ZH Builder v1.0.5")
+    parser = argparse.ArgumentParser(description="Antigravity-ZH Builder v1.0.6")
     parser.add_argument("--no-exe", action="store_true", help="Skip PyInstaller compilation")
     args = parser.parse_args()
     # The exit code has to reflect the build result: CI uses it to decide

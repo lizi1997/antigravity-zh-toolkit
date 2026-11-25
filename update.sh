@@ -4,7 +4,7 @@ set -e
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 echo "========================================================"
-echo "   Antigravity 汉化一键更新器 v1.0.5 (macOS/Linux)"
+echo "   Antigravity 汉化一键更新器 v1.0.6 (macOS/Linux)"
 echo "   检测客户端更新 -> 刷新备份 -> 重打汉化"
 echo "========================================================"
 echo ""

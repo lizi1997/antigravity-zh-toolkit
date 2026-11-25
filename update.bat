@@ -4,7 +4,7 @@ setlocal enabledelayedexpansion
 title Antigravity 汉化更新器（客户端升级后重打）
 
 echo ========================================================
-echo     Antigravity 汉化一键更新器 v1.0.5
+echo     Antigravity 汉化一键更新器 v1.0.6
 echo     检测客户端更新 -^> 刷新备份 -^> 重打汉化
 echo ========================================================
 echo.
