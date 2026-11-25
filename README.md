@@ -28,7 +28,7 @@
 - 🛡️ **重点汉化智能体权限询问**：覆盖读取/写入路径、执行命令、沙箱外运行警告、MCP 工具、规则保存范围及替代输入等常见权限文案。
 - ⚡ **原子 ASAR 补丁**：先在同目录生成完整临时文件并重算 SHA-256，再以原子替换写入；若客户端占用文件，程序会停止并提示先关闭 Antigravity，不会冒险原位覆盖。
 - 🌐 **开放式 Shadow DOM 支持**：基于 `TreeWalker` 与 `MutationObserver` 递归处理普通 DOM 和可访问的开放式 Shadow DOM；closed Shadow DOM、跨域 iframe、webview 及原生系统组件不在覆盖范围内。
-- 📖 **词典解耦，改词免重编**：词库独立为标准 `locales/zh-CN.json`（**2,792** 词条）与 `locales/patterns.json`（**180** 正则规则）。
+- 📖 **词典解耦，改词免重编**：词库独立为标准 `locales/zh-CN.json`（**2,816** 词条）与 `locales/patterns.json`（**180** 正则规则）。
   - Windows 词典目录：`%APPDATA%\Antigravity\locales\`
   - macOS 词典目录：`~/Library/Application Support/Antigravity/locales/`
   - 直接用任意文本编辑器修改词典，重新运行安装脚本即生效（无需重新构建二进制）。
@@ -123,7 +123,7 @@ antigravity-zh-toolkit/
 ├── status.bat / status.sh       # 状态检查脚本
 ├── build.bat  / build.sh        # 本地构建编译打包脚本
 ├── locales/
-│   ├── zh-CN.json               # 核心汉化静态词典 (2,792 词条)
+│   ├── zh-CN.json               # 核心汉化静态词典 (2,816 词条)
 │   └── patterns.json            # 动态正则模板库 (180 规则)
 ├── engine/
 │   ├── ag_localization_engine.js# 注入 Electron 渲染层的现代化汉化引擎（生成文件）
@@ -153,6 +153,18 @@ python scripts/build.py
 #    - Windows: dist/antigravity-zh.exe
 #    - macOS:   dist/antigravity-zh
 ```
+
+**自动汉化管线（开发期工具）**：候选词条可以先走离线管线——QA 门禁 → 合并计划 →（确认后）写入词典并重建生成物，失败自动回滚。默认只跑 dry-run，不写盘、零网络：
+
+```bash
+python scripts/localize.py release        # 只报告（退出码 0=通过 / 2=门禁失败）
+python scripts/localize.py release --apply # 门禁通过后落盘 + 重建 + 回读校验
+```
+
+- 用法与已实现/未实现的规则：[`docs/auto-localization-mvp.md`](docs/auto-localization-mvp.md)
+- **可行性结论（是否可能 100% 全自动）、推荐方案与分阶段路线**：[`docs/AUTO_LOCALIZATION_FEASIBILITY.md`](docs/AUTO_LOCALIZATION_FEASIBILITY.md)
+
+> 结论先说：全 UI 100% 自动汉化在当前架构下**不可达**；可达的是一条离线优先、带硬门禁、可回滚的自动化流水线。
 
 ---
 

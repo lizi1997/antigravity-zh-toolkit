@@ -11,7 +11,11 @@ echo.
 if exist "%~dp0antigravity-zh.exe" (
     "%~dp0antigravity-zh.exe" patch
     set "RESULT=!errorlevel!"
-    goto :end
+    if !RESULT! equ 0 goto :end
+    echo.
+    echo [WARN] 编译版 antigravity-zh.exe 运行失败，错误码 !RESULT!，例如 PyInstaller 报 Could not create temporary directory。
+    echo [*] 正在改用 Python 直接运行 patcher.py，这和 exe 功能完全一致...
+    echo.
 )
 
 set "PYTHON_EXE="

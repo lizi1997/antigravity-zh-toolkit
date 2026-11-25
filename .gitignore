@@ -24,6 +24,12 @@ locales/missing_strings.json
 *~
 app.asar.bak
 
+# Localization run artifacts (QA reports, merge plans, pre-merge backups)
+.l10n/
+
+# Workspace-local pytest scratch directory (sandboxes without a writable %TEMP%)
+.pytest_tmp/
+
 # Logs and databases
 *.log
 
@@ -54,7 +60,9 @@ antigravity-zh-macos-arm64
 
 # Local metadata
 .agents/
+.agent-teams/
 .mimosa/
+.workbuddy/
 .zcode/
 .zcodeignore
 

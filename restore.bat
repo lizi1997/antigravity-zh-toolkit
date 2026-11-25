@@ -11,7 +11,10 @@ echo.
 if exist "%~dp0antigravity-zh.exe" (
     "%~dp0antigravity-zh.exe" restore
     set "RESULT=!errorlevel!"
-    goto :end
+    if !RESULT! equ 0 goto :end
+    echo.
+    echo [WARN] 编译版 antigravity-zh.exe 运行失败，错误码 !RESULT!，正在改用 Python 直接运行...
+    echo.
 )
 
 set "PYTHON_EXE="

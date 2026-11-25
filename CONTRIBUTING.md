@@ -27,6 +27,32 @@
   }
   ```
 
+### 方式 3：自动合并（离线 MVP 原型）
+
+`untranslated_candidates.json` 里的候选可以走离线管线：QA 门禁 → 合并计划 →
+`--apply` 写入词典并重建生成物（失败自动回滚）。
+
+```bash
+# 默认 dry-run：只报告，不写盘（退出码 0=通过 / 2=门禁失败）
+python scripts/localize.py release
+
+# 门禁通过后落盘 + 重建 + 验证
+python scripts/localize.py release --apply
+
+# 只体检现有词典结构（空值、键首尾空白、哨兵标记、大小写碰撞等）
+python scripts/localize.py qa
+```
+
+规则：QA 报 blocker/major 时**不会写入**；确需放行必须显式
+`--waive <规则>`（会留痕在 run 报告里）。完整范围、已实现/未实现的规则与
+安全边界见 [`docs/auto-localization-mvp.md`](docs/auto-localization-mvp.md)。
+
+> ⚠️ `--apply` 只写词典并重建生成物，**不会同步 `README.md`/`README_EN.md` 里的词条计数**；
+> 全量合并后请手动更新计数，否则 CI 的 README 门禁会红。
+>
+> 为什么做不到「全自动翻译」、推荐方案与分阶段路线，见
+> [`docs/AUTO_LOCALIZATION_FEASIBILITY.md`](docs/AUTO_LOCALIZATION_FEASIBILITY.md)。
+
 ---
 
 ## 📝 词条翻译规范

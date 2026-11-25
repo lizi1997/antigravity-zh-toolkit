@@ -1,0 +1,6099 @@
+[
+  {
+    "kind": "UI属性",
+    "prop": "message",
+    "path": "app.asar!dist/browserStream/browserViewerTabDriver.js",
+    "line": 150,
+    "original": "Failed to stop agent browser",
+    "translation": "停止智能体浏览器失败"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "message",
+    "path": "app.asar!dist/browserStream/browserViewerTabDriver.js",
+    "line": 237,
+    "original": "Take control failed",
+    "translation": "接管失败"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "message",
+    "path": "app.asar!dist/browserStream/browserViewerTabDriver.js",
+    "line": 290,
+    "original": "Browser control action failed",
+    "translation": "浏览器控制操作失败"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "message",
+    "path": "app.asar!dist/browserStream/capturePage.js",
+    "line": 214,
+    "original": "Capture session failed",
+    "translation": "截图会话失败"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "title",
+    "path": "app.asar!dist/computer/hud.js",
+    "line": 245,
+    "original": "AGY Desktop HUD",
+    "translation": "AGY 桌面 HUD"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "text",
+    "path": "app.asar!dist/computer/hudState.js",
+    "line": 20,
+    "original": "Agent idle",
+    "translation": "智能体空闲"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "text",
+    "path": "app.asar!dist/computer/hudState.js",
+    "line": 32,
+    "original": "AGY is controlling your Mac",
+    "translation": "AGY 正在控制你的 Mac"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "message",
+    "path": "app.asar!dist/computer/previewIpc.js",
+    "line": 100,
+    "original": "computer preview is not available",
+    "translation": "计算机预览不可用"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "message",
+    "path": "app.asar!dist/computerActuator/scriptRunner.js",
+    "line": 163,
+    "original": "another script is already running",
+    "translation": "另一个脚本正在运行"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "title",
+    "path": "app.asar!dist/remote/remoteManager.js",
+    "line": 346,
+    "original": "Choose another SSH config file",
+    "translation": "选择其他 SSH 配置文件"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "title",
+    "path": "app.asar!dist/remote/remoteManager.js",
+    "line": 1080,
+    "original": "Could not restart the SSH server",
+    "translation": "无法重启 SSH 服务器"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "title",
+    "path": "app.asar!dist/remote/remoteManager.js",
+    "line": 1429,
+    "original": "Microphone access",
+    "translation": "麦克风访问"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "title",
+    "path": "app.asar!dist/remote/remoteManager.js",
+    "line": 1638,
+    "original": "Shared home directory",
+    "translation": "共享主目录"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "title",
+    "path": "app.asar!dist/remote/remoteManager.js",
+    "line": 1662,
+    "original": "Restart SSH server",
+    "translation": "重启 SSH 服务器"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "errormessage",
+    "path": "app.asar!dist/scriptJail.js",
+    "line": 508,
+    "original": "Script return value exceeded maximum size (",
+    "translation": "脚本返回值超过最大大小（"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "errormessage",
+    "path": "app.asar!dist/scriptJail.js",
+    "line": 869,
+    "original": "Script execution failed",
+    "translation": "脚本执行失败"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "message",
+    "path": "app.asar!dist/wcvIpcHandlers.js",
+    "line": 380,
+    "original": "Send failed",
+    "translation": "发送失败"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 1667,
+    "original": "Open in Cider",
+    "translation": "在 Cider 中打开"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 1668,
+    "original": "Side Question Selection",
+    "translation": "侧边提问选择"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 1669,
+    "original": "Select Sidebar Item 1",
+    "translation": "选择侧边栏项 1"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 1670,
+    "original": "Select Sidebar Item 2",
+    "translation": "选择侧边栏项 2"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 1670,
+    "original": "Select Sidebar Item 3",
+    "translation": "选择侧边栏项 3"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 1670,
+    "original": "Select Sidebar Item 4",
+    "translation": "选择侧边栏项 4"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 1670,
+    "original": "Select Sidebar Item 5",
+    "translation": "选择侧边栏项 5"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 1670,
+    "original": "Select Sidebar Item 6",
+    "translation": "选择侧边栏项 6"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 1670,
+    "original": "Select Sidebar Item 7",
+    "translation": "选择侧边栏项 7"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 1671,
+    "original": "Select Sidebar Item 8",
+    "translation": "选择侧边栏项 8"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 1671,
+    "original": "Select Sidebar Item 9",
+    "translation": "选择侧边栏项 9"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "description",
+    "path": "language_server.exe!main.js",
+    "line": 1700,
+    "original": "Project 4K interface without developer tooling.",
+    "translation": "项目 4K 界面，无需开发者工具。"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "message",
+    "path": "language_server.exe!main.js",
+    "line": 4421,
+    "original": "Couldn't connect",
+    "translation": "无法连接"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 5341,
+    "original": "Failed to encode image as PNG",
+    "translation": "图像编码为 PNG 失败"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 5573,
+    "original": "Link Settings",
+    "translation": "链接设置"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 5582,
+    "original": "In review",
+    "translation": "审核中"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 5592,
+    "original": "Copy gh auth login command",
+    "translation": "复制 gh auth login 命令"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 5596,
+    "original": "Grant repository access",
+    "translation": "授予仓库访问权限"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "message",
+    "path": "language_server.exe!main.js",
+    "line": 6225,
+    "original": "Failed to read file",
+    "translation": "读取文件失败"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 6284,
+    "original": "Selected element preview",
+    "translation": "所选元素预览"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 6287,
+    "original": "Upload to Agent",
+    "translation": "上传到智能体"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 6344,
+    "original": "File exceeds the 200MB display limit, so it can't be opened or downloaded here.",
+    "translation": "文件超过 200MB 显示限制，无法在此处打开或下载。"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "message",
+    "path": "language_server.exe!main.js",
+    "line": 7534,
+    "original": "script source must not be empty",
+    "translation": "脚本内容不能为空"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 7696,
+    "original": "Web Preview",
+    "translation": "网页预览"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 7697,
+    "original": "Intended primarily for previewing local development servers (e.g.,",
+    "translation": "主要用于预览本地开发服务器（例如，"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 7698,
+    "original": "Embedding Limitations",
+    "translation": "嵌入限制"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 7698,
+    "original": "Many external websites (such as Google Search, GitHub, or Wikipedia) restrict iframe embedding via",
+    "translation": "许多外部网站（如 Google Search、GitHub 或 Wikipedia）会通过以下方式限制 iframe 嵌入："
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 7699,
+    "original": "icon in the URL bar.",
+    "translation": "地址栏中的图标。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 7702,
+    "original": "Taking longer than usual to load",
+    "translation": "加载时间比平时更长"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 7702,
+    "original": "This page is taking longer than expected to load, or it may be blocking embedded views (via X-Frame-Options or CSP).",
+    "translation": "此页面加载时间超出预期，或者它可能阻止了嵌入视图（通过 X-Frame-Options 或 CSP）。"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "summary",
+    "path": "language_server.exe!main.js",
+    "line": 7744,
+    "original": "You're viewing a blank page",
+    "translation": "你正在查看空白页"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "summary",
+    "path": "language_server.exe!main.js",
+    "line": 7744,
+    "original": "You're viewing a local or shared file",
+    "translation": "你正在查看本地或共享文件"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "summary",
+    "path": "language_server.exe!main.js",
+    "line": 7745,
+    "original": "Your connection to this site is not secure",
+    "translation": "你与此站点的连接不安全"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "summary",
+    "path": "language_server.exe!main.js",
+    "line": 7747,
+    "original": "Your connection to this site is not fully secure",
+    "translation": "你与此站点的连接并非完全安全"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "summary",
+    "path": "language_server.exe!main.js",
+    "line": 7748,
+    "original": "Connection is secure",
+    "translation": "连接安全"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "summary",
+    "path": "language_server.exe!main.js",
+    "line": 7750,
+    "original": "Connection security information is not available for this page",
+    "translation": "此页面没有可用的连接安全信息"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 7860,
+    "original": "Address bar suggestions",
+    "translation": "地址栏建议"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 7862,
+    "original": "Remove from history",
+    "translation": "从历史记录中移除"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 7866,
+    "original": "About embedding",
+    "translation": "关于嵌入"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 7892,
+    "original": "Show Error",
+    "translation": "显示错误"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 8019,
+    "original": "Not Found",
+    "translation": "未找到"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 8628,
+    "original": "This page is blocked in the built-in browser by your organization's Context-Aware Access policy.",
+    "translation": "此页面已被你所在组织的 Context-Aware Access 政策在内置浏览器中屏蔽。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 8629,
+    "original": "Open the page in system browser",
+    "translation": "在系统浏览器中打开此页面"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 8630,
+    "original": "Attackers might be trying to steal your information from",
+    "translation": "攻击者可能正试图从以下位置窃取你的信息："
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 8631,
+    "original": "(for example, passwords, messages, or credit cards).",
+    "translation": "（例如密码、消息或信用卡）。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 8632,
+    "original": "Back to safety",
+    "translation": "返回安全页面"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 8633,
+    "original": "Proceed to",
+    "translation": "继续前往"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 8633,
+    "original": "normally uses encryption to protect your information. When the browser tried to connect to",
+    "translation": "通常会使用加密来保护你的信息。当浏览器尝试连接到"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 8633,
+    "original": "this time, the website sent back unusual and incorrect credentials.",
+    "translation": "时，该网站返回了异常且不正确的凭据。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 9077,
+    "original": "An error was thrown.",
+    "translation": "出现了错误。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 9201,
+    "original": "No compatible devices found.",
+    "translation": "未找到兼容的设备。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 9224,
+    "original": "Certificate details",
+    "translation": "证书详情"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 9225,
+    "original": "Issued by",
+    "translation": "颁发者"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 9225,
+    "original": "Issued to",
+    "translation": "颁发给"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 9225,
+    "original": "Valid until",
+    "translation": "有效期至"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 9232,
+    "original": "Clearing cookies and site data for",
+    "translation": "正在清除以下站点的 Cookie 和网站数据："
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 9232,
+    "original": "may sign you out of this site.",
+    "translation": "可能会使你从此站点退出登录。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 9233,
+    "original": "Could not clear site data for",
+    "translation": "无法清除以下站点的网站数据："
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 9233,
+    "original": "Site data cleared for",
+    "translation": "已清除以下站点的网站数据："
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 9249,
+    "original": "Close downloads",
+    "translation": "关闭下载内容"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 9250,
+    "original": "No recent downloads",
+    "translation": "没有最近的下载"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 9260,
+    "original": "Resume 1 comment draft",
+    "translation": "继续编辑 1 条评论草稿"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 9468,
+    "original": "Loading preview…",
+    "translation": "正在加载预览…"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 9472,
+    "original": "Copied to clipboard",
+    "translation": "已复制到剪贴板"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 9495,
+    "original": "Enable Browser Agent",
+    "translation": "启用浏览器智能体"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 9610,
+    "original": "Toggle Google Cloud projects",
+    "translation": "切换 Google Cloud 项目"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 9831,
+    "original": "QR code",
+    "translation": "二维码"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 9965,
+    "original": "Browsing Data",
+    "translation": "浏览数据"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "description",
+    "path": "language_server.exe!main.js",
+    "line": 9965,
+    "original": "Clear history, cookies and site data from the built-in browser, or manage cookies for each site.",
+    "translation": "清除内置浏览器的历史记录、Cookie 和网站数据，或管理各站点的 Cookie。"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "title",
+    "path": "language_server.exe!main.js",
+    "line": 9966,
+    "original": "Clear Browsing Data?",
+    "translation": "清除浏览数据？"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "title",
+    "path": "language_server.exe!main.js",
+    "line": 9966,
+    "original": "Cookies by Site",
+    "translation": "按站点划分的 Cookie"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 9967,
+    "original": "Choose what to clear from the built-in browser. It can't be undone.",
+    "translation": "选择要从内置浏览器中清除的内容。此操作无法撤销。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 9968,
+    "original": "Cookies and other site data",
+    "translation": "Cookie 及其他网站数据"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 9968,
+    "original": "Cookies, site storage and cache. Signs you out of all sites in the built-in browser and reloads its open tabs.",
+    "translation": "Cookie、网站存储和缓存。将使你退出内置浏览器中的所有站点，并重新加载其打开的标签页。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 9968,
+    "original": "Visited URLs and autocomplete suggestions.",
+    "translation": "访问过的 URL 和自动补全建议。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 9969,
+    "original": "An agent is using the built-in browser. Clearing its data signs the agent out of sites and may interrupt its task.",
+    "translation": "某个智能体正在使用内置浏览器。清除其数据将使该智能体退出各站点，并可能中断其任务。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 9969,
+    "original": "Couldn't clear browsing data. Try again.",
+    "translation": "无法清除浏览数据，请重试。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 9973,
+    "original": "Loading cookies…",
+    "translation": "正在加载 Cookie…"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 9974,
+    "original": "Couldn't load cookies.",
+    "translation": "无法加载 Cookie。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 9974,
+    "original": "No sites have cookies in the built-in browser.",
+    "translation": "内置浏览器中没有任何站点保存了 Cookie。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 9975,
+    "original": "Couldn't delete cookies for",
+    "translation": "无法删除以下站点的 Cookie："
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 9975,
+    "original": "No sites match “",
+    "translation": "没有站点匹配“"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 9975,
+    "original": "Sites with cookies",
+    "translation": "保存了 Cookie 的站点"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "placeholder",
+    "path": "language_server.exe!main.js",
+    "line": 9978,
+    "original": "Search sites...",
+    "translation": "搜索站点..."
+  },
+  {
+    "kind": "UI属性",
+    "prop": "placeholder",
+    "path": "language_server.exe!main.js",
+    "line": 9979,
+    "original": "e.g., example.com",
+    "translation": "例如 example.com"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 9995,
+    "original": "Not referenced by any feature (",
+    "translation": "未被任何功能引用（"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 9998,
+    "original": "Web (desktop, remote agents)",
+    "translation": "Web（桌面端、远程智能体）"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 9998,
+    "original": "Web (desktop, remote agents, PWA)",
+    "translation": "Web（桌面端、远程智能体、PWA）"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 9999,
+    "original": "Web (mobile, remote agents)",
+    "translation": "Web（移动端、远程智能体）"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 9999,
+    "original": "Web (mobile, remote agents, PWA)",
+    "translation": "Web（移动端、远程智能体、PWA）"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 10005,
+    "original": "Default (Mendel)",
+    "translation": "默认（Mendel）"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "description",
+    "path": "language_server.exe!main.js",
+    "line": 10005,
+    "original": "Run Jetski Live on the ELMO composite voice actor.",
+    "translation": "在 ELMO 合成配音角色上运行 Jetski Live。"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "description",
+    "path": "language_server.exe!main.js",
+    "line": 10005,
+    "original": "Type a voice variant name, such as rev27.",
+    "translation": "输入语音变体名称，例如 rev27。"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "description",
+    "path": "language_server.exe!main.js",
+    "line": 10005,
+    "original": "Whatever the voice-engine-addr flag serves you.",
+    "translation": "使用 voice-engine-addr 标志提供的地址。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 10007,
+    "original": "Voice engine address",
+    "translation": "语音引擎地址"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 10020,
+    "original": "No diagnostics main service found",
+    "translation": "未找到诊断主服务"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 10202,
+    "original": "Antigravity (AGY) Style",
+    "translation": "Antigravity (AGY) 样式"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 10202,
+    "original": "VS Code Default",
+    "translation": "VS Code 默认"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "subtitle",
+    "path": "language_server.exe!main.js",
+    "line": 10205,
+    "original": "Choose between non-colliding VS Code defaults or standalone Antigravity chords.",
+    "translation": "可在不与现有快捷键冲突的 VS Code 默认方案和独立的 Antigravity 组合键之间选择。"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "title",
+    "path": "language_server.exe!main.js",
+    "line": 10205,
+    "original": "Keybinding Scheme",
+    "translation": "快捷键方案"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "description",
+    "path": "language_server.exe!main.js",
+    "line": 10205,
+    "original": "Manage your keybinding scheme and customize shortcuts in VS Code.",
+    "translation": "在 VS Code 中管理快捷键方案并自定义快捷方式。"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "subtitle",
+    "path": "language_server.exe!main.js",
+    "line": 10208,
+    "original": "All active Antigravity shortcuts and user keybinding overrides are managed directly by VS Code.",
+    "translation": "所有生效的 Antigravity 快捷键和用户自定义键位均由 VS Code 直接管理。"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "title",
+    "path": "language_server.exe!main.js",
+    "line": 10208,
+    "original": "Customize Shortcuts",
+    "translation": "自定义快捷键"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 10209,
+    "original": "Inspect live bindings or record custom key chords filtered to",
+    "translation": "查看当前生效的绑定或录制自定义组合键（筛选范围为"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 10209,
+    "original": "VS Code Keyboard Shortcuts",
+    "translation": "VS Code 键盘快捷方式"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 10241,
+    "original": "Terminal: Select All",
+    "translation": "终端：全选"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 10336,
+    "original": "Powered by Gemini Live ·",
+    "translation": "由 Gemini Live 提供支持 ·"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 10336,
+    "original": "You can change this in",
+    "translation": "你可以在以下位置更改："
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 10403,
+    "original": "cloud permission preset value",
+    "translation": "云端权限预设值"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 10412,
+    "original": "sandbox mode boolean value",
+    "translation": "沙箱模式布尔值"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 10483,
+    "original": "Must be positive",
+    "translation": "必须为正数"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "placeholder",
+    "path": "language_server.exe!main.js",
+    "line": 10579,
+    "original": "e.g. work",
+    "translation": "例如 work"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 10667,
+    "original": "Connect your account to browse",
+    "translation": "连接你的账号以浏览"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 10667,
+    "original": "Loading resources...",
+    "translation": "正在加载资源..."
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 10678,
+    "original": "Missing a repository? Configure on GitHub",
+    "translation": "缺少仓库？在 GitHub 上配置"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 10688,
+    "original": "Remove resource",
+    "translation": "移除资源"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 10698,
+    "original": "Avoid uploading highly sensitive data and verify actions taken by your agent. Make sure you have the",
+    "translation": "避免上传高度敏感数据，并核实你的智能体所执行的操作。请确保你已阅读"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 10699,
+    "original": "Prohibited Use Policy",
+    "translation": "禁止使用政策"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 10700,
+    "original": "Google Antigravity Terms of Service",
+    "translation": "Google Antigravity 服务条款"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 10700,
+    "original": "Google Privacy Policy",
+    "translation": "Google 隐私权政策"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 10706,
+    "original": "Edit title",
+    "translation": "编辑标题"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 10715,
+    "original": "Are you sure you want to delete the",
+    "translation": "确定要删除"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 10715,
+    "original": "This will permanently delete",
+    "translation": "这将永久删除"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 10715,
+    "original": "within it.",
+    "translation": "其中的内容。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 10731,
+    "original": "with this name already exists.",
+    "translation": "同名项已存在。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 10736,
+    "original": "is managed by the",
+    "translation": "由自动化管理，"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 10737,
+    "original": "automation and can only be deleted by deleting that automation.",
+    "translation": "且只能通过删除该自动化来删除。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 10858,
+    "original": "Nothing said yet",
+    "translation": "尚无发言内容"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 10999,
+    "original": "Cannot enable accessibility before Terminal.open",
+    "translation": "无法在 Terminal.open 之前启用辅助功能"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "title",
+    "path": "language_server.exe!main.js",
+    "line": 11646,
+    "original": "Failed to revert conversation",
+    "translation": "恢复对话失败"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 11676,
+    "original": "StatusBarComponent context not provded",
+    "translation": "StatusBarComponent 上下文未提供"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "errormessage",
+    "path": "language_server.exe!main.js",
+    "line": 11837,
+    "original": "Conversation is not open in this Hub window",
+    "translation": "此 Hub 窗口中未打开对话"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "message",
+    "path": "language_server.exe!main.js",
+    "line": 11905,
+    "original": "The Hub sent an unexpected response.",
+    "translation": "Hub 返回了意外的响应。"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "tooltip",
+    "path": "language_server.exe!main.js",
+    "line": 11911,
+    "original": "Remove from Recent",
+    "translation": "从最近使用项中移除"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 11914,
+    "original": "Then create the project in its window.",
+    "translation": "然后在其窗口中创建项目。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 11918,
+    "original": "Couldn't connect to",
+    "translation": "无法连接到"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 11920,
+    "original": "Hidden hosts",
+    "translation": "隐藏的主机"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 11920,
+    "original": "Loading hosts…",
+    "translation": "正在加载主机…"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 11921,
+    "original": "No hosts in",
+    "translation": "以下位置没有主机："
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 11923,
+    "original": "Choose File…",
+    "translation": "选择文件…"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 11924,
+    "original": "Use Default",
+    "translation": "使用默认值"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 11962,
+    "original": "Describe your changes",
+    "translation": "描述你的更改"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 12008,
+    "original": "Please verify your account to continue using",
+    "translation": "请验证你的账号以继续使用"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "message",
+    "path": "language_server.exe!main.js",
+    "line": 12009,
+    "original": "Your session has expired. Please log back in to continue.",
+    "translation": "登录会话已过期，请重新登录以继续。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 12010,
+    "original": "See our",
+    "translation": "请参阅我们的"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 12035,
+    "original": "This may take a few minutes",
+    "translation": "这可能需要几分钟"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 12045,
+    "original": "System default app",
+    "translation": "系统默认应用"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 12087,
+    "original": "This link wants to open an app on your device.",
+    "translation": "此链接想要在你的设备上打开一个应用。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 12088,
+    "original": "Always open",
+    "translation": "始终打开"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 12089,
+    "original": "Open link",
+    "translation": "打开链接"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 12095,
+    "original": "This project uses Firebase. Do you want to download the Firebase skill?",
+    "translation": "此项目使用了 Firebase。是否下载 Firebase 技能？"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 12096,
+    "original": "Error occurred during import.",
+    "translation": "导入过程中发生错误。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 12314,
+    "original": "Image rendering blocked (strict mode enabled)",
+    "translation": "图片渲染已被阻止（已启用严格模式）"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 12315,
+    "original": "Image URL:",
+    "translation": "图片 URL："
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 12370,
+    "original": "Markdown view mode",
+    "translation": "Markdown 视图模式"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 12371,
+    "original": "Insert in terminal",
+    "translation": "在终端中插入"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 12372,
+    "original": "At mention code block",
+    "translation": "提及 (@) 代码块"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 12372,
+    "original": "Insert in Terminal",
+    "translation": "在终端中插入"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 12373,
+    "original": "At Mention Code Block",
+    "translation": "@ 提及代码块"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 12373,
+    "original": "Copy code",
+    "translation": "复制代码"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 12374,
+    "original": "Canvas page · display only",
+    "translation": "画布页面 · 仅显示"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 12412,
+    "original": "Failed to load media",
+    "translation": "加载媒体失败"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 12431,
+    "original": "Copy as Markdown",
+    "translation": "复制为 Markdown"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 12431,
+    "original": "Preview unavailable",
+    "translation": "预览不可用"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 12435,
+    "original": "Artifact image",
+    "translation": "Artifact 图片"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 12435,
+    "original": "Open image preview",
+    "translation": "打开图片预览"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 12438,
+    "original": "Media actions",
+    "translation": "媒体操作"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 13252,
+    "original": "Not available",
+    "translation": "不可用"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 13254,
+    "original": "Image preview not available",
+    "translation": "图片预览不可用"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 13961,
+    "original": "Open Source Code",
+    "translation": "打开源代码"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 13961,
+    "original": "Preview disabled (experiment off)",
+    "translation": "预览已禁用（实验已关闭）"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "title",
+    "path": "language_server.exe!main.js",
+    "line": 13965,
+    "original": "Chief of Staff canvas",
+    "translation": "参谋长画布"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 13968,
+    "original": "Markdown components must render within a CustomMarkdown.",
+    "translation": "Markdown 组件必须在 CustomMarkdown 中渲染。"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "text",
+    "path": "language_server.exe!main.js",
+    "line": 14043,
+    "original": "Reopen ↗",
+    "translation": "重新打开 ↗"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "text",
+    "path": "language_server.exe!main.js",
+    "line": 14043,
+    "original": "Settings ↗",
+    "translation": "设置 ↗"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14046,
+    "original": "Already on? Select",
+    "translation": "已开启？请选择"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14046,
+    "original": "In System Settings, click",
+    "translation": "在“系统设置”中，点击"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14046,
+    "original": "In System Settings, turn on",
+    "translation": "在“系统设置”中，开启"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14051,
+    "original": "Enable macOS Permissions",
+    "translation": "启用 macOS 权限"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14053,
+    "original": "Relaunch ↻",
+    "translation": "重新启动 ↻"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14054,
+    "original": "Continue Task →",
+    "translation": "继续任务 →"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14060,
+    "original": "Error while editing",
+    "translation": "编辑时出错"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14060,
+    "original": "Error while viewing",
+    "translation": "查看时出错"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14061,
+    "original": "Error while editing notebook",
+    "translation": "编辑笔记本时出错"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14061,
+    "original": "Error while reading notebook",
+    "translation": "读取笔记本时出错"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14069,
+    "original": "Error ID:",
+    "translation": "错误 ID："
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14172,
+    "original": "Confirmation required to execute this step",
+    "translation": "执行此步骤需要确认"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14180,
+    "original": "Captured DOM tree for",
+    "translation": "已捕获以下目标的 DOM 树："
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14180,
+    "original": "Fetched network request for page.",
+    "translation": "已获取该页面的网络请求。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14180,
+    "original": "Fetched network requests for page.",
+    "translation": "已获取该页面的多个网络请求。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14181,
+    "original": "Agent can scroll on browser pages to access more content.",
+    "translation": "智能体可以在浏览器页面上滚动以查看更多内容。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14181,
+    "original": "Error rendering playback",
+    "translation": "渲染回放时出错"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14181,
+    "original": "Rendering playback",
+    "translation": "正在渲染回放"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14182,
+    "original": "Playback available",
+    "translation": "回放可用"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14183,
+    "original": "The agent will wait for you to install the browser extension.",
+    "translation": "智能体将等待你安装浏览器扩展。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14190,
+    "original": "Manually Captured",
+    "translation": "手动捕获"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14191,
+    "original": "Cancel Step",
+    "translation": "取消步骤"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14191,
+    "original": "Cancel step",
+    "translation": "取消步骤"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14198,
+    "original": "Unknown Notebook",
+    "translation": "未知笔记本"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "errormessage",
+    "path": "language_server.exe!main.js",
+    "line": 14199,
+    "original": "Notebook execution not implemented",
+    "translation": "笔记本执行功能尚未实现"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14201,
+    "original": "Go to",
+    "translation": "前往"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14201,
+    "original": "Select the latest snapshot from the",
+    "translation": "从中选择最新的快照："
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14202,
+    "original": "Open search in external browser",
+    "translation": "在外部浏览器中打开搜索"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14208,
+    "original": "Browser steps",
+    "translation": "浏览器步骤"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14219,
+    "original": "Browser task still running…",
+    "translation": "浏览器任务仍在运行…"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14219,
+    "original": "Loading browser steps…",
+    "translation": "正在加载浏览器步骤…"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14219,
+    "original": "No browser steps recorded",
+    "translation": "未记录任何浏览器步骤"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14224,
+    "original": "Browser screenshot",
+    "translation": "浏览器截图"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14224,
+    "original": "Open browser screenshot",
+    "translation": "打开浏览器截图"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14273,
+    "original": "Generated media",
+    "translation": "生成的媒体"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14300,
+    "original": "Tool Output",
+    "translation": "工具输出"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14301,
+    "original": "Full output written to",
+    "translation": "完整输出已写入："
+  },
+  {
+    "kind": "UI属性",
+    "prop": "message",
+    "path": "language_server.exe!main.js",
+    "line": 14324,
+    "original": "Method not found",
+    "translation": "未找到方法"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "title",
+    "path": "language_server.exe!main.js",
+    "line": 14393,
+    "original": "Could not create Cog workspace",
+    "translation": "无法创建 Cog 工作区"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14540,
+    "original": "AI Credits are used when you've exceeded your model quota. Keep track of your current AI Credits in the",
+    "translation": "当超出模型配额时，将使用 AI Credits。可在以下位置查看当前的 AI Credits"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14540,
+    "original": "Models Tab",
+    "translation": "模型标签页"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14540,
+    "original": "Open System Browser",
+    "translation": "打开系统浏览器"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14546,
+    "original": "Page contents",
+    "translation": "页面内容"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14549,
+    "original": "Read URL rejected",
+    "translation": "读取 URL 被拒绝"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14553,
+    "original": "This command ran in the sandbox.",
+    "translation": "此命令在沙箱中运行。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14555,
+    "original": "Failed to parse URL in ImageAnswer:",
+    "translation": "解析 ImageAnswer 中的 URL 失败："
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14556,
+    "original": "Document Answers",
+    "translation": "文档回答"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14557,
+    "original": "Image Answers",
+    "translation": "图片回答"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14565,
+    "original": "Semantic searched",
+    "translation": "已进行语义搜索"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14570,
+    "original": "Analyzed Task Log",
+    "translation": "已分析任务日志"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14575,
+    "original": "Checked command status",
+    "translation": "已检查命令状态"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14577,
+    "original": "Error Details:",
+    "translation": "错误详情："
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14580,
+    "original": "Analyzed content",
+    "translation": "已分析内容"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14581,
+    "original": "A chunk is a section of the page. Long pages are chunked so that only the sections that are relevant to your query are read.",
+    "translation": "块是页面的一部分。长页面会被分块，以便仅读取与你的查询相关的部分。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14581,
+    "original": "In this case,",
+    "translation": "在本例中，"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14590,
+    "original": "No content available for this resource",
+    "translation": "此资源没有可用内容"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14590,
+    "original": "Some non-image binary content was truncated.",
+    "translation": "部分非图片二进制内容已被截断。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14592,
+    "original": "Unnamed resource",
+    "translation": "未命名资源"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14593,
+    "original": "Show all resources",
+    "translation": "显示所有资源"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14595,
+    "original": "Found references to",
+    "translation": "找到对以下内容的引用："
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14608,
+    "original": "Inspected commit",
+    "translation": "已检查提交"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14611,
+    "original": "Web search prioritized results from",
+    "translation": "网页搜索优先采用了以下来源的结果："
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14614,
+    "original": "Failed to parse URL in ReadUrlContentTitle:",
+    "translation": "解析 ReadUrlContentTitle 中的 URL 失败："
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14614,
+    "original": "Read page",
+    "translation": "读取页面"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14617,
+    "original": "Long pages like this one will be broken down into outlines and read as needed. Read more at our",
+    "translation": "像这样的长页面将被拆分为大纲并按需读取。更多信息请参阅我们的"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14617,
+    "original": "Page was short enough to be read as a single document.",
+    "translation": "页面足够短，可作为单个文档读取。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14628,
+    "original": "Model Summarization Failed",
+    "translation": "模型总结失败"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14629,
+    "original": "Fallback Summary Used",
+    "translation": "已使用备用总结"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14629,
+    "original": "User Intent",
+    "translation": "用户意图"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14630,
+    "original": "Code Change Summary",
+    "translation": "代码更改摘要"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14630,
+    "original": "Session Summary",
+    "translation": "会话摘要"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14642,
+    "original": "Generation Steps (",
+    "translation": "生成步骤 ("
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14643,
+    "original": "Knowledge Generation",
+    "translation": "知识生成"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14649,
+    "original": "Wait for",
+    "translation": "等待"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14659,
+    "original": "Failed to send command input",
+    "translation": "发送命令输入失败"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14659,
+    "original": "Send command input?",
+    "translation": "发送命令输入？"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "title",
+    "path": "language_server.exe!main.js",
+    "line": 14698,
+    "original": "Failed to fork conversation",
+    "translation": "派生会话失败"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14699,
+    "original": "Fork Conversation",
+    "translation": "派生会话"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "title",
+    "path": "language_server.exe!main.js",
+    "line": 14701,
+    "original": "The main conversation's input isn't available right now.",
+    "translation": "主会话的输入当前不可用。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14710,
+    "original": "Insert into main conversation",
+    "translation": "插入到主会话"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14726,
+    "original": "No rate card for this model; showing comparable rates.",
+    "translation": "此模型没有费率表；显示的是相近费率。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14730,
+    "original": "cumulative total for the conversation up to this point",
+    "translation": "截至目前该会话的累计总量"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14732,
+    "original": "Pricing is based on public API pricing",
+    "translation": "价格基于公开 API 定价"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14736,
+    "original": "Click to view more",
+    "translation": "点击查看更多"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14742,
+    "original": "Trajectory ID:",
+    "translation": "轨迹 ID："
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14743,
+    "original": "(Specific to this client's truncation and pagination)",
+    "translation": "（特定于此客户端的截断与分页）"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14743,
+    "original": "Agent ID:",
+    "translation": "智能体ID："
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14743,
+    "original": "Trajectory Stats",
+    "translation": "运行轨迹统计"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14744,
+    "original": "Cleared Count",
+    "translation": "清除次数"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 14746,
+    "original": "Admin escalation",
+    "translation": "管理员升级"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 14746,
+    "original": "Browser actions",
+    "translation": "浏览器操作"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 14746,
+    "original": "Browser downloads",
+    "translation": "浏览器下载"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 14746,
+    "original": "Unsandboxed commands",
+    "translation": "非沙箱命令"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14755,
+    "original": "This extension has no declared permissions requiring user input.",
+    "translation": "此扩展未声明任何需要用户输入的权限。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14755,
+    "original": "needs a few details from you before it can run.",
+    "translation": "运行前需要你提供一些信息。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14757,
+    "original": "No folder selected",
+    "translation": "未选择文件夹"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14759,
+    "original": "Next: Review Permissions",
+    "translation": "下一步：检查权限"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14760,
+    "original": "Agents created by",
+    "translation": "由以下对象创建的智能体："
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14760,
+    "original": "Resolving permissions...",
+    "translation": "正在解析权限..."
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14760,
+    "original": "with its own permissions, which you can change anytime in the",
+    "translation": "拥有自己的权限，你可以随时在以下位置更改"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14762,
+    "original": "? This action cannot be undone.",
+    "translation": "？此操作无法撤销。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14762,
+    "original": "Are you sure you want to delete",
+    "translation": "确定要删除"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14765,
+    "original": "Manage Permissions",
+    "translation": "管理权限"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14765,
+    "original": "Run Now",
+    "translation": "立即运行"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14772,
+    "original": "Command execution",
+    "translation": "命令执行"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14780,
+    "original": "Sidecar error",
+    "translation": "Sidecar 错误"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14781,
+    "original": "This sidecar failed to start.",
+    "translation": "此 Sidecar 启动失败。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14826,
+    "original": "Show submitted (",
+    "translation": "显示已提交 ("
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14827,
+    "original": "Show more (",
+    "translation": "显示更多 ("
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14853,
+    "original": "Type to search file contents",
+    "translation": "输入以搜索文件内容"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14872,
+    "original": "Disk is full. Search will no longer match in conversation bodies until you clear up space and restart.",
+    "translation": "磁盘已满。在清理空间并重启之前，搜索将不再匹配会话正文。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14877,
+    "original": "Sort and filter conversations",
+    "translation": "排序和筛选会话"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14880,
+    "original": "Recent Conversations",
+    "translation": "最近的会话"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "title",
+    "path": "language_server.exe!main.js",
+    "line": 14912,
+    "original": "Couldn't mark conversations as read",
+    "translation": "无法将会话标记为已读"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14917,
+    "original": "Terms and Privacy:",
+    "translation": "条款与隐私："
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14918,
+    "original": "Privacy Notice",
+    "translation": "隐私声明"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14919,
+    "original": "Customize your experience across the agent, plugins, and product from the settings and marketplace. We won’t show you ads or let advertisers influence what",
+    "translation": "你可以在设置和市场自定义智能体、插件及产品的体验。我们不会向你展示广告，也不会让广告主影响你所看到的内容"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "title",
+    "path": "language_server.exe!main.js",
+    "line": 14919,
+    "original": "Optimized for you",
+    "translation": "为你优化"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "title",
+    "path": "language_server.exe!main.js",
+    "line": 14920,
+    "original": "Built to help, not hurt",
+    "translation": "旨在提供帮助，而非伤害"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14921,
+    "original": "does not collect any of your prompts, content, or model responses but will still collect general usage patterns (e.g., feature adoption, active user counts).",
+    "translation": "不会收集你的任何提示词、内容或模型回复，但仍会收集一般使用模式（例如功能采用情况、活跃用户数）。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14922,
+    "original": "Allow Google to collect and use your Interactions data, subject to the",
+    "translation": "允许 Google 收集和使用你的互动数据，但须遵守"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14934,
+    "original": "Get started",
+    "translation": "开始使用"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14934,
+    "original": "to switch to the Gemini app. Your agents keep working in the background.",
+    "translation": "以切换到 Gemini 应用。你的智能体会在后台继续工作。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14935,
+    "original": "Please sign in using the Antigravity sidebar panel to view this page.",
+    "translation": "请使用 Antigravity 侧边栏面板登录以查看此页面。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 14946,
+    "original": "Access restricted",
+    "translation": "访问受限"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 15364,
+    "original": "Could not load",
+    "translation": "无法加载"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 15395,
+    "original": "Close references",
+    "translation": "关闭引用"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 15404,
+    "original": "Fold code block",
+    "translation": "折叠代码块"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 15501,
+    "original": "Artifact updated by agent",
+    "translation": "Artifact 已由智能体更新"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 15501,
+    "original": "Dismiss artifact update notice",
+    "translation": "关闭 Artifact 更新通知"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "title",
+    "path": "language_server.exe!main.js",
+    "line": 15501,
+    "original": "This side question isn't available in this conversation.",
+    "translation": "此旁支问题在当前会话中不可用。"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "title",
+    "path": "language_server.exe!main.js",
+    "line": 15514,
+    "original": "Failed to export artifact",
+    "translation": "导出 Artifact 失败"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "message",
+    "path": "language_server.exe!main.js",
+    "line": 15517,
+    "original": "Link copied to clipboard.",
+    "translation": "链接已复制到剪贴板。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 15529,
+    "original": "Failed to load image",
+    "translation": "加载图片失败"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 15637,
+    "original": "Unable to resolve audio source URL",
+    "translation": "无法解析音频源 URL"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 15642,
+    "original": "Unable to load PDF:",
+    "translation": "无法加载 PDF："
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 15649,
+    "original": "View could not be opened",
+    "translation": "无法打开视图"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 15699,
+    "original": "For Turn",
+    "translation": "针对回合"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 15703,
+    "original": "Typing your corp password here may trigger a Password Alert reset.",
+    "translation": "在此输入公司密码可能会触发 Password Alert 重置。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 15704,
+    "original": "Don't enter corp passwords",
+    "translation": "请勿输入公司密码"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 15707,
+    "original": "Add Terminal",
+    "translation": "添加终端"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 15736,
+    "original": "File path breadcrumbs",
+    "translation": "文件路径面包屑"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 15744,
+    "original": "File Tree Component is not loaded.",
+    "translation": "文件树组件未加载。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 15793,
+    "original": "Artifacts like Google Docs, PDFs, Office documents (Word, Excel, PowerPoint), etc. Everything else the agent creates is under Artifacts.",
+    "translation": "如 Google Docs、PDF、Office 文档（Word、Excel、PowerPoint）等 Artifact。智能体创建的其他内容均属于 Artifacts。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 15793,
+    "original": "What counts as a document",
+    "translation": "哪些内容算作文档"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 15801,
+    "original": "Expand subagents",
+    "translation": "展开子智能体"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 15805,
+    "original": "Needs attention",
+    "translation": "需要处理"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 15826,
+    "original": "Task not found",
+    "translation": "未找到任务"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 15827,
+    "original": "Not started",
+    "translation": "未开始"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 15894,
+    "original": "Something went wrong.",
+    "translation": "出了点问题。"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "summary",
+    "path": "language_server.exe!main.js",
+    "line": 15912,
+    "original": "Resolved in chat",
+    "translation": "已在对话中解决"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 15922,
+    "original": "Add a note or condition...",
+    "translation": "添加备注或条件..."
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 15924,
+    "original": "Add note",
+    "translation": "添加备注"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 15924,
+    "original": "In chat",
+    "translation": "在对话中"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 15928,
+    "original": "Replaced by newer request",
+    "translation": "已被更新的请求取代"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 15929,
+    "original": "Expired · Action not taken",
+    "translation": "已过期 · 未执行操作"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 15930,
+    "original": "Ask to retry",
+    "translation": "请求重试"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 15933,
+    "original": "Select one or more options",
+    "translation": "选择一个或多个选项"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 15937,
+    "original": "Other answer",
+    "translation": "其他答案"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "summary",
+    "path": "language_server.exe!main.js",
+    "line": 15946,
+    "original": "Retry requested",
+    "translation": "已请求重试"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 15968,
+    "original": "You said",
+    "translation": "你说"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 15976,
+    "original": "Agent said",
+    "translation": "智能体说"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16016,
+    "original": "Collapse questionnaire",
+    "translation": "收起问卷"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16017,
+    "original": "Cancel Questionnaire and Stop the Agent",
+    "translation": "取消问卷并停止智能体"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16017,
+    "original": "Cancel questionnaire",
+    "translation": "取消问卷"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16017,
+    "original": "Collapse Questionnaire",
+    "translation": "收起问卷"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16041,
+    "original": "Response actions",
+    "translation": "回复操作"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16068,
+    "original": "Permission approval scope",
+    "translation": "权限批准范围"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "placeholder",
+    "path": "language_server.exe!main.js",
+    "line": 16071,
+    "original": "Tell the agent what to do instead...",
+    "translation": "告诉智能体应该改做什么..."
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16072,
+    "original": "Deny with note",
+    "translation": "附带备注拒绝"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16089,
+    "original": "Conversation Log",
+    "translation": "对话日志"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 16103,
+    "original": "Replace with",
+    "translation": "替换为"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16107,
+    "original": "Review contents",
+    "translation": "检查内容"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16108,
+    "original": "Add anyway",
+    "translation": "仍然添加"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16131,
+    "original": "The suggested plugin isn't in the marketplace.",
+    "translation": "推荐的插件不在市场中。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16132,
+    "original": "Local only",
+    "translation": "仅本地"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16132,
+    "original": "Remote only",
+    "translation": "仅远程"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16134,
+    "original": "Sign in needed",
+    "translation": "需要登录"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16146,
+    "original": "Unknown error.",
+    "translation": "未知错误。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16147,
+    "original": "Fix with Agent",
+    "translation": "使用智能体修复"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16157,
+    "original": "Finish signing in to",
+    "translation": "完成登录以使用"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16173,
+    "original": "Accounts tab",
+    "translation": "账户选项卡"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16173,
+    "original": "and make it the default.",
+    "translation": "并将其设为默认。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16175,
+    "original": "Reconnect account",
+    "translation": "重新连接账户"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16195,
+    "original": "Plugin metadata",
+    "translation": "插件元数据"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16203,
+    "original": "Target Tools:",
+    "translation": "目标工具："
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16207,
+    "original": "Unnamed MCP Server",
+    "translation": "未命名的 MCP 服务器"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16210,
+    "original": "Context usage",
+    "translation": "上下文用量"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16211,
+    "original": "Sent Message",
+    "translation": "已发送消息"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16215,
+    "original": "Failed to list logs in modal",
+    "translation": "在弹窗中列出日志失败"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16215,
+    "original": "No logs available.",
+    "translation": "暂无可用日志。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16227,
+    "original": "Side Pane UI Available",
+    "translation": "侧边栏界面可用"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16227,
+    "original": "Stream and control",
+    "translation": "流式传输并控制"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16227,
+    "original": "directly in the side pane.",
+    "translation": "直接在侧边栏中。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16228,
+    "original": "Process Error",
+    "translation": "进程错误"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16229,
+    "original": "Process exited with an error",
+    "translation": "进程因错误而退出"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16233,
+    "original": "Full Logs",
+    "translation": "完整日志"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16233,
+    "original": "Recent Events",
+    "translation": "最近事件"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16236,
+    "original": "No events recorded",
+    "translation": "暂无记录的事件"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16236,
+    "original": "Start Plugin",
+    "translation": "启动插件"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16236,
+    "original": "This plugin is currently stopped. Events and stdout streams will appear here once started.",
+    "translation": "此插件当前已停止。启动后，事件和标准输出流将在此处显示。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16245,
+    "original": "Open Appearance",
+    "translation": "打开外观设置"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16245,
+    "original": "Unnamed Theme",
+    "translation": "未命名的主题"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "message",
+    "path": "language_server.exe!main.js",
+    "line": 16262,
+    "original": "Account connected.",
+    "translation": "账户已连接。"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "message",
+    "path": "language_server.exe!main.js",
+    "line": 16262,
+    "original": "Connect an account so the agent can use this app.",
+    "translation": "连接账户，以便智能体使用此应用。"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "message",
+    "path": "language_server.exe!main.js",
+    "line": 16263,
+    "original": "No sign-in required. This app is ready to use.",
+    "translation": "无需登录。此应用即可使用。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16282,
+    "original": "To switch accounts, sign out in the",
+    "translation": "要切换账户，请在"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "message",
+    "path": "language_server.exe!main.js",
+    "line": 16292,
+    "original": "This plugin requires authentication before the agent can use its tools.",
+    "translation": "此插件需要先完成身份验证，智能体才能使用其工具。"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "message",
+    "path": "language_server.exe!main.js",
+    "line": 16298,
+    "original": "Sign in required.",
+    "translation": "需要登录。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16298,
+    "original": "This plugin was force disabled.",
+    "translation": "此插件已被强制禁用。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16299,
+    "original": "Plugin details",
+    "translation": "插件详情"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16305,
+    "original": "Open plugin page",
+    "translation": "打开插件页面"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16308,
+    "original": "Working Directory:",
+    "translation": "工作目录："
+  },
+  {
+    "kind": "UI属性",
+    "prop": "text",
+    "path": "language_server.exe!main.js",
+    "line": 16337,
+    "original": "Docs, Sheets, Slides, and folders",
+    "translation": "文档、表格、幻灯片和文件夹"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "text",
+    "path": "language_server.exe!main.js",
+    "line": 16338,
+    "original": "Browse MCP resources",
+    "translation": "浏览 MCP 资源"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "text",
+    "path": "language_server.exe!main.js",
+    "line": 16339,
+    "original": "Browse rules",
+    "translation": "浏览规则"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "text",
+    "path": "language_server.exe!main.js",
+    "line": 16340,
+    "original": "Attach terminal output",
+    "translation": "附加终端输出"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16402,
+    "original": "Empty table",
+    "translation": "空表格"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16403,
+    "original": "Clear row filter",
+    "translation": "清除行筛选"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16403,
+    "original": "Filter rows",
+    "translation": "筛选行"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16410,
+    "original": "Resume environment",
+    "translation": "恢复环境"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16411,
+    "original": "Failed to read file content",
+    "translation": "读取文件内容失败"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16411,
+    "original": "File not found",
+    "translation": "找不到文件"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16428,
+    "original": "Toggle checkerboard background",
+    "translation": "切换棋盘格背景"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16469,
+    "original": "Clear file filter",
+    "translation": "清除文件筛选"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16469,
+    "original": "Filter files",
+    "translation": "筛选文件"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16470,
+    "original": "Clear filter",
+    "translation": "清除筛选"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16470,
+    "original": "Couldn't search files",
+    "translation": "无法搜索文件"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16471,
+    "original": "No matching files",
+    "translation": "没有匹配的文件"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16478,
+    "original": "Loading Notebook View...",
+    "translation": "正在加载 Notebook 视图..."
+  },
+  {
+    "kind": "UI属性",
+    "prop": "tooltip",
+    "path": "language_server.exe!main.js",
+    "line": 16500,
+    "original": "Open Blame in Code Search",
+    "translation": "在代码搜索中打开 Blame"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16507,
+    "original": "Toggle file diff",
+    "translation": "切换文件差异显示"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16541,
+    "original": "Failed to load some diffs",
+    "translation": "部分差异加载失败"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16568,
+    "original": "Merge Conflict",
+    "translation": "合并冲突"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16570,
+    "original": "Failed to fetch diffs",
+    "translation": "获取差异失败"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16577,
+    "original": "Delete Terminal",
+    "translation": "删除终端"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16659,
+    "original": "Entering your corp password in the web terminal triggers a Chrome Password Alert (Watchword) forced password reset, so this prompt was automatically cancelled.",
+    "translation": "在网页终端中输入公司密码会触发 Chrome 密码警报（Watchword）强制重置密码，因此此提示已自动取消。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16659,
+    "original": "Password Prompt Blocked",
+    "translation": "密码提示已被阻止"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16660,
+    "original": "), use an external SSH session",
+    "translation": "），请使用外部 SSH 会话"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16660,
+    "original": "For corp passwords (such as",
+    "translation": "对于公司密码（例如"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16661,
+    "original": "Allow Next Non-Corp Prompt",
+    "translation": "允许下一次非公司密码提示"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16666,
+    "original": "Resize terminal panes",
+    "translation": "调整终端窗格大小"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16670,
+    "original": "No active terminals. Click + to create one.",
+    "translation": "没有活动的终端。点击 + 创建一个。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16671,
+    "original": "Creating terminal...",
+    "translation": "正在创建终端..."
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16677,
+    "original": "UI view does not exist.",
+    "translation": "UI 视图不存在。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16680,
+    "original": "File Viewer",
+    "translation": "文件查看器"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16682,
+    "original": "Directory Viewer",
+    "translation": "目录查看器"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16683,
+    "original": "Virtual File",
+    "translation": "虚拟文件"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16683,
+    "original": "Virtual File Viewer",
+    "translation": "虚拟文件查看器"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16685,
+    "original": "Artifact Viewer",
+    "translation": "Artifact 查看器"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16693,
+    "original": "Sidecar View",
+    "translation": "Sidecar 视图"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16695,
+    "original": "MCP App",
+    "translation": "MCP 应用"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16695,
+    "original": "Workspace File Explorer",
+    "translation": "工作区文件资源管理器"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16704,
+    "original": "Match case",
+    "translation": "区分大小写"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16705,
+    "original": "Match Case (Aa)",
+    "translation": "区分大小写 (Aa)"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16705,
+    "original": "Match whole word",
+    "translation": "全词匹配"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16706,
+    "original": "Match Whole Word (ab)",
+    "translation": "全词匹配 (ab)"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16706,
+    "original": "Use regular expression",
+    "translation": "使用正则表达式"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16707,
+    "original": "Use Regular Expression (.*)",
+    "translation": "使用正则表达式 (.*)"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16710,
+    "original": "Close (Escape)",
+    "translation": "关闭 (Escape)"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16769,
+    "original": "ErrorBoundary Crash",
+    "translation": "ErrorBoundary 崩溃"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16809,
+    "original": "A group with this name already exists.",
+    "translation": "已存在同名分组。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16836,
+    "original": "More options",
+    "translation": "更多选项"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16839,
+    "original": "Forked conversation",
+    "translation": "已分叉的对话"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "title",
+    "path": "language_server.exe!main.js",
+    "line": 16851,
+    "original": "Unsent draft",
+    "translation": "未发送的草稿"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16897,
+    "original": "Not PII/NTK",
+    "translation": "非 PII/NTK"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16908,
+    "original": "Loading Repositories…",
+    "translation": "正在加载仓库…"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "title",
+    "path": "language_server.exe!main.js",
+    "line": 16914,
+    "original": "Failed to create remote project",
+    "translation": "创建远程项目失败"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16937,
+    "original": "No matching",
+    "translation": "无匹配项"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16940,
+    "original": "Remote Projects",
+    "translation": "远程项目"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16941,
+    "original": "Search Hosts…",
+    "translation": "搜索主机…"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16945,
+    "original": "Change VCS in General settings, under Advanced",
+    "translation": "在“常规”设置的“高级”下更改 VCS"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "title",
+    "path": "language_server.exe!main.js",
+    "line": 16947,
+    "original": "Failed to unarchive local project",
+    "translation": "解压本地项目失败"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "title",
+    "path": "language_server.exe!main.js",
+    "line": 16950,
+    "original": "Failed to clone project locally",
+    "translation": "在本地克隆项目失败"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16958,
+    "original": "Clones this repo in a cloud environment",
+    "translation": "在云环境中克隆此仓库"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16971,
+    "original": "Waiting for tool permission approval — click Open in full conversation (↗) to approve",
+    "translation": "等待工具权限批准 — 点击“在完整对话中打开”(↗) 进行批准"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16978,
+    "original": "Reply to /help",
+    "translation": "回复 /help"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16987,
+    "original": "Resize side question panel",
+    "translation": "调整侧边提问面板大小"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16989,
+    "original": "Previous side question",
+    "translation": "上一个侧边提问"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16990,
+    "original": "Next side question",
+    "translation": "下一个侧边提问"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16991,
+    "original": "Minimize side question",
+    "translation": "最小化侧边提问"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 16995,
+    "original": "Thought Process",
+    "translation": "思考过程"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17008,
+    "original": "Start Best-of-",
+    "translation": "启动 Best-of-"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17012,
+    "original": "Enable Best-of-2",
+    "translation": "启用 Best-of-2"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17012,
+    "original": "Tip: Complex tasks get better results with multiple responses.",
+    "translation": "提示：复杂任务通过多个回复可获得更好的结果。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17013,
+    "original": "Proceed Anyway",
+    "translation": "仍要继续"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17037,
+    "original": "Browse Connectors",
+    "translation": "浏览连接器"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17037,
+    "original": "Loading connectors…",
+    "translation": "正在加载连接器…"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17038,
+    "original": "Failed to parse ContextScopeItem:",
+    "translation": "解析 ContextScopeItem 失败："
+  },
+  {
+    "kind": "UI属性",
+    "prop": "message",
+    "path": "language_server.exe!main.js",
+    "line": 17055,
+    "original": "Instead of queueing, try asking the agent to do something after the current task.",
+    "translation": "不要排队，可尝试让智能体在当前任务完成后执行其他操作。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17055,
+    "original": "Messages now send immediately. Configure in",
+    "translation": "消息现在会立即发送。可在"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "message",
+    "path": "language_server.exe!main.js",
+    "line": 17055,
+    "original": "This conversation is also open in another app. Sending messages from both may cause conflicts.",
+    "translation": "此对话也在另一个应用中打开。从两处发送消息可能会导致冲突。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17066,
+    "original": "Migrate with Agent",
+    "translation": "使用智能体迁移"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17066,
+    "original": "Workflows are changing on October 19th—stay tuned for updates. You can use the agent to migrate your workflows.",
+    "translation": "工作流将于 10 月 19 日变更 — 请关注更新。你可以使用智能体迁移你的工作流。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17071,
+    "original": "Workspace mismatch actions",
+    "translation": "工作区不匹配操作"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17074,
+    "original": "Snooze for 24 Hours",
+    "translation": "暂停 24 小时"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17074,
+    "original": "Switch IDE Workspace",
+    "translation": "切换 IDE 工作区"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17094,
+    "original": "Use Global Settings",
+    "translation": "使用全局设置"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17097,
+    "original": "Browser Configuration Required",
+    "translation": "需要浏览器配置"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17099,
+    "original": "If that machine is a cloudtop, reach it via",
+    "translation": "如果该机器是云桌面，请通过"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17099,
+    "original": "Open Google Chrome on the machine running Antigravity.",
+    "translation": "在运行 Antigravity 的机器上打开 Google Chrome。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17147,
+    "original": "No branches",
+    "translation": "无分支"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "content",
+    "path": "language_server.exe!main.js",
+    "line": 17147,
+    "original": "Worktrees are a git feature. This folder is shared as is.",
+    "translation": "Worktree 是 git 功能。此文件夹按原样共享。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17175,
+    "original": "No environments found",
+    "translation": "未找到环境"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17183,
+    "original": "JJ worktree",
+    "translation": "JJ 工作树"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17204,
+    "original": "Your quota for this model is running low.",
+    "translation": "此模型的配额即将用尽。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17207,
+    "original": "Custom models are only supported on Linux machines.",
+    "translation": "自定义模型仅受 Linux 机器支持。"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "message",
+    "path": "language_server.exe!main.js",
+    "line": 17249,
+    "original": "Check that the microphone is unmuted and the right input device is selected.",
+    "translation": "请检查麦克风是否未静音，以及是否选择了正确的输入设备。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17281,
+    "original": "Dismiss microphone warning",
+    "translation": "关闭麦克风警告"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17353,
+    "original": "Set up",
+    "translation": "设置"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17366,
+    "original": "Sends after agent finishes working",
+    "translation": "在智能体完成工作后发送"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17367,
+    "original": "Expand queued messages",
+    "translation": "展开排队中的消息"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17369,
+    "original": "Empty message",
+    "translation": "空消息"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17399,
+    "original": "Listening. Ask anything.",
+    "translation": "正在聆听。尽管提问。"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "title",
+    "path": "language_server.exe!main.js",
+    "line": 17419,
+    "original": "Couldn't edit queued message",
+    "translation": "无法编辑排队中的消息"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "message",
+    "path": "language_server.exe!main.js",
+    "line": 17419,
+    "original": "It was already sent or couldn't be removed from the queue.",
+    "translation": "该消息已发送，或无法从队列中移除。"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "title",
+    "path": "language_server.exe!main.js",
+    "line": 17448,
+    "original": "Voice dictation unavailable",
+    "translation": "语音听写不可用"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17451,
+    "original": "Transcribing audio…",
+    "translation": "正在转写音频…"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17457,
+    "original": "Chat anyways",
+    "translation": "仍要聊天"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 17457,
+    "original": "Interrupt Agent",
+    "translation": "中断智能体"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17457,
+    "original": "New chats will be grouped by workspace.",
+    "translation": "新对话将按工作区分组。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17457,
+    "original": "Select CitC workspace",
+    "translation": "选择 CitC 工作区"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17512,
+    "original": "Trouble signing in? Enter authorization code",
+    "translation": "登录遇到问题？输入授权码"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17515,
+    "original": "Authorization code",
+    "translation": "授权码"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17517,
+    "original": "Submit code",
+    "translation": "提交授权码"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17523,
+    "original": "Last Used",
+    "translation": "最近使用"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17525,
+    "original": "Use Business Account",
+    "translation": "使用企业账户"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17527,
+    "original": "Use Advanced SSO Config",
+    "translation": "使用高级 SSO 配置"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17528,
+    "original": "Use this if your admin gave you a WIF config. Paste it below to sign in.",
+    "translation": "如果你的管理员提供了 WIF 配置，请使用此项。将其粘贴到下方即可登录。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17530,
+    "original": "WIF Config",
+    "translation": "WIF 配置"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17531,
+    "original": "Having trouble signing in?",
+    "translation": "登录遇到问题？"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17531,
+    "original": "Sign In with SSO",
+    "translation": "使用 SSO 登录"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17553,
+    "original": "Use Google Cloud project instead",
+    "translation": "改用 Google Cloud 项目"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17555,
+    "original": "There was an unexpected issue setting up your account.",
+    "translation": "设置你的账户时出现意外问题。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17556,
+    "original": "Continue with different account",
+    "translation": "使用其他账户继续"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17556,
+    "original": "Please verify your account, then sign in again to continue. Learn more by visiting our",
+    "translation": "请先验证你的账户，然后重新登录以继续。请访问我们的"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17556,
+    "original": "We apologize for the inconvenience. Please try again later.",
+    "translation": "很抱歉带来不便。请稍后重试。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17559,
+    "original": "Learn more by visiting our",
+    "translation": "请访问我们的"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17559,
+    "original": "Sorry, this account is ineligible to use",
+    "translation": "抱歉，此账户无权使用"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17560,
+    "original": "Enter Google Cloud Project Details",
+    "translation": "输入 Google Cloud 项目详细信息"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17561,
+    "original": "Google Cloud Project ID",
+    "translation": "Google Cloud 项目 ID"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17561,
+    "original": "This Google Cloud project is not supported. Input a different project, or sign in with another account.",
+    "translation": "不支持此 Google Cloud 项目。请输入其他项目，或使用其他账户登录。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17562,
+    "original": "Sign in with a different account",
+    "translation": "使用其他账户登录"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17574,
+    "original": "Get Anything Done with",
+    "translation": "借助"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17578,
+    "original": "Let's tailor the experience for you. What best describes your work?",
+    "translation": "让我们为你量身定制体验。以下哪项最符合你的工作？"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17582,
+    "original": "Select Theme",
+    "translation": "选择主题"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 17615,
+    "original": "No longer available",
+    "translation": "不再可用"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "tooltip",
+    "path": "language_server.exe!main.js",
+    "line": 17615,
+    "original": "Removed from the marketplace. Stays installed until you uninstall it.",
+    "translation": "已从市场中移除。在你卸载前将保持安装状态。"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "tooltip",
+    "path": "language_server.exe!main.js",
+    "line": 17625,
+    "original": "Disabling or removing this bundle doesn't affect it.",
+    "translation": "禁用或移除此捆绑包不会影响它。"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 17625,
+    "original": "Installed separately",
+    "translation": "单独安装"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17632,
+    "original": "Add bundle",
+    "translation": "添加捆绑包"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17632,
+    "original": "Remove bundle",
+    "translation": "移除捆绑包"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "title",
+    "path": "language_server.exe!main.js",
+    "line": 17643,
+    "original": "Review bundle before adding",
+    "translation": "添加前查看捆绑包"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17648,
+    "original": "Curated sets of plugins for common workflows and roles.",
+    "translation": "针对常见工作流和角色精心挑选的插件集。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17651,
+    "original": "No bundles available.",
+    "translation": "暂无可用的捆绑包。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17653,
+    "original": "Loading bundles...",
+    "translation": "正在加载捆绑包..."
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17657,
+    "original": "Create plugin",
+    "translation": "创建插件"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17675,
+    "original": "? This will remove it from your MCP configuration.",
+    "translation": "？这会将它从你的 MCP 配置中移除。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17677,
+    "original": "? This removes it from your config directory.",
+    "translation": "？这会将它从你的配置目录中移除。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17679,
+    "original": "Copy the folder elsewhere first if you might want it back.",
+    "translation": "如果以后可能还需要，请先将该文件夹复制到其他地方。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17679,
+    "original": "This cannot be undone.",
+    "translation": "此操作无法撤销。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17705,
+    "original": "No skills or rules match this filter.",
+    "translation": "没有符合此筛选条件的技能或规则。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17706,
+    "original": "No custom agents yet.",
+    "translation": "暂无自定义智能体。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17736,
+    "original": "No matching plugins found.",
+    "translation": "未找到匹配的插件。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17784,
+    "original": "Marketplace notice",
+    "translation": "市场通知"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17784,
+    "original": "No plugins available in the marketplace.",
+    "translation": "市场中没有可用的插件。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17786,
+    "original": "Loading available plugins...",
+    "translation": "正在加载可用插件..."
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17793,
+    "original": "Customizations views",
+    "translation": "自定义视图"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17794,
+    "original": "Filter plugins",
+    "translation": "筛选插件"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17802,
+    "original": "Clear category",
+    "translation": "清除类别"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17806,
+    "original": "Failed to load shared conversation",
+    "translation": "加载共享对话失败"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17806,
+    "original": "Go to Home",
+    "translation": "返回主页"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17807,
+    "original": "Importing shared conversation...",
+    "translation": "正在导入共享对话..."
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17810,
+    "original": "Welcome to",
+    "translation": "欢迎使用"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17819,
+    "original": "Edits the conversation title",
+    "translation": "编辑对话标题"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17824,
+    "original": "Toggle Terminal Panel",
+    "translation": "切换终端面板"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17865,
+    "original": "Are you sure you want to delete this side question? This action cannot be undone.",
+    "translation": "确定要删除这个侧边提问吗？此操作无法撤销。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17898,
+    "original": "Customize Sections",
+    "translation": "自定义分区"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17917,
+    "original": "Open in Hub",
+    "translation": "在 Hub 中打开"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17929,
+    "original": "Open Antigravity IDE",
+    "translation": "打开 Antigravity IDE"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17929,
+    "original": "Open IDE",
+    "translation": "打开 IDE"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17930,
+    "original": "Open in Antigravity IDE",
+    "translation": "在 Antigravity IDE 中打开"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 17931,
+    "original": "Command prompt",
+    "translation": "命令提示符"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 17931,
+    "original": "Terminal window",
+    "translation": "终端窗口"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17933,
+    "original": "Choose icon and color",
+    "translation": "选择图标和颜色"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17939,
+    "original": "Coordinator name",
+    "translation": "协调者名称"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "placeholder",
+    "path": "language_server.exe!main.js",
+    "line": 17939,
+    "original": "e.g. Release helper",
+    "translation": "例如：发布助手"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17940,
+    "original": "Coordinator goal",
+    "translation": "协调者目标"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17942,
+    "original": "Create Coordinator",
+    "translation": "创建协调者"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 17947,
+    "original": "Resolving link…",
+    "translation": "正在解析链接…"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17959,
+    "original": "Conversation link",
+    "translation": "对话链接"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17969,
+    "original": "Toggle Virtual Machine",
+    "translation": "切换虚拟机"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17977,
+    "original": "Back to home",
+    "translation": "返回主页"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 17979,
+    "original": "Reload app",
+    "translation": "重新加载应用"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 18046,
+    "original": "Scroll turns down",
+    "translation": "向下滚动对话轮次"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 18059,
+    "original": "Conversation turns",
+    "translation": "对话轮次"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 18066,
+    "original": "Accept all",
+    "translation": "全部接受"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 18066,
+    "original": "Reject all",
+    "translation": "全部拒绝"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 18113,
+    "original": "Needs Attention",
+    "translation": "需要注意"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 18136,
+    "original": "This chat is archived.",
+    "translation": "此对话已归档。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 18173,
+    "original": "Previous card",
+    "translation": "上一张卡片"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 18174,
+    "original": "Next card",
+    "translation": "下一张卡片"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 18181,
+    "original": "Select a model in the model selector",
+    "translation": "在模型选择器中选择模型"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 18186,
+    "original": "Click to Open Docs",
+    "translation": "点击打开文档"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 18187,
+    "original": "Click to open docs",
+    "translation": "点击打开文档"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 18192,
+    "original": "Agent options",
+    "translation": "智能体选项"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 18199,
+    "original": "Set up my environment",
+    "translation": "设置我的环境"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 18201,
+    "original": "Dismiss suggestion",
+    "translation": "忽略建议"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 18227,
+    "original": "Plugins Options",
+    "translation": "插件选项"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 18235,
+    "original": "Move Down",
+    "translation": "下移"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 18235,
+    "original": "Move Up",
+    "translation": "上移"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 18241,
+    "original": "Show or Hide Plugins",
+    "translation": "显示或隐藏插件"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 18246,
+    "original": "Loading conversations...",
+    "translation": "正在加载对话..."
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 18248,
+    "original": "Create New",
+    "translation": "新建"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 18248,
+    "original": "Use Existing",
+    "translation": "使用现有项"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 18249,
+    "original": "Project location",
+    "translation": "项目位置"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 18253,
+    "original": "A project with this name already exists.",
+    "translation": "已存在同名项目。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 18254,
+    "original": "Create CitC Workspace",
+    "translation": "创建 CitC 工作区"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 18254,
+    "original": "Select CitC Workspace",
+    "translation": "选择 CitC 工作区"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 18254,
+    "original": "Select Cog Workspace",
+    "translation": "选择 Cog 工作区"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 18299,
+    "original": "Pinned Actions",
+    "translation": "置顶操作"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 18300,
+    "original": "Show 10",
+    "translation": "显示 10 项"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 18300,
+    "original": "Show 5",
+    "translation": "显示 5 项"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "title",
+    "path": "language_server.exe!main.js",
+    "line": 18306,
+    "original": "Customize Sidebar",
+    "translation": "自定义侧边栏"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 18307,
+    "original": "Auto Pin",
+    "translation": "自动置顶"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 18307,
+    "original": "Idle Conversations",
+    "translation": "闲置对话"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 18308,
+    "original": "Only applies when grouped by status",
+    "translation": "仅按状态分组时适用"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 18309,
+    "original": "Show Automation Conversations",
+    "translation": "显示自动化对话"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 18310,
+    "original": "Any time",
+    "translation": "任意时间"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 18310,
+    "original": "Manual Order",
+    "translation": "手动排序"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 18310,
+    "original": "Show Plugin Conversations",
+    "translation": "显示插件对话"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 18312,
+    "original": "Filter and Sort",
+    "translation": "筛选和排序"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "title",
+    "path": "language_server.exe!main.js",
+    "line": 18313,
+    "original": "Last Activity",
+    "translation": "最近活动"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 18325,
+    "original": "Needs Input",
+    "translation": "需要输入"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 18489,
+    "original": "Close Panel",
+    "translation": "关闭面板"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 18575,
+    "original": "Full View",
+    "translation": "完整视图"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 18575,
+    "original": "Subagent Conversation",
+    "translation": "子智能体对话"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 18584,
+    "original": "Stop Side Question",
+    "translation": "停止侧边提问"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 18619,
+    "original": "Send a message in the main conversation first to start a side question",
+    "translation": "请先在主对话中发送消息，再发起侧边提问"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 18649,
+    "original": "No results",
+    "translation": "无结果"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 18660,
+    "original": "Keep Open",
+    "translation": "保持打开"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 18683,
+    "original": "Browser is currently being operated by this conversation in another Hub window",
+    "translation": "浏览器当前正由另一个 Hub 窗口中的此对话操作"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 18729,
+    "original": "Voice mode in progress",
+    "translation": "语音模式进行中"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 18734,
+    "original": "Drag to move",
+    "translation": "拖动以移动"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "content",
+    "path": "language_server.exe!main.js",
+    "line": 18738,
+    "original": "Add files",
+    "translation": "添加文件"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 18738,
+    "original": "Message this chat",
+    "translation": "向此对话发送消息"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 18741,
+    "original": "Write a message",
+    "translation": "输入消息"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 18805,
+    "original": "Maximize Pane",
+    "translation": "最大化窗格"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 18821,
+    "original": "See all (",
+    "translation": "查看全部 ("
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 18907,
+    "original": "Paused. Resume it to schedule the next run.",
+    "translation": "已暂停。恢复后可安排下一次运行。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 18907,
+    "original": "Pick a model to change it.",
+    "translation": "选择模型即可更改。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 18910,
+    "original": "No instructions.",
+    "translation": "无指令。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 18916,
+    "original": "All runs",
+    "translation": "所有运行"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "description",
+    "path": "language_server.exe!main.js",
+    "line": 18934,
+    "original": "Match when the principal belongs to the specified MDB group.",
+    "translation": "当主体属于指定的 MDB 组时匹配。"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "description",
+    "path": "language_server.exe!main.js",
+    "line": 18935,
+    "original": "Ignore events emitted by automated review or robot accounts (groupagent-*).",
+    "translation": "忽略由自动审核或机器人账号（groupagent-*）发出的事件。"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "description",
+    "path": "language_server.exe!main.js",
+    "line": 18935,
+    "original": "Match when the principal equals any listed username or belongs to any listed mdb/ group.",
+    "translation": "当主体等于任一列出的用户名或属于任一列出的 mdb/ 组时匹配。"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "description",
+    "path": "language_server.exe!main.js",
+    "line": 18936,
+    "original": "Match when any modified file path starts with the given depot prefix.",
+    "translation": "当任一修改的文件路径以指定的 depot 前缀开头时匹配。"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "description",
+    "path": "language_server.exe!main.js",
+    "line": 18936,
+    "original": "Match when push_def equals or is a child of the given PushDef prefix.",
+    "translation": "当 push_def 等于或属于指定 PushDef 前缀的子级时匹配。"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "description",
+    "path": "language_server.exe!main.js",
+    "line": 18937,
+    "original": "Match when the issue component equals or is under the given Buganizer component ID.",
+    "translation": "当问题组件等于或位于指定 Buganizer 组件 ID 之下时匹配。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 18991,
+    "original": "Only for",
+    "translation": "仅适用于"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 18992,
+    "original": "Add filter",
+    "translation": "添加筛选条件"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 19011,
+    "original": "Set at least one scope filter",
+    "translation": "至少设置一个范围筛选条件"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 19012,
+    "original": "Match Condition (CEL)",
+    "translation": "匹配条件 (CEL)"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 19013,
+    "original": "Invalid CEL",
+    "translation": "CEL 无效"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 19013,
+    "original": "Valid CEL",
+    "translation": "CEL 有效"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 19014,
+    "original": "CEL Expression Reference",
+    "translation": "CEL 表达式参考"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 19014,
+    "original": "Optional boolean filter",
+    "translation": "可选的布尔筛选条件"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 19015,
+    "original": "Equality and list membership (e.g.",
+    "translation": "相等和列表成员关系 (例如"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 19015,
+    "original": "Include at least one positive",
+    "translation": "至少包含一个肯定条件"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 19016,
+    "original": "Boolean AND, OR, and negation",
+    "translation": "布尔 AND、OR 和取反"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 19016,
+    "original": "Substring or list check (e.g.",
+    "translation": "子串或列表检查 (例如"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 19017,
+    "original": "CEL Reference",
+    "translation": "CEL 参考"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 19019,
+    "original": "Available CEL field tokens and helpers",
+    "translation": "可用的 CEL 字段标记和辅助函数"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 19022,
+    "original": "Indexed CEL helper functions",
+    "translation": "已索引的 CEL 辅助函数"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 19027,
+    "original": "Available CEL helper functions",
+    "translation": "可用的 CEL 辅助函数"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 19035,
+    "original": "Execution Identity",
+    "translation": "执行身份"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 19042,
+    "original": "Connect an account so the agent can run automations.",
+    "translation": "连接账号后，智能体即可运行自动化任务。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 19046,
+    "original": "No events recorded.",
+    "translation": "暂无事件记录。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 19056,
+    "original": "Sidecar feature is not available.",
+    "translation": "Sidecar 功能不可用。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 19057,
+    "original": "Back to",
+    "translation": "返回"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 19066,
+    "original": "Runs a command",
+    "translation": "运行命令"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 19076,
+    "original": "Untrusted sidecar",
+    "translation": "不受信任的 Sidecar"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 19090,
+    "original": "Always on",
+    "translation": "始终开启"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 19105,
+    "original": "Select workspace",
+    "translation": "选择工作区"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 19119,
+    "original": "Create a project first.",
+    "translation": "请先创建项目。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 19122,
+    "original": "Remove trigger",
+    "translation": "移除触发器"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 19123,
+    "original": "Add schedule",
+    "translation": "添加计划"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 19123,
+    "original": "Add trigger",
+    "translation": "添加触发器"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 19130,
+    "original": "Where should it run?",
+    "translation": "要在哪里运行？"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 19132,
+    "original": "with this name already exists on this computer. Run it remotely, or go back and rename it.",
+    "translation": "的名称已在此计算机上存在。可远程运行，或返回重命名。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 19147,
+    "original": "Create with Prompt",
+    "translation": "通过提示词创建"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 19153,
+    "original": "Run command step not found",
+    "translation": "未找到运行命令步骤"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22421,
+    "original": "Failed to load SafeContentFrame",
+    "translation": "加载 SafeContentFrame 失败"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "title",
+    "path": "language_server.exe!main.js",
+    "line": 22511,
+    "original": "Pause this agent; it keeps its place and streams. Resume to continue.",
+    "translation": "暂停此智能体；它会保留位置和流式输出。恢复后可继续。"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "title",
+    "path": "language_server.exe!main.js",
+    "line": 22512,
+    "original": "Resume this agent where it paused",
+    "translation": "从暂停处恢复此智能体"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "title",
+    "path": "language_server.exe!main.js",
+    "line": 22512,
+    "original": "Stop this agent",
+    "translation": "停止此智能体"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22523,
+    "original": "Filter agents",
+    "translation": "筛选智能体"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22524,
+    "original": "All agents",
+    "translation": "所有智能体"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22527,
+    "original": "Stop all agents",
+    "translation": "停止所有智能体"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22578,
+    "original": "Waiting for the agents’ windows…",
+    "translation": "正在等待智能体窗口…"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22617,
+    "original": "Hidden by policy",
+    "translation": "因策略而隐藏"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22617,
+    "original": "Starting preview…",
+    "translation": "正在启动预览…"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22617,
+    "original": "Stream ended",
+    "translation": "流式输出已结束"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22658,
+    "original": "A new version is available.",
+    "translation": "有新版本可用。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22658,
+    "original": "Go to the machine you are controlling and quit Antigravity. It installs pending updates the next time it starts.",
+    "translation": "请前往你正在控制的设备并退出 Antigravity。下次启动时会安装待处理的更新。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22658,
+    "original": "Start it again.",
+    "translation": "再次启动它。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22659,
+    "original": "Reload this window.",
+    "translation": "重新加载此窗口。"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "message",
+    "path": "language_server.exe!main.js",
+    "line": 22688,
+    "original": "Failed to save token to ~/.env",
+    "translation": "无法将 Token 保存到 ~/.env"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22689,
+    "original": "Create a token",
+    "translation": "创建 Token"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22689,
+    "original": "Validated with GitHub and stored in",
+    "translation": "已通过 GitHub 验证并存储于"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22691,
+    "original": "Authenticated as",
+    "translation": "已通过身份验证为"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22691,
+    "original": "Show token",
+    "translation": "显示 Token"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22698,
+    "original": "Agent can",
+    "translation": "智能体可以"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22699,
+    "original": "Remove policy",
+    "translation": "移除策略"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22700,
+    "original": "Agent can run",
+    "translation": "智能体可以运行"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22700,
+    "original": "Workflow files",
+    "translation": "工作流文件"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22701,
+    "original": "Workflow refs",
+    "translation": "工作流引用"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22705,
+    "original": "Delete repository policy",
+    "translation": "删除仓库策略"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22706,
+    "original": "A comma-separated list like repo-a, repo-b, or * for all.",
+    "translation": "以逗号分隔的列表，如 repo-a、repo-b，或使用 * 表示全部。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22707,
+    "original": "Read access",
+    "translation": "读取权限"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22707,
+    "original": "Read access to code, refs, commits, and other repository contents.",
+    "translation": "对代码、引用、提交及其他仓库内容的读取权限。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22707,
+    "original": "Toggle this on to enable read access on contents.",
+    "translation": "开启此选项以允许读取内容。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22708,
+    "original": "Allow creating issues and grant access to specific issues.",
+    "translation": "允许创建议题，并授予对特定议题的访问权限。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22709,
+    "original": "Issue creation",
+    "translation": "创建议题"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22709,
+    "original": "Toggle this on to allow creating new issues.",
+    "translation": "开启此选项以允许创建新议题。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22710,
+    "original": "Access rules",
+    "translation": "访问规则"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22710,
+    "original": "Grant the selected actions on the listed issue numbers — a comma-separated list like 1, 2, 3, or * for all.",
+    "translation": "对列出的议题编号授予所选操作——以逗号分隔的列表，如 1、2、3，或使用 * 表示全部。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22710,
+    "original": "Issue actions",
+    "translation": "议题操作"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22710,
+    "original": "Issue numbers",
+    "translation": "议题编号"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22712,
+    "original": "Allow opening pull requests and grant access to specific PRs.",
+    "translation": "允许发起拉取请求，并授予对特定 PR 的访问权限。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22713,
+    "original": "Grant the selected actions on the listed pull request numbers — a comma-separated list like 1, 2, 3, or * for all.",
+    "translation": "对列出的拉取请求编号授予所选操作——以逗号分隔的列表，如 1、2、3，或使用 * 表示全部。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22713,
+    "original": "Pull request creation",
+    "translation": "创建拉取请求"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22713,
+    "original": "Toggle this on to allow creating new pull requests.",
+    "translation": "开启此选项以允许创建新的拉取请求。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22714,
+    "original": "Pull request actions",
+    "translation": "拉取请求操作"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22714,
+    "original": "Pull request numbers",
+    "translation": "拉取请求编号"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22715,
+    "original": "Grant create, update, or delete access to specific branches.",
+    "translation": "授予对特定分支的创建、更新或删除权限。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22715,
+    "original": "Remote branches",
+    "translation": "远程分支"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22716,
+    "original": "Branch actions",
+    "translation": "分支操作"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22716,
+    "original": "Branch names",
+    "translation": "分支名称"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22716,
+    "original": "Grant the selected actions on the listed branch names — a comma-separated list like main, dev, prod (glob patterns like fix-* allowed), or * for all.",
+    "translation": "对列出的分支名称授予所选操作——以逗号分隔的列表，如 main、dev、prod（允许使用 fix-* 这样的通配符模式），或使用 * 表示全部。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22718,
+    "original": "Grant read access to workflow runs and allow dispatching workflows on specific files and refs.",
+    "translation": "授予对工作流转运行的读取权限，并允许对特定文件和引用触发工作流。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22718,
+    "original": "Workflow runs",
+    "translation": "工作流运行"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22719,
+    "original": "Allow reading workflow runs (list, view, watch) across the whole repository.",
+    "translation": "允许读取整个仓库中的工作流运行（列表、查看、监视）。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22722,
+    "original": "Delete organization policy",
+    "translation": "删除组织策略"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22723,
+    "original": "A comma-separated list like org-a, org-b, or * for all.",
+    "translation": "以逗号分隔的列表，如 org-a、org-b，或使用 * 表示全部。"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 22825,
+    "original": "Code Preview",
+    "translation": "代码预览"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 23625,
+    "original": "Get started with Remote Control",
+    "translation": "开始使用远程控制"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 23625,
+    "original": "No instances yet.",
+    "translation": "暂无实例。"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "displayname",
+    "path": "language_server.exe!main.js",
+    "line": 23628,
+    "original": "Loading instances...",
+    "translation": "正在加载实例..."
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 23643,
+    "original": "Show Thumbnail Sidebar",
+    "translation": "显示缩略图侧边栏"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 23649,
+    "original": "Zoom Level",
+    "translation": "缩放级别"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 23653,
+    "original": "More toolbar actions",
+    "translation": "更多工具栏操作"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 23661,
+    "original": "Text Selection",
+    "translation": "文本选择"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 23720,
+    "original": "No Match Found",
+    "translation": "未找到匹配项"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "message",
+    "path": "language_server.exe!main.js",
+    "line": 23746,
+    "original": "Cancel Render Page Failed",
+    "translation": "取消渲染页面失败"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "message",
+    "path": "language_server.exe!main.js",
+    "line": 23960,
+    "original": "Cancel Render Thumbnail Failed",
+    "translation": "取消渲染缩略图失败"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 24251,
+    "original": "Document head unavailable",
+    "translation": "文档头部不可用"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 24287,
+    "original": "GitHub: not signed in",
+    "translation": "GitHub：未登录"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "heading",
+    "path": "language_server.exe!main.js",
+    "line": 24398,
+    "original": "Switch To",
+    "translation": "切换到"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 24418,
+    "original": "Mermaid diagram",
+    "translation": "Mermaid 图表"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "tooltip",
+    "path": "language_server.exe!main.js",
+    "line": 5497,
+    "original": "Google Chat",
+    "translation": "Google Chat",
+    "note": "产品/模型名，保持原文"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 10005,
+    "original": "ELMO Composite",
+    "translation": "ELMO Composite",
+    "note": "产品/模型名，保持原文"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "displayname",
+    "path": "language_server.exe!main.js",
+    "line": 14206,
+    "original": "Gemini 2.5 Flash Image",
+    "translation": "Gemini 2.5 Flash Image",
+    "note": "产品/模型名，保持原文"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "displayname",
+    "path": "language_server.exe!main.js",
+    "line": 14206,
+    "original": "Gemini 3 Pro Image",
+    "translation": "Gemini 3 Pro Image",
+    "note": "产品/模型名，保持原文"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "displayname",
+    "path": "language_server.exe!main.js",
+    "line": 14206,
+    "original": "Gemini 3.1 Flash Image",
+    "translation": "Gemini 3.1 Flash Image",
+    "note": "产品/模型名，保持原文"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 14269,
+    "original": "Browser Use",
+    "translation": "Browser Use",
+    "note": "产品/模型名，保持原文"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 14397,
+    "original": "Gemini Flash Next",
+    "translation": "Gemini Flash Next",
+    "note": "产品/模型名，保持原文"
+  },
+  {
+    "kind": "UI属性",
+    "prop": "label",
+    "path": "language_server.exe!main.js",
+    "line": 18880,
+    "original": "Flash Lite",
+    "translation": "Flash Lite",
+    "note": "产品/模型名，保持原文"
+  },
+  {
+    "kind": "界面文本",
+    "prop": "",
+    "path": "language_server.exe!main.js",
+    "line": 15362,
+    "original": "clipboard-read; clipboard-write; microphone; fullscreen; bluetooth; autoplay; publickey-credentials-get *; publickey-credentials-create *",
+    "translation": "clipboard-read; clipboard-write; microphone; fullscreen; bluetooth; autoplay; publickey-credentials-get *; publickey-credentials-create *",
+    "note": "浏览器权限策略串，非界面文案"
+  }
+]
