@@ -23,6 +23,16 @@ dist/
 
 # Extractor output (untranslated candidates, must never be committed)
 locales/missing_strings.json
+
+# Internal audit history and extractor by-products removed from the public
+# repo on purpose (archived outside git). Do not re-add: they are frozen
+# snapshots with no code consumer.
+AUDIT_REPORT.md
+AUDIT_ROUND2.md
+FIX_STATUS.md
+PROJECT_TEXT_ZH_AUDIT.md
+UNTRANSLATED_UI_STRINGS.md
+remaining_untranslated.csv
 *.swp
 *~
 app.asar.bak

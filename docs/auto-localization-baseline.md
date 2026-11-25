@@ -48,6 +48,10 @@
 
 ### 1.2 三份存量清单的关系（已交叉比对）
 
+> 注：原始底稿文件（`UNTRANSLATED_UI_STRINGS.md`、`PROJECT_TEXT_ZH_AUDIT.md`、
+> `remaining_untranslated.csv`）已移出仓库；管线唯一输入为
+> `untranslated_candidates.json`。下表为基线快照，文件名均指历史状态。
+
 | 制品 | 条目 | 范围 | 关系 |
 | :--- | ---: | :--- | :--- |
 | `untranslated_candidates.json` | 761 | 客户端 UI | 与 MD 明细一一对应（字段：kind/prop/path/line/original/translation） |

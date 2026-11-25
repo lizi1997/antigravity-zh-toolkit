@@ -56,10 +56,13 @@ python scripts/localize.py release --json
 
 ### 「未翻译」三份口径对照
 
-| 文件 | 口径 | 消费方 |
+> 注：全量底稿与合并视图已移出仓库（无代码消费的中间产物）；管线唯一输入是
+> `untranslated_candidates.json`（761 条），也是唯一保留在仓内的清单。
+
+| 口径 | 说明 | 消费方 |
 | :--- | :--- | :--- |
-| `UNTRANSLATED_UI_STRINGS.md` | 全量刮取（去重前，含噪音） | 人工审阅 |
-| `remaining_untranslated.csv`（987 行） | 全量刮取去重后 | 人工审阅 |
+| 全量刮取（去重前，含噪音） | 底稿明细，已归档 | 人工审阅 |
+| 全量刮取去重后 | 合并视图（候选 761 + 项目文案 179），可再生，已归档 | 人工审阅 |
 | `untranslated_candidates.json`（761 条） | 去重 + 引擎规则过滤后 | `localize.py` 管线唯一输入 |
 
 ---
